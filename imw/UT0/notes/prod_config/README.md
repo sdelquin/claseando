@@ -4,7 +4,7 @@
 
 Es posible que al acceder a la máquina de producción, nos aparezca el siguiente mensaje en el login:
 
-```bash
+```console
 sdelquin@imw:~$ ssh root@imwpto.me
 root@imwpto.me's password:
 Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.4.0-93-generic x86_64)
@@ -28,7 +28,7 @@ root@cloud:~#
 
 Para solucionar los *locales*, debemos ejecutar los siguientes comandos:
 
-```bash
+```console
 root@cloud:~# sudo locale-gen es_ES.UTF-8
 /bin/bash: warning: setlocale: LC_ALL: cannot change locale (es_ES.UTF-8)
 Generating locales (this might take a while)...
@@ -44,7 +44,7 @@ La próxima vez que entremos al sistema, no aparecerán los errores de *locales*
 
 **DigitalOcean** nos da acceso de `root` a la máquina, pero vamos a crear un usuario distinto. Para ello, debemos ejecutar el siguiente comando pero con el nombre de usuario `alu<expendiente>`.
 
-```bash
+```console
 root@cloud:~# adduser sdelquin
 Adding user `sdelquin' ...
 Adding new group `sdelquin' (1000) ...
@@ -66,7 +66,7 @@ root@cloud:~#
 
 Ahora sólo nos falta dar permisos de `sudo` al usuario creado:
 
-```bash
+```console
 root@cloud:~# adduser sdelquin sudo
 Adding user `sdelquin' to group `sudo' ...
 Adding user sdelquin to group sudo
@@ -78,7 +78,7 @@ root@cloud:~#
 
 Cada vez que queramos entrar a la máquina de producción vía `ssh` nos va a solicitar la contraseña:
 
-```bash
+```console
 sdelquin@imw:~$ ssh imwpto.me
 The authenticity of host 'imwpto.me (138.68.99.84)' can't be established.
 ECDSA key fingerprint is SHA256:ynI7eMO0tRkftH3hYLuqEki7SohZvPWwFP1epSrOqwM.
@@ -109,7 +109,7 @@ sdelquin@imw:~$
 
 En la *máquina de desarrollo* creamos las claves *RSA*:
 
-```bash
+```console
 sdelquin@imw:~$ ssh-keygen -t rsa
 Generating public/private rsa key pair.
 Enter file in which to save the key (/home/sdelquin/.ssh/id_rsa):
@@ -138,7 +138,7 @@ sdelquin@imw:~$
 
 Ahora copiamos la **clave pública** `id_rsa.pub` a la *máquina de producción*:
 
-```bash
+```console
 sdelquin@imw:~$ ssh-copy-id imwpto.me
 /usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/sdelquin/.ssh/id_rsa.pub"
 /usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
@@ -155,7 +155,7 @@ sdelquin@imw:~$
 
 Ahora deberíamos poder entrar en la *máquina de producción* sin necesidad de poner nuestra contraseña:
 
-```bash
+```console
 sdelquin@imw:~$ ssh imwpto.me
 Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.4.0-93-generic x86_64)
 

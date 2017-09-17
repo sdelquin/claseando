@@ -66,7 +66,7 @@ Tendremos que crear un **droplet** (*máquina virtual*) con las siguientes carac
 - 20GB SSD disk
 - 1000GB transfer
 - Datacenter region: Frankfurt
-- Hostname: `alu<expediente>`
+- Hostname: `cloud`
 
 Cuando hayamos terminado este proceso, tendremos una máquina disponible con una *IP pública* apuntando a la misma.
 
@@ -88,4 +88,4 @@ El nombre de dominio deberá ser: `alu<expediente>.me`
 
 Una vez creado el dominio, debemos establecer los DNS de la siguiente forma:
 
-![Namecheap DNS](img/namecheap-dns.png) 
+![Namecheap DNS](img/namecheap-dns.png)

@@ -9,7 +9,7 @@ Usaremos una *máquina virtual* como *máquina de desarrollo*. Esta máquina ten
 - Distribución: `Ubuntu Xenial Xerus 16.04` (`iso` disponible en `leela`).
 - Tamaño del disco duro: 25GB.
 - Memoria: 2GB.
-- Nombre de la máquina: `imw<expediente>` (ej. *imw3421*)
+- Nombre de la máquina: `imw`
 - Nombre de usuario: `alu<expediente>` (ej. *alu3421*)
 
 ![](img/01-ubuntu_installation.png)

@@ -1,0 +1,175 @@
+# Configuración de la máquina de producción
+
+## Ajuste de locales
+
+Es posible que al acceder a la máquina de producción, nos aparezca el siguiente mensaje en el login:
+
+```bash
+sdelquin@imw:~$ ssh root@imwpto.me
+root@imwpto.me's password:
+Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.4.0-93-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  Get cloud support with Ubuntu Advantage Cloud Guest:
+    http://www.ubuntu.com/business/services/cloud
+
+9 packages can be updated.
+0 updates are security updates.
+
+
+Last login: Sun Sep 17 17:11:27 2017 from 79.157.45.93
+-bash: warning: setlocale: LC_ALL: cannot change locale (es_ES.UTF-8)
+-bash: warning: setlocale: LC_ALL: cannot change locale (es_ES.UTF-8)
+root@cloud:~#
+```
+
+Para solucionar los *locales*, debemos ejecutar los siguientes comandos:
+
+```bash
+root@cloud:~# sudo locale-gen es_ES.UTF-8
+/bin/bash: warning: setlocale: LC_ALL: cannot change locale (es_ES.UTF-8)
+Generating locales (this might take a while)...
+  es_ES.UTF-8... done
+Generation complete.
+root@cloud:~# sudo update-locale LANG=es_ES.UTF-8
+root@cloud:~#
+```
+
+La próxima vez que entremos al sistema, no aparecerán los errores de *locales*.
+
+## Creación de usuario
+
+**DigitalOcean** nos da acceso de `root` a la máquina, pero vamos a crear un usuario distinto. Para ello, debemos ejecutar el siguiente comando pero con el nombre de usuario `alu<expendiente>`.
+
+```bash
+root@cloud:~# adduser sdelquin
+Adding user `sdelquin' ...
+Adding new group `sdelquin' (1000) ...
+Adding new user `sdelquin' (1000) with group `sdelquin' ...
+The home directory `/home/sdelquin' already exists.  Not copying from `/etc/skel'.
+Enter new UNIX password:
+Retype new UNIX password:
+passwd: password updated successfully
+Changing the user information for sdelquin
+Enter the new value, or press ENTER for the default
+    Full Name []: Sergio Delgado Quintero
+    Room Number []:
+    Work Phone []:
+    Home Phone []:
+    Other []:
+Is the information correct? [Y/n] Y
+root@cloud:~#
+```
+
+Ahora sólo nos falta dar permisos de `sudo` al usuario creado:
+
+```bash
+root@cloud:~# adduser sdelquin sudo
+Adding user `sdelquin' to group `sudo' ...
+Adding user sdelquin to group sudo
+Done.
+root@cloud:~#
+```
+
+## Acceso por SSH (sin password)
+
+Cada vez que queramos entrar a la máquina de producción vía `ssh` nos va a solicitar la contraseña:
+
+```bash
+sdelquin@imw:~$ ssh imwpto.me
+The authenticity of host 'imwpto.me (138.68.99.84)' can't be established.
+ECDSA key fingerprint is SHA256:ynI7eMO0tRkftH3hYLuqEki7SohZvPWwFP1epSrOqwM.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'imwpto.me,138.68.99.84' (ECDSA) to the list of known hosts.
+sdelquin@imwpto.me's password:
+Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.4.0-93-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  Get cloud support with Ubuntu Advantage Cloud Guest:
+    http://www.ubuntu.com/business/services/cloud
+
+9 packages can be updated.
+0 updates are security updates.
+
+
+Last login: Sun Sep 17 18:32:36 2017 from 79.157.45.93
+To run a command as administrator (user "root"), use "sudo <command>".
+See "man sudo_root" for details.
+
+sdelquin@imw:~$
+```
+
+### Creación de claves RSA
+
+En la *máquina de desarrollo* creamos las claves *RSA*:
+
+```bash
+sdelquin@imw:~$ ssh-keygen -t rsa
+Generating public/private rsa key pair.
+Enter file in which to save the key (/home/sdelquin/.ssh/id_rsa):
+Enter passphrase (empty for no passphrase):
+Enter same passphrase again:
+Your identification has been saved in /home/sdelquin/.ssh/id_rsa.
+Your public key has been saved in /home/sdelquin/.ssh/id_rsa.pub.
+The key fingerprint is:
+SHA256:n6j6l5HVZBhDDotylXx4nm6nvq0JFJ3x2lgitIC5Bm4 sdelquin@imw
+The key's randomart image is:
++---[RSA 2048]----+
+|     o..++=o     |
+|  . o  =+*+=o    |
+| . ...o =+==o    |
+|  E oo   o+*.    |
+| . .    S+o .    |
+|       .ooo..    |
+|        o+oo     |
+|       .o..o     |
+|    .oo. .=o.    |
++----[SHA256]-----+
+sdelquin@imw:~$
+```
+
+### Copia de clave pública
+
+Ahora copiamos la **clave pública** `id_rsa.pub` a la *máquina de producción*:
+
+```bash
+sdelquin@imw:~$ ssh-copy-id imwpto.me
+/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/home/sdelquin/.ssh/id_rsa.pub"
+/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
+/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
+sdelquin@imwpto.me's password:
+
+Number of key(s) added: 1
+
+Now try logging into the machine, with:   "ssh 'imwpto.me'"
+and check to make sure that only the key(s) you wanted were added.
+
+sdelquin@imw:~$
+```
+
+Ahora deberíamos poder entrar en la *máquina de producción* sin necesidad de poner nuestra contraseña:
+
+```bash
+sdelquin@imw:~$ ssh imwpto.me
+Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.4.0-93-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  Get cloud support with Ubuntu Advantage Cloud Guest:
+    http://www.ubuntu.com/business/services/cloud
+
+9 packages can be updated.
+0 updates are security updates.
+
+
+Last login: Sun Sep 17 19:05:13 2017 from 79.157.45.93
+sdelquin@cloud:~$
+```

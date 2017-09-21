@@ -19,131 +19,186 @@ La instalación del servidor **Nginx** es muy sencilla. Lo único que debemos ha
 Lo primero es cambiar a la cuenta de `root` y actualizar la lista de paquetes:
 
 ```console
-sdelquin@hillvalley:~$ su
-Contraseña:
-root@hillvalley:/home/sdelquin# cd
-root@hillvalley:~# apt-get update
-Ign http://ftp.es.debian.org jessie InRelease
-Des:1 http://ftp.es.debian.org jessie-updates InRelease [142 kB]
-Des:2 http://security.debian.org jessie/updates InRelease [63,1 kB]
-Obj http://ftp.es.debian.org jessie Release.gpg
-Des:3 http://ftp.es.debian.org jessie-updates/main Sources [15,5 kB]
-Des:4 http://ftp.es.debian.org jessie-updates/main amd64 Packages/DiffIndex [5.440 B]
-Des:5 http://security.debian.org jessie/updates/main Sources [160 kB]
-Des:6 http://ftp.es.debian.org jessie-updates/main Translation-en/DiffIndex [2.704 B]
-Obj http://ftp.es.debian.org jessie Release
-Obj http://ftp.es.debian.org jessie/main Sources
-Des:7 http://security.debian.org jessie/updates/main amd64 Packages [302 kB]
-Obj http://ftp.es.debian.org jessie/main amd64 Packages
-Obj http://ftp.es.debian.org jessie/main Translation-es
-Des:8 http://security.debian.org jessie/updates/main Translation-en [161 kB]
-Obj http://ftp.es.debian.org jessie/main Translation-en
-Descargados 851 kB en 3s (257 kB/s)
+sdelquin@cloud:~$ sudo apt-get update
+[sudo] password for sdelquin:
+Des:1 http://security.ubuntu.com/ubuntu xenial-security InRelease [102 kB]
+Des:2 http://security.ubuntu.com/ubuntu xenial-security/main Sources [91,3 kB]
+Des:3 http://security.ubuntu.com/ubuntu xenial-security/main amd64 Packages [354 kB]
+Des:4 http://security.ubuntu.com/ubuntu xenial-security/universe amd64 Packages [169 kB]
+Obj:5 http://ams2.mirrors.digitalocean.com/ubuntu xenial InRelease
+Des:6 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates InRelease [102 kB]
+Des:7 http://ams2.mirrors.digitalocean.com/ubuntu xenial-backports InRelease [102 kB]
+Des:8 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main Sources [275 kB]
+Des:9 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 Packages [631 kB]
+Des:10 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/universe amd64 Packages [536 kB]
+Descargados 2.363 kB en 1s (1.595 kB/s)
 Leyendo lista de paquetes... Hecho
-root@hillvalley:~#
+sdelquin@cloud:~$
 ```
 
 A continuación instalaremos el paquete `nginx`:
 
 ```console
-root@hillvalley:~# apt-get install nginx
+sdelquin@cloud:~$ sudo apt-get install nginx
 Leyendo lista de paquetes... Hecho
 Creando árbol de dependencias
 Leyendo la información de estado... Hecho
-Se instalarán los siguientes paquetes extras:
-  libgd3 libvpx1 libxpm4 libxslt1.1 nginx-common nginx-full
+El paquete indicado a continuación se instaló de forma automática y ya no es necesario.
+  grub-pc-bin
+Utilice «sudo apt autoremove» para eliminarlo.
+Se instalarán los siguientes paquetes adicionales:
+  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0 libjpeg-turbo8 libjpeg8 libtiff5
+  libvpx3 libxpm4 libxslt1.1 nginx-common nginx-core
 Paquetes sugeridos:
   libgd-tools fcgiwrap nginx-doc ssl-cert
 Se instalarán los siguientes paquetes NUEVOS:
-  libgd3 libvpx1 libxpm4 libxslt1.1 nginx nginx-common nginx-full
-0 actualizados, 7 nuevos se instalarán, 0 para eliminar y 0 no actualizados.
-Se necesita descargar 1.616 kB de archivos.
-Se utilizarán 4.324 kB de espacio de disco adicional después de esta operación.
+  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0 libjpeg-turbo8 libjpeg8 libtiff5
+  libvpx3 libxpm4 libxslt1.1 nginx nginx-common nginx-core
+0 actualizados, 14 nuevos se instalarán, 0 para eliminar y 15 no actualizados.
+Se necesita descargar 3.000 kB de archivos.
+Se utilizarán 9.783 kB de espacio de disco adicional después de esta operación.
 ¿Desea continuar? [S/n]
-Des:1 http://ftp.es.debian.org/debian/ jessie/main libvpx1 amd64 1.3.0-3 [599 kB]
-Des:2 http://security.debian.org/ jessie/updates/main libgd3 amd64 2.1.0-5+deb8u6 [148 kB]
-Des:3 http://ftp.es.debian.org/debian/ jessie/main libxpm4 amd64 1:3.5.11-1+b1 [48,1 kB]
-Des:4 http://security.debian.org/ jessie/updates/main libxslt1.1 amd64 1.1.28-2+deb8u1 [232 kB]
-Des:5 http://security.debian.org/ jessie/updates/main nginx-common all 1.6.2-5+deb8u2 [86,7 kB]
-Des:6 http://security.debian.org/ jessie/updates/main nginx-full amd64 1.6.2-5+deb8u2+b1 [430 kB]
-Des:7 http://security.debian.org/ jessie/updates/main nginx all 1.6.2-5+deb8u2 [72,2 kB]
-Descargados 1.616 kB en 0s (2.202 kB/s)
-Seleccionando el paquete libvpx1:amd64 previamente no seleccionado.
-(Leyendo la base de datos ... 31251 ficheros o directorios instalados actualmente.)
-Preparando para desempaquetar .../libvpx1_1.3.0-3_amd64.deb ...
-Desempaquetando libvpx1:amd64 (1.3.0-3) ...
+Des:1 http://ams2.mirrors.digitalocean.com/ubuntu xenial/main amd64 libjpeg-turbo8 amd64 1.4.2-0ubuntu3 [111 kB]
+Des:2 http://ams2.mirrors.digitalocean.com/ubuntu xenial/main amd64 libjbig0 amd64 2.1-3.1 [26,6 kB]
+Des:3 http://ams2.mirrors.digitalocean.com/ubuntu xenial/main amd64 fonts-dejavu-core all 2.35-1 [1.039 kB]
+Des:4 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 fontconfig-config all 2.11.94-0ubuntu1.1 [49,9 kB]
+Des:5 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 libfontconfig1 amd64 2.11.94-0ubuntu1.1 [131 kB]
+Des:6 http://ams2.mirrors.digitalocean.com/ubuntu xenial/main amd64 libjpeg8 amd64 8c-2ubuntu8 [2.194 B]
+Des:7 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 libtiff5 amd64 4.0.6-1ubuntu0.2 [146 kB]
+Des:8 http://ams2.mirrors.digitalocean.com/ubuntu xenial/main amd64 libvpx3 amd64 1.5.0-2ubuntu1 [732 kB]
+Des:9 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 libxpm4 amd64 1:3.5.11-1ubuntu0.16.04.1 [33,8 kB]
+Des:10 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 libgd3 amd64 2.1.1-4ubuntu0.16.04.8 [126 kB]
+Des:11 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 libxslt1.1 amd64 1.1.28-2.1ubuntu0.1 [145 kB]
+Des:12 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 nginx-common all 1.10.3-0ubuntu0.16.04.2 [26,6 kB]
+Des:13 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 nginx-core amd64 1.10.3-0ubuntu0.16.04.2 [428 kB]
+Des:14 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 nginx all 1.10.3-0ubuntu0.16.04.2 [3.490 B]
+Descargados 3.000 kB en 1s (1.943 kB/s)
+Preconfigurando paquetes ...
+Seleccionando el paquete libjpeg-turbo8:amd64 previamente no seleccionado.
+(Leyendo la base de datos ... 82162 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../libjpeg-turbo8_1.4.2-0ubuntu3_amd64.deb ...
+Desempaquetando libjpeg-turbo8:amd64 (1.4.2-0ubuntu3) ...
+Seleccionando el paquete libjbig0:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../libjbig0_2.1-3.1_amd64.deb ...
+Desempaquetando libjbig0:amd64 (2.1-3.1) ...
+Seleccionando el paquete fonts-dejavu-core previamente no seleccionado.
+Preparando para desempaquetar .../fonts-dejavu-core_2.35-1_all.deb ...
+Desempaquetando fonts-dejavu-core (2.35-1) ...
+Seleccionando el paquete fontconfig-config previamente no seleccionado.
+Preparando para desempaquetar .../fontconfig-config_2.11.94-0ubuntu1.1_all.deb ...
+Desempaquetando fontconfig-config (2.11.94-0ubuntu1.1) ...
+Seleccionando el paquete libfontconfig1:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../libfontconfig1_2.11.94-0ubuntu1.1_amd64.deb ...
+Desempaquetando libfontconfig1:amd64 (2.11.94-0ubuntu1.1) ...
+Seleccionando el paquete libjpeg8:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../libjpeg8_8c-2ubuntu8_amd64.deb ...
+Desempaquetando libjpeg8:amd64 (8c-2ubuntu8) ...
+Seleccionando el paquete libtiff5:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../libtiff5_4.0.6-1ubuntu0.2_amd64.deb ...
+Desempaquetando libtiff5:amd64 (4.0.6-1ubuntu0.2) ...
+Seleccionando el paquete libvpx3:amd64 previamente no seleccionado.
+Preparando para desempaquetar .../libvpx3_1.5.0-2ubuntu1_amd64.deb ...
+Desempaquetando libvpx3:amd64 (1.5.0-2ubuntu1) ...
 Seleccionando el paquete libxpm4:amd64 previamente no seleccionado.
-Preparando para desempaquetar .../libxpm4_1%3a3.5.11-1+b1_amd64.deb ...
-Desempaquetando libxpm4:amd64 (1:3.5.11-1+b1) ...
+Preparando para desempaquetar .../libxpm4_1%3a3.5.11-1ubuntu0.16.04.1_amd64.deb ...
+Desempaquetando libxpm4:amd64 (1:3.5.11-1ubuntu0.16.04.1) ...
 Seleccionando el paquete libgd3:amd64 previamente no seleccionado.
-Preparando para desempaquetar .../libgd3_2.1.0-5+deb8u6_amd64.deb ...
-Desempaquetando libgd3:amd64 (2.1.0-5+deb8u6) ...
+Preparando para desempaquetar .../libgd3_2.1.1-4ubuntu0.16.04.8_amd64.deb ...
+Desempaquetando libgd3:amd64 (2.1.1-4ubuntu0.16.04.8) ...
 Seleccionando el paquete libxslt1.1:amd64 previamente no seleccionado.
-Preparando para desempaquetar .../libxslt1.1_1.1.28-2+deb8u1_amd64.deb ...
-Desempaquetando libxslt1.1:amd64 (1.1.28-2+deb8u1) ...
+Preparando para desempaquetar .../libxslt1.1_1.1.28-2.1ubuntu0.1_amd64.deb ...
+Desempaquetando libxslt1.1:amd64 (1.1.28-2.1ubuntu0.1) ...
 Seleccionando el paquete nginx-common previamente no seleccionado.
-Preparando para desempaquetar .../nginx-common_1.6.2-5+deb8u2_all.deb ...
-Desempaquetando nginx-common (1.6.2-5+deb8u2) ...
-Seleccionando el paquete nginx-full previamente no seleccionado.
-Preparando para desempaquetar .../nginx-full_1.6.2-5+deb8u2+b1_amd64.deb ...
-Desempaquetando nginx-full (1.6.2-5+deb8u2+b1) ...
+Preparando para desempaquetar .../nginx-common_1.10.3-0ubuntu0.16.04.2_all.deb ...
+Desempaquetando nginx-common (1.10.3-0ubuntu0.16.04.2) ...
+Seleccionando el paquete nginx-core previamente no seleccionado.
+Preparando para desempaquetar .../nginx-core_1.10.3-0ubuntu0.16.04.2_amd64.deb ...
+Desempaquetando nginx-core (1.10.3-0ubuntu0.16.04.2) ...
 Seleccionando el paquete nginx previamente no seleccionado.
-Preparando para desempaquetar .../nginx_1.6.2-5+deb8u2_all.deb ...
-Desempaquetando nginx (1.6.2-5+deb8u2) ...
-Procesando disparadores para man-db (2.7.0.2-5) ...
-Procesando disparadores para systemd (215-17+deb8u4) ...
-Configurando libvpx1:amd64 (1.3.0-3) ...
-Configurando libxpm4:amd64 (1:3.5.11-1+b1) ...
-Configurando libgd3:amd64 (2.1.0-5+deb8u6) ...
-Configurando libxslt1.1:amd64 (1.1.28-2+deb8u1) ...
-Configurando nginx-common (1.6.2-5+deb8u2) ...
-Configurando nginx-full (1.6.2-5+deb8u2+b1) ...
-Configurando nginx (1.6.2-5+deb8u2) ...
-Procesando disparadores para libc-bin (2.19-18+deb8u4) ...
-Procesando disparadores para systemd (215-17+deb8u4) ...
-root@hillvalley:~#
+Preparando para desempaquetar .../nginx_1.10.3-0ubuntu0.16.04.2_all.deb ...
+Desempaquetando nginx (1.10.3-0ubuntu0.16.04.2) ...
+Procesando disparadores para libc-bin (2.23-0ubuntu9) ...
+Procesando disparadores para man-db (2.7.5-1) ...
+Procesando disparadores para ureadahead (0.100.0-19) ...
+Procesando disparadores para ufw (0.35-0ubuntu2) ...
+Procesando disparadores para systemd (229-4ubuntu19) ...
+Configurando libjpeg-turbo8:amd64 (1.4.2-0ubuntu3) ...
+Configurando libjbig0:amd64 (2.1-3.1) ...
+Configurando fonts-dejavu-core (2.35-1) ...
+Configurando fontconfig-config (2.11.94-0ubuntu1.1) ...
+Configurando libfontconfig1:amd64 (2.11.94-0ubuntu1.1) ...
+Configurando libjpeg8:amd64 (8c-2ubuntu8) ...
+Configurando libtiff5:amd64 (4.0.6-1ubuntu0.2) ...
+Configurando libvpx3:amd64 (1.5.0-2ubuntu1) ...
+Configurando libxpm4:amd64 (1:3.5.11-1ubuntu0.16.04.1) ...
+Configurando libgd3:amd64 (2.1.1-4ubuntu0.16.04.8) ...
+Configurando libxslt1.1:amd64 (1.1.28-2.1ubuntu0.1) ...
+Configurando nginx-common (1.10.3-0ubuntu0.16.04.2) ...
+Configurando nginx-core (1.10.3-0ubuntu0.16.04.2) ...
+Configurando nginx (1.10.3-0ubuntu0.16.04.2) ...
+Procesando disparadores para libc-bin (2.23-0ubuntu9) ...
+Procesando disparadores para systemd (229-4ubuntu19) ...
+Procesando disparadores para ureadahead (0.100.0-19) ...
+Procesando disparadores para ufw (0.35-0ubuntu2) ...
+sdelquin@cloud:~$
 ```
 
 Con esto, en principio, debería estar instalado el servidor web **Nginx**. Podemos comprobarlo con el siguiente comando:
 
 ```console
-root@hillvalley:~# /etc/init.d/nginx status
+sdelquin@cloud:~$ sudo systemctl status nginx
 ● nginx.service - A high performance web server and a reverse proxy server
-   Loaded: loaded (/lib/systemd/system/nginx.service; enabled)
-   Active: active (running) since sáb 2016-08-27 00:45:55 WEST; 8min ago
- Main PID: 1359 (nginx)
+   Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
+   Active: active (running) since jue 2017-09-21 15:09:21 UTC; 26s ago
+ Main PID: 28992 (nginx)
    CGroup: /system.slice/nginx.service
-           ├─1359 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;
-           ├─1360 nginx: worker process
-           ├─1361 nginx: worker process
-           ├─1362 nginx: worker process
-           └─1364 nginx: worker process
-root@hillvalley:~#
+           ├─28992 nginx: master process /usr/sbin/nginx -g daemon on; master_process on
+           └─28993 nginx: worker process
+
+sep 21 15:09:21 cloud systemd[1]: Starting A high performance web server and a reverse proxy server...
+sep 21 15:09:21 cloud systemd[1]: nginx.service: Failed to read PID from file /run/nginx.pid: Invalid argument
+sep 21 15:09:21 cloud systemd[1]: Started A high performance web server and a reverse proxy server.
+sdelquin@cloud:~$
 ```
 
-Para comprobar nuestra instalación de **Nginx**, accedemos a la IP de la máquina:
+Para comprobar nuestra instalación de **Nginx**, accedemos al nombre de la máquina:
 
 ![](img/nginx_test.png)
+
+Igualmente, podemos acceder a la IP de la máquina, y la respuesta debe ser la misma:
+
+```console
+sdelquin@imw:~$ ping imwpto.me
+PING imwpto.me (138.68.99.84) 56(84) bytes of data.
+64 bytes from cloud (138.68.99.84): icmp_seq=1 ttl=55 time=66.0 ms
+^C
+--- imwpto.me ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 66.050/66.050/66.050/0.000 ms
+sdelquin@imw:~$
+```
+
+![](img/nginx_test_by_ip.png)
 
 ## Rutas destacadas
 
 El directorio *root* por defecto de Nginx es: `/var/www/html`. Si echamos un vistazo, vemos lo siguiente:
 
 ```console
-root@hillvalley:~# ls -l /var/www/html/
+sdelquin@cloud:~$ sudo ls -l /var/www/html/
 total 4
--rw-r--r-- 1 root root 867 ago 27 00:45 index.nginx-debian.html
-root@hillvalley:~#
+-rw-r--r-- 1 root root 612 sep 21 15:09 index.nginx-debian.html
+sdelquin@cloud:~$
 ```
 
 Cuando accedemos a nuestra máquina de producción, lo que realmente está pasando es que Nginx trata de buscar un fichero índice en el *root*. De hecho si miramos el contenido del fichero `index.nginx-debian.html` podemos ver que su contenido coincide con lo que nos muestra el servidor web:
 
 ```console
-root@hillvalley:~# cat /var/www/html/index.nginx-debian.html
+sdelquin@cloud:~$ cat /var/www/html/index.nginx-debian.html
 <!DOCTYPE html>
 <html>
 <head>
-<title>Welcome to nginx on Debian!</title>
+<title>Welcome to nginx!</title>
 <style>
     body {
         width: 35em;
@@ -153,27 +208,22 @@ root@hillvalley:~# cat /var/www/html/index.nginx-debian.html
 </style>
 </head>
 <body>
-<h1>Welcome to nginx on Debian!</h1>
+<h1>Welcome to nginx!</h1>
 <p>If you see this page, the nginx web server is successfully installed and
-working on Debian. Further configuration is required.</p>
+working. Further configuration is required.</p>
 
 <p>For online documentation and support please refer to
-<a href="http://nginx.org/">nginx.org</a></p>
+<a href="http://nginx.org/">nginx.org</a>.<br/>
+Commercial support is available at
+<a href="http://nginx.com/">nginx.com</a>.</p>
 
-<p>
-      Please use the <tt>reportbug</tt> tool to report bugs in the
-      nginx package with Debian. However, check <a
-      href="http://bugs.debian.org/cgi-bin/pkgreport.cgi?ordering=normal;archive=0;src=nginx;repeatmerged=0">existing
-      bug reports</a> before reporting a new bug.
-</p>
-
-<p><em>Thank you for using debian and nginx.</em></p>
-
-
+<p><em>Thank you for using nginx.</em></p>
 </body>
 </html>
-root@hillvalley:~#
+sdelquin@cloud:~$
 ```
+
+### Ficheros de configuración
 
 Podríamos decir que Nginx dispone de dos ficheros destacados de configuración:
 
@@ -184,36 +234,22 @@ Podríamos decir que Nginx dispone de dos ficheros destacados de configuración:
 
 *Nginx* se configura a través de bloques de mayor nivel llamados `server` (servidor ó *virtual host*) y de `location` (ubicaciones) dentro de esos servidores.
 
-![](img/Nginx Server Location.png)
+![](img/Nginx-Server-Location.png)
 
 Cada vez que queramos incluir un nuevo *virtual host*, debemos incluir un fichero en la ruta `/etc/nginx/sites-available` y luego enlazar dicho fichero desde la ruta `/etc/nginx/sites-enabled`.
 
-Supongamos que queremos mostrar una página web que hemos creado en la carpeta *home* del usuario *sdelquin*. Además queremos que se muestre esa página cuando se acceda en el navegador a la *url* `http://hv/`.
+Supongamos que queremos mostrar una página web que hemos creado en la carpeta *home* del usuario *sdelquin*. Además queremos que se muestre esa página cuando se acceda en el navegador a la *url* `http://sdelquin.imwpto.me/`.
 
-Lo primero es, desde la *máquina de desarrollo*, añadir el nombre *hv* al fichero `/etc/hosts` para que apunte a nuestra *máquina de producción*:
-
-```console
-~|🍺  sudo vi /etc/hosts
-Password:
-```
-
-> Contenido
-```console
-...
-192.168.1.118 hillvalley hv
-...
-```
-
-Ahora, desde la *máquina de producción*, y como usuario `root`, añadiremos el fichero de configuración de *Nginx* que tratará las peticiones que se hagan al nombre de dominio *nv*:
+Añadimos el fichero de configuración de *Nginx* que tratará las peticiones que se hagan al nombre de dominio `sdelquin.imwpto.me`:
 
 ```console
-root@hillvalley:~# vi /etc/nginx/sites-available/hv
+sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/sdelquin
 ```
 
 > Contenido
 ```nginx
 server {
-    server_name hv;
+    server_name sdelquin.imwpto.me;
     root /home/sdelquin;
 }
 ```
@@ -221,23 +257,26 @@ server {
 A continuación tenemos que enlazar el fichero que hemos creado para que esté disponible desde los `sites-enabled`:
 
 ```console
-root@hillvalley:~# cd /etc/nginx/sites-enabled/
-root@hillvalley:/etc/nginx/sites-enabled# ln -s ../sites-available/hv
-root@hillvalley:/etc/nginx/sites-enabled#
+sdelquin@cloud:~$ cd /etc/nginx/sites-enabled/
+sdelquin@cloud:/etc/nginx/sites-enabled$ sudo ln -s ../sites-available/sdelquin
+sdelquin@cloud:/etc/nginx/sites-enabled$ ls -l ../sites-available/
+total 8
+-rw-r--r-- 1 root root 2074 feb 11  2017 default
+-rw-r--r-- 1 root root   36 sep 21 15:20 sdelquin
+sdelquin@cloud:/etc/nginx/sites-enabled$
 ```
 
 Por último, tenemos que recargar la configuración de *Nginx* para que los cambios surtan efecto:
 
 ```console
-root@hillvalley:/etc/nginx/sites-enabled# /etc/init.d/nginx reload
-[ ok ] Reloading nginx configuration (via systemctl): nginx.service.
-root@hillvalley:/etc/nginx/sites-enabled#
+sdelquin@cloud:/etc/nginx/sites-enabled$ sudo systemctl reload nginx
+sdelquin@cloud:/etc/nginx/sites-enabled$
 ```
 
-Ahora ya podemos escribir nuestra página web en nuestro *home*, utilizando el usuario no privilegiado `sdelquin`:
+Ahora ya podemos escribir la página web en nuestro *home*:
 
 ```console
-sdelquin@hillvalley:~$ vi mywebsite.html
+sdelquin@cloud:~$ vi index.html
 ```
 
 > Contenido:
@@ -250,10 +289,10 @@ Si ahora accedemos desde un navegador, deberíamos ver lo siguiente:
 
 ![](img/virtual_server.png)
 
-Supongamos que ahora queremos, que cuando se acceda a `http://hv/blog/`, nos muestre la web que hemos diseñado en el directorio `/home/sdelquin/webapps/blog`. Dado que se trata de un *location* dentro de un *virtual host*, tendremos que utilizar esta directiva. Una vez más, desde la *máquina de producción*, y como `root`, haremos lo siguiente:
+Supongamos que ahora queremos, que cuando se acceda a `http://sdelquin.imwpto.me/blog/`, nos muestre la web que vamos a diseñar en el directorio `/home/sdelquin/webapps/blog`. Dado que se trata de un *location* dentro de un *virtual host*, tendremos que utilizar la siguiente directiva:
 
 ```console
-root@hillvalley:~# vi /etc/nginx/sites-available/hv
+sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/sdelquin
 ```
 
 > Contenido
@@ -271,12 +310,19 @@ root@hillvalley:~# vi /etc/nginx/sites-available/hv
 Una vez más, recargamos nuestro servidor para que los cambios surtan efecto:
 
 ```console
-root@hillvalley:~# /etc/init.d/nginx reload
-[ ok ] Reloading nginx configuration (via systemctl): nginx.service.
-root@hillvalley:~#
+sdelquin@cloud:~$ sudo systemctl reload nginx
+sdelquin@cloud:~$
 ```
 
-Ahora, como usuario `sdelquin`, podemos desarrollar nuestro blog en la ruta `/home/sdelquin/webapps/blog`. Lo típico sería empezar por un fichero `index.html`. Si accedemos mediante un navegador, deberíamos ver algo como lo siguiente:
+Ahora, como usuario `sdelquin`, podemos desarrollar nuestro blog en la ruta `/home/sdelquin/webapps/blog`. Lo típico sería empezar por un fichero `index.html`:
+
+```console
+sdelquin@cloud:~$ mkdir -p webapps/blog
+sdelquin@cloud:~$ echo "Brand new blog!" > webapps/blog/index.html
+sdelquin@cloud:~$
+```
+
+Si accedemos mediante un navegador, deberíamos ver algo como lo siguiente:
 
 ![](img/blog.png)
 
@@ -284,10 +330,16 @@ Ahora, como usuario `sdelquin`, podemos desarrollar nuestro blog en la ruta `/ho
 
 Existen multitud de parámetros que se pueden configurar para los sitios web que se definen en *Ningx*.
 
-Uno de ellos es `autoindex` y nos permite *listar el contenido del directorio actual*, pudiendo implementar una especie de *FTP* a través del navegador. Para habilitarla debemos hacer lo siguiente:
+Uno de ellos es `autoindex` y nos permite *listar el contenido del directorio actual*, pudiendo implementar una especie de *FTP* a través del navegador.
+
+Supongamos que tenemos una carpeta en nuestro *HOME* que queremos compartir con una serie de amigos. Vamos a ver cómo lo implementamos usando *Nginx*:
+
+
+
+
 
 ```console
-root@hillvalley:~# vi /etc/nginx/sites-enabled/default
+sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/default
 ```
 
 > Contenido
@@ -304,9 +356,8 @@ location / {
 Ahora recargamos el servidor para que los cambios tengan efecto:
 
 ```console
-root@hillvalley:~# /etc/init.d/nginx reload
-[ ok ] Reloading nginx configuration (via systemctl): nginx.service.
-root@hillvalley:~#
+sdelquin@cloud:~$ sudo systemctl reload nginx
+sdelquin@cloud:~$
 ```
 
 > NOTA: Hay que tener mucho cuidado con el uso de esta configuración, pues dará acceso al contenido de los subdirectorios que cuelgan de `/var/www/html`

@@ -173,3 +173,54 @@ Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.4.0-93-generic x86_64)
 Last login: Sun Sep 17 19:05:13 2017 from 79.157.45.93
 sdelquin@cloud:~$
 ```
+
+
+## Dando un nombre más sencillo
+
+```console
+sdelquin@imw:~$ sudo vi /etc/hosts
+[sudo] password for sdelquin:
+```
+
+Añadir la siguiente información:
+```console
+138.68.99.84  cloud
+```
+
+Ahora podemos acceder a la *máquina de producción* utilizando el nombre `cloud`:
+
+```console
+sdelquin@imw:~$ ping cloud
+PING cloud (138.68.99.84) 56(84) bytes of data.
+64 bytes from cloud (138.68.99.84): icmp_seq=1 ttl=55 time=67.1 ms
+64 bytes from cloud (138.68.99.84): icmp_seq=2 ttl=55 time=66.5 ms
+^C
+--- cloud ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1002ms
+rtt min/avg/max/mdev = 66.513/66.834/67.155/0.321 ms
+sdelquin@imw:~$
+```
+
+```console
+sdelquin@imw:~$ ssh cloud
+The authenticity of host 'cloud (138.68.99.84)' can't be established.
+ECDSA key fingerprint is SHA256:ynI7eMO0tRkftH3hYLuqEki7SohZvPWwFP1epSrOqwM.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'cloud' (ECDSA) to the list of known hosts.
+Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.4.0-93-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  Get cloud support with Ubuntu Advantage Cloud Guest:
+    http://www.ubuntu.com/business/services/cloud
+
+Pueden actualizarse 14 paquetes.
+0 actualizaciones son de seguridad.
+
+
+*** System restart required ***
+Last login: Thu Sep 21 15:00:03 2017 from 79.154.89.74
+sdelquin@cloud:~$
+```

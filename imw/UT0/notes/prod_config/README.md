@@ -1,8 +1,16 @@
 # Configuración de la máquina de producción
 
+## Aclaración sobre usuarios y dominios
+
+![Users and Domains](img/usuario_dominio.png) 
+
+## Acceso por nombre de dominio
+
+Si en el momento de hacer estos ajustes, aún no tuviéramos acceso a `cloud` a través del dominio `aluXXXX.me`, tendremos que acceder a través de la IP X.X.X.X correspondiente a la máquina de producciónd de *Digital Ocean*.
+
 ## Ajuste de locales
 
-Es posible que al acceder a la máquina de producción, nos aparezca el siguiente mensaje en el login:
+Accedemos a la máquina de producción `cloud`:
 
 ```console
 sdelquin@imw:~$ ssh root@imwpto.me
@@ -38,11 +46,9 @@ root@cloud:~# sudo update-locale LANG=es_ES.UTF-8
 root@cloud:~#
 ```
 
-La próxima vez que entremos al sistema, no aparecerán los errores de *locales*.
-
 ## Creación de usuario
 
-**DigitalOcean** nos da acceso de `root` a la máquina, pero vamos a crear un usuario distinto. Para ello, debemos ejecutar el siguiente comando pero con el nombre de usuario `alu<expendiente>`.
+**Digital Ocean** nos da acceso de `root` a la máquina, pero vamos a crear un usuario distinto. Para ello, debemos ejecutar el siguiente comando pero con el nombre de usuario `alu<expendiente>`.
 
 ```console
 root@cloud:~# adduser sdelquin
@@ -173,7 +179,6 @@ Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.4.0-93-generic x86_64)
 Last login: Sun Sep 17 19:05:13 2017 from 79.157.45.93
 sdelquin@cloud:~$
 ```
-
 
 ## Dando un nombre más sencillo
 

@@ -14,9 +14,11 @@
 
 El servidor con el que vamos a trabajar será **Nginx**.
 
+![Nginx Logo](img/Nginx_Logo.png) 
+
 La instalación del servidor **Nginx** es muy sencilla. Lo único que debemos hacer es utilizar el paquete preparado al efecto.
 
-Lo primero es cambiar a la cuenta de `root` y actualizar la lista de paquetes:
+Lo primero es actualizar la lista de paquetes:
 
 ```console
 sdelquin@cloud:~$ sudo apt-get update
@@ -273,6 +275,8 @@ sdelquin@cloud:/etc/nginx/sites-enabled$ sudo systemctl reload nginx
 sdelquin@cloud:/etc/nginx/sites-enabled$
 ```
 
+> No es lo mismo *recargar* (`reload`) que *reiniciar* (`restart`).
+
 Ahora ya podemos escribir la página web en nuestro *home*:
 
 ```console
@@ -281,8 +285,9 @@ sdelquin@cloud:~$ vi index.html
 
 > Contenido:
 ```html
-Esto es un nuevo virtual host.<br>
-By sdelquin.
+<h1>My first site powered by Nginx</h1>
+This is a new website.<br>
+Have a good day!
 ```
 
 Si ahora accedemos desde un navegador, deberíamos ver lo siguiente:
@@ -296,16 +301,16 @@ sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/sdelquin
 ```
 
 > Contenido
-> ```nginx
-> server {
->     server_name hv;
->     root /home/sdelquin;
-> 
->     location /blog {
->         root /home/sdelquin/webapps;
->     }
-> }
-> ```
+```nginx
+server {
+    server_name sdelquin.imwpto.me;
+    root /home/sdelquin;
+    
+    location /blog {
+        root /home/sdelquin/webapps;
+    }
+}
+```
 
 Una vez más, recargamos nuestro servidor para que los cambios surtan efecto:
 
@@ -332,25 +337,127 @@ Existen multitud de parámetros que se pueden configurar para los sitios web que
 
 Uno de ellos es `autoindex` y nos permite *listar el contenido del directorio actual*, pudiendo implementar una especie de *FTP* a través del navegador.
 
-Supongamos que tenemos una carpeta en nuestro *HOME* que queremos compartir con una serie de amigos. Vamos a ver cómo lo implementamos usando *Nginx*:
+Supongamos que tenemos una carpeta `share` en nuestro *HOME* que queremos compartir con una serie de amigos. Vamos a ver cómo lo implementamos usando *Nginx*.
 
-
-
-
+Necesitaremos la utilidad `unzip`. Para ello la instalamos usando `apt-get`:
 
 ```console
-sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/default
+sdelquin@cloud:~$ sudo apt-get install unzip
+[sudo] password for sdelquin:
+Leyendo lista de paquetes... Hecho
+Creando árbol de dependencias
+Leyendo la información de estado... Hecho
+El paquete indicado a continuación se instaló de forma automática y ya no es necesario.
+  grub-pc-bin
+Utilice «sudo apt autoremove» para eliminarlo.
+Paquetes sugeridos:
+  zip
+Se instalarán los siguientes paquetes NUEVOS:
+Se utilizarán 530 kB de espacio de disco adicional después de esta operación.
+Des:1 http://ams2.mirrors.digitalocean.com/ubuntu xenial/main amd64 unzip amd64 6.0-20ubuntu1 [158 kB]
+Descargados 158 kB en 0s (306 kB/s)
+Seleccionando el paquete unzip previamente no seleccionado.
+(Leyendo la base de datos ... 86094 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../unzip_6.0-20ubuntu1_amd64.deb ...
+Desempaquetando unzip (6.0-20ubuntu1) ...
+Procesando disparadores para mime-support (3.59ubuntu1) ...
+Procesando disparadores para man-db (2.7.5-1) ...
+Configurando unzip (6.0-20ubuntu1) ...
+sdelquin@cloud:~$
+```
+
+Ahora descargamos algunas cosas en la carpeta que queremos compartir:
+
+```console
+sdelquin@cloud:~$ mkdir share
+sdelquin@cloud:~$ cd share
+sdelquin@cloud:~/share$ curl -O http://design.ubuntu.com/wp-content/uploads/bcb4/ubuntu-logo-set-web-svg.zip
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 61473  100 61473    0     0   810k      0 --:--:-- --:--:-- --:--:--  822k
+sdelquin@cloud:~/share$ unzip ubuntu-logo-set-web-svg.zip
+Archive:  ubuntu-logo-set-web-svg.zip
+   creating: ubuntu-logo-set-web-svg/
+  inflating: ubuntu-logo-set-web-svg/LICENCE.txt
+   creating: __MACOSX/
+   creating: __MACOSX/ubuntu-logo-set-web-svg/
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/._LICENCE.txt
+   creating: ubuntu-logo-set-web-svg/SVG/
+  inflating: ubuntu-logo-set-web-svg/SVG/photos-1.dropbox.com.url
+   creating: __MACOSX/ubuntu-logo-set-web-svg/SVG/
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG/._photos-1.dropbox.com.url
+  inflating: ubuntu-logo-set-web-svg/SVG/ubuntu_black-orange_hex.svg
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG/._ubuntu_black-orange_hex.svg
+  inflating: ubuntu-logo-set-web-svg/SVG/ubuntu_black_hex.svg
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG/._ubuntu_black_hex.svg
+  inflating: ubuntu-logo-set-web-svg/SVG/ubuntu_orange_hex.svg
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG/._ubuntu_orange_hex.svg
+  inflating: ubuntu-logo-set-web-svg/SVG/ubuntu_white-orange(cof)_hex.svg
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG/._ubuntu_white-orange(cof)_hex.svg
+  inflating: ubuntu-logo-set-web-svg/SVG/ubuntu_white-orange_hex.svg
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG/._ubuntu_white-orange_hex.svg
+  inflating: ubuntu-logo-set-web-svg/SVG/ubuntu_white_hex.svg
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG/._ubuntu_white_hex.svg
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/._SVG
+   creating: ubuntu-logo-set-web-svg/SVG_small_use/
+  inflating: ubuntu-logo-set-web-svg/SVG_small_use/ubuntu_black-orange_hex_su.svg
+   creating: __MACOSX/ubuntu-logo-set-web-svg/SVG_small_use/
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_small_use/._ubuntu_black-orange_hex_su.svg
+  inflating: ubuntu-logo-set-web-svg/SVG_small_use/ubuntu_black_hex_su.svg
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_small_use/._ubuntu_black_hex_su.svg
+  inflating: ubuntu-logo-set-web-svg/SVG_small_use/ubuntu_orange_hex_su.svg
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_small_use/._ubuntu_orange_hex_su.svg
+  inflating: ubuntu-logo-set-web-svg/SVG_small_use/ubuntu_white-orange(cof)_hex_su.svg
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_small_use/._ubuntu_white-orange(cof)_hex_su.svg
+  inflating: ubuntu-logo-set-web-svg/SVG_small_use/ubuntu_white-orange_hex_su.svg
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_small_use/._ubuntu_white-orange_hex_su.svg
+  inflating: ubuntu-logo-set-web-svg/SVG_small_use/ubuntu_white_hex_su.svg
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_small_use/._ubuntu_white_hex_su.svg
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/._SVG_small_use
+   creating: ubuntu-logo-set-web-svg/SVG_stacked/
+  inflating: ubuntu-logo-set-web-svg/SVG_stacked/ubuntu_black-orange_st_hex.svg
+   creating: __MACOSX/ubuntu-logo-set-web-svg/SVG_stacked/
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_stacked/._ubuntu_black-orange_st_hex.svg
+  inflating: ubuntu-logo-set-web-svg/SVG_stacked/ubuntu_black_st_hex.svg
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_stacked/._ubuntu_black_st_hex.svg
+  inflating: ubuntu-logo-set-web-svg/SVG_stacked/ubuntu_orange_st_hex.svg
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_stacked/._ubuntu_orange_st_hex.svg
+  inflating: ubuntu-logo-set-web-svg/SVG_stacked/ubuntu_white-orange(cof)_st_hex.svg
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_stacked/._ubuntu_white-orange(cof)_st_hex.svg
+  inflating: ubuntu-logo-set-web-svg/SVG_stacked/ubuntu_white-orange_st_hex.svg
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_stacked/._ubuntu_white-orange_st_hex.svg
+  inflating: ubuntu-logo-set-web-svg/SVG_stacked/ubuntu_white_st_hex.svg
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_stacked/._ubuntu_white_st_hex.svg
+  inflating: __MACOSX/ubuntu-logo-set-web-svg/._SVG_stacked
+  inflating: __MACOSX/._ubuntu-logo-set-web-svg
+sdelquin@cloud:~/share$ ls
+__MACOSX  ubuntu-logo-set-web-svg  ubuntu-logo-set-web-svg.zip
+sdelquin@cloud:~/share$ rm -r __MACOSX/ ubuntu-logo-set-web-svg.zip
+sdelquin@cloud:~/share$ chmod -R 755 ubuntu-logo-set-web-svg/
+sdelquin@cloud:~/share$
+```
+
+Ahora vamos a crear un *virtual host* para servir esta carpeta compartida `share` a través del dominio `share.imwpto.me`:
+
+```console
+sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/share
 ```
 
 > Contenido
 ```nginx
-...
-location / {
-    ...
+server {
+    server_name share.imwpto.me;
+    root /home/sdelquin/share;
     autoindex on;
-    ...
 }
-...
+```
+
+Enlazamos el *virtual host* para que esté disponible:
+
+```console
+sdelquin@cloud:~$ cd /etc/nginx/sites-enabled/
+sdelquin@cloud:/etc/nginx/sites-enabled$ sudo ln -s ../sites-available/share
+sdelquin@cloud:/etc/nginx/sites-enabled$
 ```
 
 Ahora recargamos el servidor para que los cambios tengan efecto:
@@ -360,13 +467,17 @@ sdelquin@cloud:~$ sudo systemctl reload nginx
 sdelquin@cloud:~$
 ```
 
-> NOTA: Hay que tener mucho cuidado con el uso de esta configuración, pues dará acceso al contenido de los subdirectorios que cuelgan de `/var/www/html`
+> NOTA: Hay que tener mucho cuidado con el uso de esta configuración en el `root` de *Nginx*, pues dará acceso al contenido de los subdirectorios que cuelgan de `/var/www/html`
+
+Al acceder al dominio, vemos que podemos *"navegar"* por la carpeta:
+
+![Nginx Autoindex](img/nginx_autoindex.png) 
 
 ## Acceso restringido con clave
 
 Es posible pedir usuario/clave al acceder a determinadas ubicaciones de nuestro servidor *Nginx*.
 
-Supongamos que queremos tener acceso a la carpeta `/var/opt/admin`, pero que no nos interesa que sea pública, sino a través de un usuario/clave.
+Supongamos que queremos tener acceso a la carpeta `/home/sdelquin/share`, pero que no nos interesa que sea pública, sino a través de un usuario/clave.
 
 En primer lugar tendremos que generar el fichero `.htpasswd`. Este fichero tiene una estructura en el que cada línea identifica a un posible usuario en la forma:
 
@@ -374,50 +485,39 @@ En primer lugar tendremos que generar el fichero `.htpasswd`. Este fichero tiene
 username:encrypted-password:comment
 ```
 
-Para generar nuestro *password* encriptado, podemos usar el lenguaje *perl* (que suele instalarse con el sistema base), utilizando el siguiente comando desde la *máquina de producción* como usuario `root`:
+Para generar nuestro *password* encriptado, podemos usar el lenguaje *perl* (que suele instalarse con el sistema base), utilizando el siguiente comando:
 
 ```console
-root@hillvalley:~# perl -le 'print crypt("restringido", "salt-hash")'
+sdelquin@cloud:~$ perl -le 'print crypt("restringido", "salt-hash")'
 saOQOMmS3k30w
-root@hillvalley:~#
+sdelquin@cloud:~$
 ```
 
-Lo que hemos hecho es encriptar el password `restringido`. Ahora podemos crear el fichero `.htpasswd`:
+Lo que hemos hecho es encriptar el password `restringido`. Ahora podemos crear el fichero `.htpasswd`. En este caso el nombre de usuario será `admin` y el password es el que hemos creado anteriormente:
 
 ```console
-root@hillvalley:~# cd /var/opt/
-root@hillvalley:/var/opt# mkdir admin
-root@hillvalley:/var/opt# vi .htpasswd
-```
-
-> Contenido
-```
-admin:saOQOMmS3k30w
+sdelquin@cloud:~/share$ echo "admin:saOQOMmS3k30w" > .htpasswd
+sdelquin@cloud:~/share$
 ```
 
 Ahora añadimos el *location* correspondiente a nuestra configuración de *Nginx*:
 
 ```console
-root@hillvalley:~# vi /etc/nginx/sites-enabled/hv
+sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/share
 ```
 
 > Contenido
 ```nginx
 server {
-    server_name hv;
-    ...
-    location /admin {
-        root /var/opt;
-        auth_basic "Administrator Login";
-        auth_basic_user_file /var/opt/admin/.htpasswd;
-        autoindex on;
-    }
-    ...
+    server_name share.imwpto.me;
+    root /home/sdelquin/share;
+    autoindex on;
+    auth_basic "Administrator Login";
+    auth_basic_user_file /home/sdelquin/share/.htpasswd;
 }
-...
 ```
 
-Recargamos la configuración de *Nginx* y probamos el acceso. Al acceder a la ruta `http://hv/admin` vemos que nos aparece un cuadro de diálogo preguntándonos por el usuario/clave:
+Recargamos la configuración de *Nginx* y probamos el acceso. Al acceder a la ruta `http://share.imwpto.me` vemos que nos aparece un cuadro de diálogo preguntándonos por el usuario/clave:
 
 ![](img/auth1.png)
 
@@ -429,34 +529,41 @@ Vemos que podemos acceder y se nos muestra el contenido del directorio, que ahor
 
 ![](img/auth3.png)
 
-Pero aún no hemos terminado la configuración. Si dejáramos el servidor tal cual, tendríamos un grave problema de seguridad, ya que podríamos acceder al fichero `.htpasswd` desde el navegador, simplemente accediendo a `http://hv/admin/.htpasswd`.
+### Denegando el acceso a determinadas carpetas
 
-Para evitar eso debemos añadir un par de líneas de configuración en el fichero de configuración del *virtual host*:
+Supongamos que queremos prohibir el acceso a la carpeta `private` dentro de `share`. Para ello podemos hacer uso de determinadas sentencias en el fichero de configuración del *virtual host*:
+
+Primero creamos la carpeta privada:
 
 ```console
-root@hillvalley:~# vi /etc/nginx/sites-enabled/hv
+sdelquin@cloud:~/share$ mkdir private
+sdelquin@cloud:~/share$ cd private/
+sdelquin@cloud:~/share/private$ cat /proc/cpuinfo > cpuinfo.txt
+sdelquin@cloud:~/share/private$
+```
+
+Ahora denegamos el acceso desde el fichero de configuración:
+
+```console
+sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/share
 ```
 
 > Contenido
-> ```nginx
-> server {
->     server_name hv;
->     ...
->     location /admin {
->         root /var/opt;
->         auth_basic "Administrator Login";
->         auth_basic_user_file /var/opt/admin/.htpasswd;
->         autoindex on;
-> 
->         location ~ .htpasswd {
->             deny all;
->         }
->     }
->     ...
-> }
-> ```
+```nginx
+server {
+    server_name share.imwpto.me;
+    root /home/sdelquin/share;
+    autoindex on;
+    auth_basic "Administrator Login";
+    auth_basic_user_file /home/sdelquin/share/.htpasswd;
 
-Si ahora recargamos la configuración de *Nginx* y queremos acceder al fichero de contraseñas, lo que obtenemos es un error *404*:
+    location ~ private {
+        deny all;
+    }
+}
+```
+
+Recargamos la configuración de *Nginx*. Ahora vemos que el acceso a la carpeta `private` no está permitido, obteniendo un error *403*:
 
 ![](img/auth4.png)
 
@@ -466,6 +573,30 @@ Es importante conocer la ubicación de los *logfiles* de *Nginx*. Por defecto, e
 
 * `/var/log/nginx/access.log`
 * `/var/log/nginx/error.log`
+
+### `access.log`
+
+```console
+sdelquin@cloud:~$ sudo tail -5 /var/log/nginx/access.log
+83.50.205.28 - admin [24/Sep/2017:15:08:28 +0000] "GET /private/ HTTP/1.1" 403 208 "http://share.imwpto.me/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"
+83.50.205.28 - admin [24/Sep/2017:15:08:31 +0000] "GET /ubuntu-logo-set-web-svg/ HTTP/1.1" 200 275 "http://share.imwpto.me/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"
+83.50.205.28 - admin [24/Sep/2017:15:08:48 +0000] "GET / HTTP/1.1" 200 217 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"
+83.50.205.28 - admin [24/Sep/2017:15:08:53 +0000] "GET /private/ HTTP/1.1" 403 208 "http://share.imwpto.me/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"
+83.50.205.28 - admin [24/Sep/2017:15:10:05 +0000] "GET /private/ HTTP/1.1" 403 208 "http://share.imwpto.me/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"
+sdelquin@cloud:~$
+```
+
+### `error.log`
+
+```console
+sdelquin@cloud:~$ sudo tail -5 /var/log/nginx/error.log
+2017/09/24 14:54:58 [notice] 17102#17102: signal process started
+2017/09/24 15:08:13 [notice] 17403#17403: signal process started
+2017/09/24 15:08:28 [error] 17407#17407: *293 access forbidden by rule, client: 83.50.205.28, server: share.imwpto.me, request: "GET /private/ HTTP/1.1", host: "share.imwpto.me", referrer: "http://share.imwpto.me/"
+2017/09/24 15:08:53 [error] 17407#17407: *294 access forbidden by rule, client: 83.50.205.28, server: share.imwpto.me, request: "GET /private/ HTTP/1.1", host: "share.imwpto.me", referrer: "http://share.imwpto.me/"
+2017/09/24 15:10:05 [error] 17407#17407: *296 access forbidden by rule, client: 83.50.205.28, server: share.imwpto.me, request: "GET /private/ HTTP/1.1", host: "share.imwpto.me", referrer: "http://share.imwpto.me/"
+sdelquin@cloud:~$
+```
 
 Además, para cada *virtual host* y/o para cada *location*, podemos definir *logfiles* propios. Para hacer esto habría que añadir las siguientes líneas a las secciones correspondientes:
 
@@ -482,7 +613,7 @@ server {
 
 Cuando queremos que nuestro sitio web use *SSL* (Secure Sockets Layer), necesitamos configurar el servidor web *Nignx* con certificados de seguridad, específicamente creados para nuestro dominio. El procedimiento que se debe seguir para esto se explica a continuación:
 
-![](img/SSL workflow.png)
+![](img/SSL_workflow.png)
 
 Por lo tanto, necesitamos contar con 4 ficheros, más un quinto que se genera a partir de otros dos. Los ficheros serían los siguientes:
 
@@ -494,16 +625,48 @@ Por lo tanto, necesitamos contar con 4 ficheros, más un quinto que se genera a 
 
 > Hoy en día, las entidades certificadoras facilitan la creación de todos estos ficheros, a través de sencillos asistentes. Una vez que obtengamos los citados ficheros, se suelen guardar en `/etc/ssl/`. Ejemplo: [DonDominio](http://dondominio.com)
 
-Vamos a configurar un *virtual host* para que use *SSL*. Imaginemos que nuestro dominio es `probandossl.com`.
+### Certificado SSL en Namecheap
 
-Lo primero que habría que hacer es generar los certificados, pero en vez de usar una entidad certificadora externa, vamos a generar unos certificados propios (sin validar). Desde la *máquina de producción*, y como `root` hacemos lo siguiente:
+Vamos a volver a utilizar nuestro [Student Developer Pack](https://education.github.com/pack/offers) para obtener un código de promoción SSL en *Namecheap*:
+
+![SSL Namecheap](img/SSL_Namecheap1.png) 
+
+Entramos en el sitio web de *Namecheap* y nos logeamos. A continuación vamos a:
+
+```
+Security -> SSL Certificates -> PositiveSSL
+```
+
+Aplicamos el código de promoción:
+
+![PromoCode SSL Namecheap](img/SSL_Namecheap2.png) 
+
+Nos quedaría de esta forma:
+
+![PromoCode SSL Namecheap](img/SSL_Namecheap3.png) 
+
+Ahora pulsamos en **Confirm Order**, y en la siguiente pantalla rellenamos la información de contacto. Pulsamos en **Continue** y en la última pantalla pusamos en **Pay Now**.
+
+Al terminar es posible que aparezca una encuesta. La pueden rellenar o cerrar el cuadro de diálogo.
+
+Una vez terminado el proceso de compra/adquisición, pulsamos en el botón **Manage**:
+
+![SSL Namecheap Manage](img/SSL_Namecheap4.png)
+
+Desde aquí, pulsamos en el botón *ACTIVATE*.
+
+### Activación del certificado SSL
+
+#### Obtención del Certificate Signing Request - CSR
+
+Ejecutamos el siguiente comando:
 
 ```console
-root@hillvalley:~# openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/server.key -out /etc/ssl/SSL.final.crt
+sdelquin@cloud:~$ openssl req -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr
 Generating a 2048 bit RSA private key
-................................................+++
-..+++
-writing new private key to '/etc/ssl/server.key'
+.....................................................+++
+.+++
+writing new private key to 'server.key'
 -----
 You are about to be asked to enter information that will be incorporated
 into your certificate request.
@@ -512,65 +675,157 @@ There are quite a few fields but you can leave some blank
 For some fields there will be a default value,
 If you enter '.', the field will be left blank.
 -----
-Country Name (2 letter code) [AU]:
-State or Province Name (full name) [Some-State]:
-Locality Name (eg, city) []:
-Organization Name (eg, company) [Internet Widgits Pty Ltd]:
-Organizational Unit Name (eg, section) []:
-Common Name (e.g. server FQDN or YOUR name) []:probandossl.com
-Email Address []:
-root@hillvalley:~#
+Country Name (2 letter code) [AU]:ES
+State or Province Name (full name) [Some-State]:Santa Cruz de Tenerife
+Locality Name (eg, city) []:Puerto de la Cruz
+Organization Name (eg, company) [Internet Widgits Pty Ltd]:IES Puerto de la Cruz
+Organizational Unit Name (eg, section) []:2ASIR
+Common Name (e.g. server FQDN or YOUR name) []:ssl.imwpto.me
+Email Address []:sdelquin@iespuertodelacruz.es
+
+Please enter the following 'extra' attributes
+to be sent with your certificate request
+A challenge password []:
+An optional company name []:
+sdelquin@cloud:~$ ls
+index.html  server.csr  server.key  share  webapps
+sdelquin@cloud:~$
 ```
 
-Parámetros del comando anterior:
+Con este comando ya hemos obtenido:
 
-- `req -x509`: generar un certificado auto firmado, en vez de generar una solicitud de firma de certificado.
-- `-nodes`: evita que se solicite un *passphrase* para el certificado.
-- `-days 365`: cantidad de días que se considera válido el certificado.
-- `-newkey rsa:2048`: crear un nuevo certificado y una nueva clave al mismo tiempo.
-- `-keyout`: dónde guardar el fichero de clave privada.
-- `-out`: dónde guardar el certificado generado.
+- `server.key`: clave privada.
+- `server.csr`: solicitud de firma de certificado de seguridad.
 
-El comando nos pide una serie de datos. El único campo que es importante (para estas pruebas) es `Common Name (e.g. server FQDN or YOUR name)`, donde tendremos que poner el nombre de dominio que vamos a utilizar. Cuando este comando finaliza ya tenemos a nuestra disposición los dos ficheros que nos van a permitir completar el fichero de configuración de nuestro *virtual host* en el servidor *Nginx*:
+#### Activar PositiveSSL
+
+![SSL Namecheap Manage](img/PositiveSSL1.png)
+
+- En el campo **Enter CSR** pondremos el contenido del fichero `server.csr`.
+- El campo **Primary Domain** se debería rellenar automáticamente con `ssl.aluXXXX.me`
+- En el campo **Server Type** pondremos `Apache, Nginx, cPanel or other`.
+
+![SSL Namecheap Manage](img/PositiveSSL2.png)
+
+Pulsamos en **Submit** y después de comprobar los datos, pulsamos en **Next**:
+
+![SSL Namecheap Manage](img/PositiveSSL3.png)
+
+En el campo **DCV Method** hay que seleccionar `HTTP-based`. Pulsamos en el botón **Next**
+
+![SSL Namecheap Manage](img/PositiveSSL4.png)
+
+En esta pantalla, sólo hay que rellenar los siguientes campos:
+
+- Company Name
+- Address
+- City
+- State/Province
+- ZIP/Postal Code
+- Country
+- Email Address
+
+Pulsamos en **Next** y llegamos a la última pantalla. Ahí pulsamos en **Confirm**.
+
+![SSL Namecheap Manage](img/PositiveSSL5.png)
+
+En esta pantalla pulsamos en `go to Certificate Details page`:
+
+![SSL Namecheap Manage](img/PositiveSSL6.png)
+
+En la siguiente pantalla, desplegamos **EDIT METHODS** y pulsamos en **Download File**.
+
+![SSL Namecheap Manage](img/DCV_SSL1.png)
+
+En la siguiente pantalla, pulsamos en **DOWNLOAD FILE**:
+
+![SSL Namecheap Manage](img/DCV_SSL2.png)
+
+Se nos habrá descargado un fichero con un nombre bastante largo `FB5E7003F04FC4FD5458B99CF87796CA.txt`. Este fichero tendremos que subirlo a la máquina de producción, en concreto a la ruta: `/var/www/html/.well-known/pki-validation`.
+
+Una vez hecho esto, volvemos a la gestión del certificado SSL y pulsamos en **Edit methods**:
+
+![SSL Namecheap Manage](img/DCV_SSL3.png)
+
+Desde ahí, pulsamos en **Save changes / Retry Alt DCV**:
+
+![SSL Namecheap Manage](img/DCV_SSL4.png)
+
+Por último pulsamos en **DONE**.
+
+### Emisión del certificado SSL
+
+Pasados unos minutos deberíamos recibir dos correos con la notificación de que el certificado SSL se ha emitido satisfactoriamente.
+
+En uno de los correos tendremos el fichero adjunto `ssl_imwpto_me.zip`. Desde la *máquina de desarrollo* haremos lo siguiente:
 
 ```console
-root@hillvalley:~# vi /etc/nginx/sites-available/probandossl
+sdelquin@imw:~$ ls
+ssl_imwpto_me.zip
+sdelquin@imw:~$ unzip ssl_imwpto_me.zip
+Archive:  ssl_imwpto_me.zip
+  inflating: ssl_imwpto_me.crt
+  inflating: ssl_imwpto_me.ca-bundle
+  inflating: ssl_imwpto_me.p7b
+sdelquin@imw:~$ ls
+ssl_imwpto_me.ca-bundle  ssl_imwpto_me.crt  ssl_imwpto_me.p7b  ssl_imwpto_me.zip
+sdelquin@imw:~$ cat ssl_imwpto_me.crt ssl_imwpto_me.ca-bundle >> SSL.final.crt
+sdelquin@imw:~$ scp SSL.final.crt cloud:
+SSL.final.crt                                                   100% 7529     7.4KB/s   00:00
+sdelquin@imw:~$
+```
+
+En este caso, los ficheros análogos al [diagrama](#configurando-ssl) serían:
+
+- `ssl_imwpto_me.crt` ~ `SSL.crt`
+- `sl_imwpto_me.ca-bundle` ~ `intermediate.crt`
+
+Ahora, desde la *máquina de producción* haremos lo siguiente:
+
+```console
+sdelquin@cloud:~$ ls
+index.html  server.csr  server.key  share  SSL.final.crt  webapps
+sdelquin@cloud:~$ sudo mv server.csr /etc/ssl/certs/ssl.imwpto.me.csr
+[sudo] password for sdelquin:
+sdelquin@cloud:~$ sudo mv server.key /etc/ssl/certs/ssl.imwpto.me.key
+sdelquin@cloud:~$ sudo mv SSL.final.crt /etc/ssl/certs/ssl.imwpto.me.crt
+sdelquin@cloud:~$ cd /etc/ssl/certs/
+sdelquin@cloud:/etc/ssl/certs$ sudo chown root:root ssl.imwpto.me.*
+sdelquin@cloud:/etc/ssl/certs$ sudo chmod 755 ssl.imwpto.me.*
+sdelquin@cloud:/etc/ssl/certs$ ls -l ssl.imwpto.me.*
+-rwxr-xr-x 1 root root 7529 sep 24 22:09 ssl.imwpto.me.crt
+-rwxr-xr-x 1 root root 1127 sep 24 15:59 ssl.imwpto.me.csr
+-rwxr-xr-x 1 root root 1704 sep 24 15:59 ssl.imwpto.me.key
+sdelquin@cloud:/etc/ssl/certs$
+```
+
+### Configurando el virtual host para certificado SSL
+
+```console
+sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/ssl
 ```
 
 > Contenido
-> ```nginx
-> server {
->     listen 443;
->     server_name probandossl.com;
->     root /var/www/html/probandossl;
-> 
->     ssl on;
->     ssl_certificate /etc/ssl/SSL.final.crt;
->     ssl_certificate_key /etc/ssl/server.key;
-> }
-> ```
+```nginx
+server {
+    listen 443;
+    server_name ssl.imwpto.me;
+
+    ssl on;
+    ssl_certificate /etc/ssl/certs/ssl.imwpto.me.crt;
+    ssl_certificate_key /etc/ssl/certs/ssl.imwpto.me.key;
+}
+```
 
 Ya sólo nos quedaría enlazar este *virtual host* en `sites-enabled`, y recargar la configuración de *Nginx* para que los cambios surtan efecto.
 
 Cuando accedemos a nuestro *virtual host* desde un navegador, vemos lo siguiente:
 
-![](img/ssl1.png)
+![](img/ssl_access.png)
 
-Si pulsamos en *OPCIONES AVANZADAS* -> *Acceder a probandossl.com (sitio no seguro)*
+Si pulsamos botón derecho sobre la página y luego `Inspeccionar -> Security -> View certificate`, podemos comprobar la autenticidad del certificado y su información asociada:
 
-![](img/ssl2.png)
-
-Conseguimos acceder a la web que hemos preparado, y se nos muestra el contenido del `index.html` que se haya definido en el lugar correspondiente.
-
-![](img/ssl3.png)
-
-Si miramos el certificado de la página, podemos ver 3 cuestiones importantes:
-
-1. Hay un error con el certificado, porque la *autoridad certificadora* es inválida.
-2. La conexión es *TLS* (seguridad en la capa de transporte) con cifrado.
-3. Todos los recursos de la página se sirven de forma segura.
-
-![](img/ssl4.png)
+![](img/ssl_certificate_info.png)
 
 ## Redirecciones
 

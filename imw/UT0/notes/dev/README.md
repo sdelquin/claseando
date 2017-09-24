@@ -1,6 +1,8 @@
 # Máquina de desarrollo
 
-Para trabajar en esta asignatura necesitaremos dos máquinas: **máquina de desarrollo** y **máquina de producción**.
+Para trabajar en esta asignatura necesitaremos dos máquinas: **máquina de desarrollo** y **máquina de producción**:
+
+![Machines Diagram](img/machines_diagram.png) 
 
 ## Instalación
 

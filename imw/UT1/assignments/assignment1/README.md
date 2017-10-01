@@ -18,6 +18,7 @@ Los requerimientos son los siguientes:
 
 - Añadir iconos de [Font Awesome](http://fontawesome.io/)
 - Añadir fondo de [Subtle Patterns](https://www.toptal.com/designers/subtlepatterns/) 
+- Añadir portadas de las series.
 
 ## Información a entregar
 

@@ -240,18 +240,20 @@ Podríamos decir que Nginx dispone de dos ficheros destacados de configuración:
 
 Cada vez que queramos incluir un nuevo *virtual host*, debemos incluir un fichero en la ruta `/etc/nginx/sites-available` y luego enlazar dicho fichero desde la ruta `/etc/nginx/sites-enabled`.
 
-Supongamos que queremos mostrar una página web que hemos creado en la carpeta *home* del usuario *sdelquin*. Además queremos que se muestre esa página cuando se acceda en el navegador a la *url* `http://sdelquin.imwpto.me/`.
+### `hello.imwpto.me`
 
-Añadimos el fichero de configuración de *Nginx* que tratará las peticiones que se hagan al nombre de dominio `sdelquin.imwpto.me`:
+Supongamos que queremos mostrar una página web que hemos creado en la carpeta *home* del usuario *sdelquin*. Además queremos que se muestre esa página cuando se acceda en el navegador a la *url* `http://hello.imwpto.me/`.
+
+Añadimos el fichero de configuración de *Nginx* que tratará las peticiones que se hagan al nombre de dominio `hello.imwpto.me`:
 
 ```console
-sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/sdelquin
+sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/hello
 ```
 
 > Contenido
 ```nginx
 server {
-    server_name sdelquin.imwpto.me;
+    server_name hello.imwpto.me;
     root /home/sdelquin;
 }
 ```
@@ -260,11 +262,11 @@ A continuación tenemos que enlazar el fichero que hemos creado para que esté d
 
 ```console
 sdelquin@cloud:~$ cd /etc/nginx/sites-enabled/
-sdelquin@cloud:/etc/nginx/sites-enabled$ sudo ln -s ../sites-available/sdelquin
-sdelquin@cloud:/etc/nginx/sites-enabled$ ls -l ../sites-available/
-total 8
--rw-r--r-- 1 root root 2074 feb 11  2017 default
--rw-r--r-- 1 root root   36 sep 21 15:20 sdelquin
+sdelquin@cloud:/etc/nginx/sites-enabled$ sudo ln -s ../sites-available/hello
+sdelquin@cloud:/etc/nginx/sites-enabled$ ls -l
+total 0
+lrwxrwxrwx 1 root root 34 sep 21 15:09 default -> /etc/nginx/sites-available/default
+lrwxrwxrwx 1 root root 27 sep 21 15:22 hello -> ../sites-available/hello
 sdelquin@cloud:/etc/nginx/sites-enabled$
 ```
 
@@ -294,16 +296,18 @@ Si ahora accedemos desde un navegador, deberíamos ver lo siguiente:
 
 ![](img/virtual_server.png)
 
-Supongamos que ahora queremos, que cuando se acceda a `http://sdelquin.imwpto.me/blog/`, nos muestre la web que vamos a diseñar en el directorio `/home/sdelquin/webapps/blog`. Dado que se trata de un *location* dentro de un *virtual host*, tendremos que utilizar la siguiente directiva:
+### `hello.imwpto.me/blog/`
+
+Supongamos que ahora queremos, que cuando se acceda a `http://hello.imwpto.me/blog/`, nos muestre la web que vamos a diseñar en el directorio `/home/sdelquin/webapps/blog`. Dado que se trata de un *location* dentro de un *virtual host*, tendremos que utilizar la siguiente directiva:
 
 ```console
-sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/sdelquin
+sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/hello
 ```
 
 > Contenido
 ```nginx
 server {
-    server_name sdelquin.imwpto.me;
+    server_name hello.imwpto.me;
     root /home/sdelquin;
     
     location /blog {

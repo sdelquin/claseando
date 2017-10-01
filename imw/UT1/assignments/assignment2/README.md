@@ -4,7 +4,7 @@ La actividad consiste en permitir el acceso al contenido de un subdirectorio den
 
 Los requerimientos son los siguientes:
 
-1. Se debe acceder al listado al entrar en **http://aluXXXX/shared/**
+1. Se debe acceder al listado al entrar en **http://aluXXXX.me/shared/**
 2. El listado debe contener los siguientes ficheros:
     - `/boot/initrd.img-4.4.0-9` (imagen del kernel)
     - `/etc/resolv.conf` (listado de DNS)
@@ -17,6 +17,6 @@ Los requerimientos son los siguientes:
 
 ![](img/sample.png)
 
-## Fichero a entregar
+## Información a entregar
 
-El fichero a entregar será un informe en formato *PDF*, donde expliques lo que has hecho, justificando tus decisiones.
+Se deberá subir la *url* al repositorio privado *GitHub* de la asignatura *IMW*, apuntando al `README.md` que contiene un informe detallado de la actividad, donde expliques lo que has hecho, justificando tus decisiones.

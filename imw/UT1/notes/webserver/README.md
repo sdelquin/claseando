@@ -475,7 +475,11 @@ sdelquin@cloud:~$
 
 Al acceder al dominio, vemos que podemos *"navegar"* por la carpeta:
 
-![Nginx Autoindex](img/nginx_autoindex.png) 
+![Nginx Autoindex](img/nginx_autoindex.png)
+
+Podemos ver el contenido de esta carpeta:
+
+![Nginx Autoindex](img/nginx_autoindex_list.png)
 
 ## Acceso restringido con clave
 
@@ -857,8 +861,43 @@ server {
 }
 ```
 
+Nótese las variables especiales que se usan en estas configuraciones:
+
+- `$host`: **nombre** de *dominio* al que estamos accediendo.
+-  `$request_uri`: **ruta** de la *url* a la que estamos accediendo.
+
+### Trabajando siempre con SSL
+
+Vamos a ver cómo configuramos una redirección que nos lleve siempre a `https://ssl.imwpto.me`:
+
+```console
+sdelquin@cloud:/etc/nginx/sites-enabled$ cd
+sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/ssl
+```
+
+> Contenido
+```nginx
+server {
+    listen 80;
+    server_name ssl.imwpto.me;
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443;
+    server_name ssl.imwpto.me;
+
+    ssl on;
+    ssl_certificate /etc/ssl/certs/SSL.final.crt;
+    ssl_certificate_key /etc/ssl/certs/server.key;
+}
+```
+
+De esta manera, siempre que accedamos a `http://ssl.imwpto.me` se nos hará una redirección a `https://ssl.imwpto.me`.
+
 ## Variables
 
 *Nginx* dispone de multitud de **variables de configuración** que podemos usar según nos convengan, dentro de nuestros *virtual hosts*.
 
 [Variables de configuración](http://nginx.org/en/docs/varindex.html)
+  

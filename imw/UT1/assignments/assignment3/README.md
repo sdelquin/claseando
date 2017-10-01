@@ -4,40 +4,41 @@ La actividad consiste en configurar 4 sitios web (*virtual hosts*) en nuestro se
 
 ## Sitio web 1
 
-- `http://imw.aula108.local`
+- `http://imw.aluXXXX.me`
     - Debe mostrar una página con la imagen de "Diagrama de unidades de trabajo" de *IMW* (ver *moodle* de la asignatura).
     - La imagen no debe ser enlazada en remoto, sino se debe descargar al directorio de trabajo en la máquina de producción, y luego usar un tag `<img>` apuntando a la ruta local.
-- `http://imw.aula108.local/mec/`
+- `http://imw.aluXXXX.me/mec/`
     - Debe mostrar una página con un enlace al Real decreto del título de Administración de Sistemas Informáticos en Red - MEC (ver *moodle* de la asignatura).
 
 ## Sitio web 2
 
-- `http://lib.local:9000`
-- Debe mostrar el listado de ficheros y directorios de `/var/lib`
+- `http://varlib.aluXXXX.me:9000`
+- Debe mostrar el listado de ficheros y directorios de `/var/lib` de la máquina de producción.
 
 ## Sitio web 3
 
-- `https://locked.local` (ojo, es *https!*)
+- `https://ssl.aluXXX.me/students/` (ojo, es *https!*)
 - Debe pedir usuario/clave. Los datos son:
     - USUARIO: `usuario1`
     - CLAVE: `aula108`
-- Debe mostrar una página web con el nombre de todos los alumnos/as de clase.
-- Se debe prohibir el acceso al fichero `.htpasswd`
+- Debe mostrar una página web con el nombre de todo el alumnado de clase.
+- Se debe prohibir explícitamente el acceso al fichero `.htpasswd`
 
 ## Sitio web 4
 
-- `http://www.redirect.local`
-- Se debe redirigir cualquier petición de este dominio a `http://redirect.local`
-    + `http://www.redirect.local/probando` -> `http://redirect.local`
-    + `http://www.redirect.local/hola` -> `http://redirect.local`  
+- `http://redirect.aluXXXX.me`
+- Se debe redirigir cualquier petición de este dominio a `http://target.aluXXXX.me`
+    + `http://redirect.aluXXXX.me/test/` -> `http://target.aluXXXX.me`
+    + `http://www.redirect.aluXXXX.me/probando/` -> `http://target.aluXXXX.me`
+    + `http://www.redirect.aluXXXX.me/hola/` -> `http://target.aluXXXX.me`  
     ...
-- Al acceder a `http://redirect.local` se debe mostrar la página web siguiente [initializr.zip](https://dl.dropboxusercontent.com/u/3285051/imw/initializr.zip)
-    + Para copiar y descomprimir el fichero `initializr.zip` se recomienda usar alguna de las siguientes herramientas: `wget`, `scp`, `unzip`.
+- Al acceder a `http://target.aluXXXX.me` se debe mostrar la página web siguiente [initializr-verekia-4.0.zip](initializr-verekia-4.0.zip).
+    + Para copiar y descomprimir el fichero `initializr.zip` se recomienda usar alguna de las siguientes herramientas: `curl`, `wget`, `scp`, `unzip`.
 
 - Los *logfiles* deben ser:
     + `/var/log/nginx/redirect/access.log`
     + `/var/log/nginx/redirect/error.log`
 
-## Fichero a entregar
+## Información a entregar
 
-El fichero a entregar será un informe en formato *PDF*, donde expliques lo que has hecho, justificando tus decisiones.
+Se deberá subir la *url* al repositorio privado *GitHub* de la asignatura *IMW*, apuntando al `README.md` que contiene un informe detallado de la actividad, donde expliques lo que has hecho, justificando tus decisiones.

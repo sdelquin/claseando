@@ -1,147 +1,176 @@
 # Configuración de PHP
 
-**PHP** es un lenguaje de programación, ampliamente utilizado en la generación de contenido web.
+**PHP** es un lenguaje de programación, ampliamente utilizado en la creación de contenido web.
+
+![PHP Logo](img/php_logo.png) 
 
 ## Instalación
 
 Aunque ya hemos instalado [el servidor web Nginx](../webserver), necesitamos un módulo adicional que procese el lenguaje PHP.
 
-Existen varios módulos de tratamiento de PHP, pero el más usado es `php-fpm`. Para su instalación usaremos el paquete `php5-fpm` disponible en los repositorios de *apt*:
+Existen varios módulos de tratamiento de PHP, pero el más usado es `php-fpm`. Para su instalación usaremos el paquete `php-fpm` disponible en los repositorios de *apt*:
 
 ```console
-root@hillvalley:~# apt-get install php5-fpm
+sdelquin@cloud:~$ sudo apt-get install php-fpm
 Leyendo lista de paquetes... Hecho
 Creando árbol de dependencias
 Leyendo la información de estado... Hecho
-Se instalarán los siguientes paquetes extras:
-  libapparmor1 libonig2 libqdbm14 php5-cli php5-common php5-json php5-readline
+Se instalarán los siguientes paquetes adicionales:
+  php-common php7.0-cli php7.0-common php7.0-fpm php7.0-json php7.0-opcache php7.0-readline
 Paquetes sugeridos:
-  php-pear php5-user-cache
+  php-pear
 Se instalarán los siguientes paquetes NUEVOS:
-  libapparmor1 libonig2 libqdbm14 php5-cli php5-common php5-fpm php5-json php5-readline
-0 actualizados, 8 nuevos se instalarán, 0 para eliminar y 0 no actualizados.
-Se necesita descargar 5.441 kB de archivos.
-Se utilizarán 20,4 MB de espacio de disco adicional después de esta operación.
+  php-common php-fpm php7.0-cli php7.0-common php7.0-fpm php7.0-json php7.0-opcache php7.0-readline
+0 actualizados, 8 nuevos se instalarán, 0 para eliminar y 22 no actualizados.
+Se necesita descargar 3.543 kB de archivos.
+Se utilizarán 14,1 MB de espacio de disco adicional después de esta operación.
 ¿Desea continuar? [S/n]
-Des:1 http://ftp.es.debian.org/debian/ jessie/main libonig2 amd64 5.9.5-3.2 [118 kB]
-Des:2 http://ftp.es.debian.org/debian/ jessie/main libqdbm14 amd64 1.8.78-5+b1 [118 kB]
-Des:3 http://ftp.es.debian.org/debian/ jessie/main php5-json amd64 1.3.6-1 [18,6 kB]
-Des:4 http://ftp.es.debian.org/debian/ jessie/main libapparmor1 amd64 2.9.0-3 [60,3 kB]
-Des:5 http://security.debian.org/ jessie/updates/main php5-common amd64 5.6.24+dfsg-0+deb8u1 [725 kB]
-Des:6 http://security.debian.org/ jessie/updates/main php5-cli amd64 5.6.24+dfsg-0+deb8u1 [2.187 kB]
-Des:7 http://security.debian.org/ jessie/updates/main php5-fpm amd64 5.6.24+dfsg-0+deb8u1 [2.201 kB]
-Des:8 http://security.debian.org/ jessie/updates/main php5-readline amd64 5.6.24+dfsg-0+deb8u1 [12,7 kB]
-Descargados 5.441 kB en 6s (901 kB/s)
-Seleccionando el paquete libonig2:amd64 previamente no seleccionado.
-(Leyendo la base de datos ... 33832 ficheros o directorios instalados actualmente.)
-Preparando para desempaquetar .../libonig2_5.9.5-3.2_amd64.deb ...
-Desempaquetando libonig2:amd64 (5.9.5-3.2) ...
-Seleccionando el paquete libqdbm14 previamente no seleccionado.
-Preparando para desempaquetar .../libqdbm14_1.8.78-5+b1_amd64.deb ...
-Desempaquetando libqdbm14 (1.8.78-5+b1) ...
-Seleccionando el paquete php5-common previamente no seleccionado.
-Preparando para desempaquetar .../php5-common_5.6.24+dfsg-0+deb8u1_amd64.deb ...
-Desempaquetando php5-common (5.6.24+dfsg-0+deb8u1) ...
-Seleccionando el paquete php5-json previamente no seleccionado.
-Preparando para desempaquetar .../php5-json_1.3.6-1_amd64.deb ...
-Desempaquetando php5-json (1.3.6-1) ...
-Seleccionando el paquete php5-cli previamente no seleccionado.
-Preparando para desempaquetar .../php5-cli_5.6.24+dfsg-0+deb8u1_amd64.deb ...
-Desempaquetando php5-cli (5.6.24+dfsg-0+deb8u1) ...
-Seleccionando el paquete libapparmor1:amd64 previamente no seleccionado.
-Preparando para desempaquetar .../libapparmor1_2.9.0-3_amd64.deb ...
-Desempaquetando libapparmor1:amd64 (2.9.0-3) ...
-Seleccionando el paquete php5-fpm previamente no seleccionado.
-Preparando para desempaquetar .../php5-fpm_5.6.24+dfsg-0+deb8u1_amd64.deb ...
-Desempaquetando php5-fpm (5.6.24+dfsg-0+deb8u1) ...
-Seleccionando el paquete php5-readline previamente no seleccionado.
-Preparando para desempaquetar .../php5-readline_5.6.24+dfsg-0+deb8u1_amd64.deb ...
-Desempaquetando php5-readline (5.6.24+dfsg-0+deb8u1) ...
-Procesando disparadores para man-db (2.7.0.2-5) ...
-Procesando disparadores para systemd (215-17+deb8u4) ...
-Configurando libonig2:amd64 (5.9.5-3.2) ...
-Configurando libqdbm14 (1.8.78-5+b1) ...
-Configurando php5-common (5.6.24+dfsg-0+deb8u1) ...
+Des:1 http://ams2.mirrors.digitalocean.com/ubuntu xenial/main amd64 php-common all 1:35ubuntu6 [10,8 kB]
+Des:2 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 php7.0-common amd64 7.0.22-0ubuntu0.16.04.1 [843 kB]
+Des:3 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 php7.0-json amd64 7.0.22-0ubuntu0.16.04.1 [16,9 kB]
+Des:4 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 php7.0-opcache amd64 7.0.22-0ubuntu0.16.04.1 [77,1 kB]
+Des:5 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 php7.0-readline amd64 7.0.22-0ubuntu0.16.04.1 [12,8 kB]
+Des:6 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 php7.0-cli amd64 7.0.22-0ubuntu0.16.04.1 [1.287 kB]
+Des:7 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/universe amd64 php7.0-fpm amd64 7.0.22-0ubuntu0.16.04.1 [1.293 kB]
+Des:8 http://ams2.mirrors.digitalocean.com/ubuntu xenial/universe amd64 php-fpm all 1:7.0+35ubuntu6 [2.926 B]
+Descargados 3.543 kB en 1s (2.323 kB/s)
+Seleccionando el paquete php-common previamente no seleccionado.
+(Leyendo la base de datos ... 86141 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../php-common_1%3a35ubuntu6_all.deb ...
+Desempaquetando php-common (1:35ubuntu6) ...
+Seleccionando el paquete php7.0-common previamente no seleccionado.
+Preparando para desempaquetar .../php7.0-common_7.0.22-0ubuntu0.16.04.1_amd64.deb ...
+Desempaquetando php7.0-common (7.0.22-0ubuntu0.16.04.1) ...
+Seleccionando el paquete php7.0-json previamente no seleccionado.
+Preparando para desempaquetar .../php7.0-json_7.0.22-0ubuntu0.16.04.1_amd64.deb ...
+Desempaquetando php7.0-json (7.0.22-0ubuntu0.16.04.1) ...
+Seleccionando el paquete php7.0-opcache previamente no seleccionado.
+Preparando para desempaquetar .../php7.0-opcache_7.0.22-0ubuntu0.16.04.1_amd64.deb ...
+Desempaquetando php7.0-opcache (7.0.22-0ubuntu0.16.04.1) ...
+Seleccionando el paquete php7.0-readline previamente no seleccionado.
+Preparando para desempaquetar .../php7.0-readline_7.0.22-0ubuntu0.16.04.1_amd64.deb ...
+Desempaquetando php7.0-readline (7.0.22-0ubuntu0.16.04.1) ...
+Seleccionando el paquete php7.0-cli previamente no seleccionado.
+Preparando para desempaquetar .../php7.0-cli_7.0.22-0ubuntu0.16.04.1_amd64.deb ...
+Desempaquetando php7.0-cli (7.0.22-0ubuntu0.16.04.1) ...
+Seleccionando el paquete php7.0-fpm previamente no seleccionado.
+Preparando para desempaquetar .../php7.0-fpm_7.0.22-0ubuntu0.16.04.1_amd64.deb ...
+Desempaquetando php7.0-fpm (7.0.22-0ubuntu0.16.04.1) ...
+Seleccionando el paquete php-fpm previamente no seleccionado.
+Preparando para desempaquetar .../php-fpm_1%3a7.0+35ubuntu6_all.deb ...
+Desempaquetando php-fpm (1:7.0+35ubuntu6) ...
+Procesando disparadores para man-db (2.7.5-1) ...
+Procesando disparadores para ureadahead (0.100.0-19) ...
+Procesando disparadores para systemd (229-4ubuntu19) ...
+Configurando php-common (1:35ubuntu6) ...
+Configurando php7.0-common (7.0.22-0ubuntu0.16.04.1) ...
 
-Creating config file /etc/php5/mods-available/pdo.ini with new version
-php5_invoke: Enable module pdo for cli SAPI
-php5_invoke: Enable module pdo for fpm SAPI
+Creating config file /etc/php/7.0/mods-available/calendar.ini with new version
 
-Creating config file /etc/php5/mods-available/opcache.ini with new version
-php5_invoke: Enable module opcache for cli SAPI
-php5_invoke: Enable module opcache for fpm SAPI
-Configurando php5-json (1.3.6-1) ...
-php5_invoke: Enable module json for cli SAPI
-php5_invoke: Enable module json for fpm SAPI
-Configurando php5-cli (5.6.24+dfsg-0+deb8u1) ...
-update-alternatives: utilizando /usr/bin/php5 para proveer /usr/bin/php (php) en modo automático
-update-alternatives: utilizando /usr/bin/phar5 para proveer /usr/bin/phar (phar) en modo automático
+Creating config file /etc/php/7.0/mods-available/ctype.ini with new version
 
-Creating config file /etc/php5/cli/php.ini with new version
-Configurando libapparmor1:amd64 (2.9.0-3) ...
-Configurando php5-fpm (5.6.24+dfsg-0+deb8u1) ...
+Creating config file /etc/php/7.0/mods-available/exif.ini with new version
 
-Creating config file /etc/php5/fpm/php.ini with new version
-Configurando php5-readline (5.6.24+dfsg-0+deb8u1) ...
+Creating config file /etc/php/7.0/mods-available/fileinfo.ini with new version
 
-Creating config file /etc/php5/mods-available/readline.ini with new version
-php5_invoke: Enable module readline for cli SAPI
-php5_invoke: Enable module readline for fpm SAPI
-Procesando disparadores para libc-bin (2.19-18+deb8u4) ...
-Procesando disparadores para systemd (215-17+deb8u4) ...
-Procesando disparadores para php5-fpm (5.6.24+dfsg-0+deb8u1) ...
-root@hillvalley:~#
+Creating config file /etc/php/7.0/mods-available/ftp.ini with new version
+
+Creating config file /etc/php/7.0/mods-available/gettext.ini with new version
+
+Creating config file /etc/php/7.0/mods-available/iconv.ini with new version
+
+Creating config file /etc/php/7.0/mods-available/pdo.ini with new version
+
+Creating config file /etc/php/7.0/mods-available/phar.ini with new version
+
+Creating config file /etc/php/7.0/mods-available/posix.ini with new version
+
+Creating config file /etc/php/7.0/mods-available/shmop.ini with new version
+
+Creating config file /etc/php/7.0/mods-available/sockets.ini with new version
+
+Creating config file /etc/php/7.0/mods-available/sysvmsg.ini with new version
+
+Creating config file /etc/php/7.0/mods-available/sysvsem.ini with new version
+
+Creating config file /etc/php/7.0/mods-available/sysvshm.ini with new version
+
+Creating config file /etc/php/7.0/mods-available/tokenizer.ini with new version
+Configurando php7.0-json (7.0.22-0ubuntu0.16.04.1) ...
+
+Creating config file /etc/php/7.0/mods-available/json.ini with new version
+Configurando php7.0-opcache (7.0.22-0ubuntu0.16.04.1) ...
+
+Creating config file /etc/php/7.0/mods-available/opcache.ini with new version
+Configurando php7.0-readline (7.0.22-0ubuntu0.16.04.1) ...
+
+Creating config file /etc/php/7.0/mods-available/readline.ini with new version
+Configurando php7.0-cli (7.0.22-0ubuntu0.16.04.1) ...
+update-alternatives: utilizando /usr/bin/php7.0 para proveer /usr/bin/php (php) en modo automático
+update-alternatives: utilizando /usr/bin/phar7.0 para proveer /usr/bin/phar (phar) en modo automático
+update-alternatives: utilizando /usr/bin/phar.phar7.0 para proveer /usr/bin/phar.phar (phar.phar) en modo automático
+
+Creating config file /etc/php/7.0/cli/php.ini with new version
+Configurando php7.0-fpm (7.0.22-0ubuntu0.16.04.1) ...
+
+Creating config file /etc/php/7.0/fpm/php.ini with new version
+Configurando php-fpm (1:7.0+35ubuntu6) ...
+Procesando disparadores para systemd (229-4ubuntu19) ...
+Procesando disparadores para ureadahead (0.100.0-19) ...
+sdelquin@cloud:~$
 ```
 
 ## Configuración
 
-A continuación tenemos que indicarle al servidor web, en este caso **Nginx**, que debe utilizar el módulo `php5-fpm` cuando vaya a manejar ficheros `.php`.
+A continuación tenemos que indicarle al servidor web, en este caso **Nginx**, que debe utilizar el módulo `php-fpm` cuando vaya a manejar ficheros `.php`.
 
 El fichero de configuración de **Nginx** está en `/etc/nginx/nginx.conf`. A su vez, existen una serie de ficheros adicionales de configuración colgando de `/etc/nginx/sites-available`. En concreto, debemos editar el fichero de configuración general `/etc/nginx/sites-available/default`:
 
 ```console
-root@hillvalley:~# vi /etc/nginx/sites-available/default
+sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/default
 ```
 
 Buscamos la sección de **PHP**:
 
 ```nginx
-    # Add index.php to the list if you are using PHP
-    index index.html index.htm index.nginx-debian.html;
-    ...
-    #location ~ \.php$ {
-    # include snippets/fastcgi-php.conf;
-    #
-    # # With php5-cgi alone:
-    # fastcgi_pass 127.0.0.1:9000;
-    # # With php5-fpm:
-    # fastcgi_pass unix:/var/run/php5-fpm.sock;
-    #}
+38     # Add index.php to the list if you are using PHP
+39     index index.html index.htm index.nginx-debian.html;
+       ...
+       ...
+       ...
+52     #location ~ \.php$ {
+53     #   include snippets/fastcgi-php.conf;
+54     #
+55     #   # With php7.0-cgi alone:
+56     #   fastcgi_pass 127.0.0.1:9000;
+57     #   # With php7.0-fpm:
+58     #   fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+59     #}
 ```
 
 Añadimos `index.php` como posible fichero de inicio y descomentamos las líneas que nos interesan, con lo que quedaría así:
 
 ```nginx
-    # Add index.php to the list if you are using PHP
-    index index.html index.htm index.nginx-debian.html index.php;
-    ...
-    location ~ \.php$ {
-      try_files $uri =404;
-      include snippets/fastcgi-php.conf;
-    #
-    # # With php5-cgi alone:
-    # fastcgi_pass 127.0.0.1:9000;
-    # # With php5-fpm:
-      fastcgi_pass unix:/var/run/php5-fpm.sock;
-    }
+# Add index.php to the list if you are using PHP
+index index.html index.htm index.nginx-debian.html index.php;
+...
+...
+...
+location ~ \.php$ {
+    include snippets/fastcgi-php.conf;
+
+#   # With php7.0-cgi alone:
+#   fastcgi_pass 127.0.0.1:9000;
+#   # With php7.0-fpm:
+    fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+}
 ```
 
 Ya sólo nos falta recargar el servidor web:
 
 ```console
-root@hillvalley:~# /etc/init.d/nginx reload
-[ ok ] Reloading nginx configuration (via systemctl): nginx.service.
-root@hillvalley:~#
+sdelquin@cloud:~$ sudo systemctl reload nginx
+sdelquin@cloud:~$
 ```
 
 ## Comprobación de funcionamiento
@@ -151,7 +180,7 @@ Si queremos saber el *document root* del servidor web **Nginx**, podemos ver el 
 Por tanto, vamos a crear un fichero sencillo en *php* en dicho directorio, para comprobar el funcionamiento:
 
 ```console
-root@hillvalley:~# vi /var/www/html/test.php
+sdelquin@cloud:~$ sudo vi /var/www/html/test.php
 ```
 
 > Contenido:

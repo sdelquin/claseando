@@ -303,6 +303,7 @@ syntax on
 set bg=dark
 set ai
 set expandtab
+set paste
 ```
 
 ## Problemas comunes

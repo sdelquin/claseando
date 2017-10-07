@@ -2,6 +2,18 @@
 
 Vamos a intentar tener una máquina en producción a través de los servicios ofrecidos por [Digital Ocean](https://www.digitalocean.com/) . Para ello, vamos a tratar de conseguir crédito solicitando el *Student Developer Pack* de *GitHub*.
 
+## VPN
+
+Dado que todos salimos a internet por la *misma IP pública*, es posible que seamos *baneados* por los servicios que vamos a utilizar, ya que hay demasiados accesos simultáneos, y se podría pensar que somos *robots*. Para solucionar esto, vamos a hacer uso de **VPN**, que crea un túnel para que podamos salir por *otra IP pública*.
+
+Existen múltiples sitios para túneles VPN. Una posibilidad es `TunnelBear`. Instrucciones:
+
+- [Registro en el servicio TunnelBear](https://www.tunnelbear.com/account#/signup) 
+- [TunnelBear para Linux](https://www.tunnelbear.com/blog/linux_support/) 
+- [TunnelBear para Mac](https://www.tunnelbear.com/apps/mac) 
+- [TunnelBear para Windows](https://www.tunnelbear.com/apps/windows) 
+- [TunnelBear para Chrome](https://www.tunnelbear.com/apps/browser) 
+
 ## Cuenta de correo del centro
 
 En primer lugar necesitamos tener una cuenta de correo del IES Puerto de la Cruz - Telesforo Bravo. Han sido creadas cuentas para todo el alumnado de esta asignatura, en la forma:

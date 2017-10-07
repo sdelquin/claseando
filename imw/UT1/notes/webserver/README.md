@@ -225,6 +225,38 @@ Commercial support is available at
 sdelquin@cloud:~$
 ```
 
+### Usuario de trabajo de `Nginx`
+
+Cuando el servicio `Nginx` lanza sus procesos, estos se ejecutan utilizando el usuario `www-data` y el grupo `www-data`. Lo podemos ver a continuación:
+
+```console
+sdelquin@cloud:~$ sudo systemctl status nginx
+● nginx.service - A high performance web server and a reverse proxy server
+   Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
+   Active: active (running) since sáb 2017-10-07 11:06:47 UTC; 5min ago
+  Process: 9434 ExecStop=/sbin/start-stop-daemon --quiet --stop --retry QUIT/5 --pidfile /run/nginx.pid (code=
+  Process: 9444 ExecStart=/usr/sbin/nginx -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+  Process: 9440 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; (code=exited, status=0/SUC
+ Main PID: 9448 (nginx)
+    Tasks: 2
+   Memory: 2.9M
+      CPU: 40ms
+   CGroup: /system.slice/nginx.service
+           ├─9448 nginx: master process /usr/sbin/nginx -g daemon on; master_process on
+           └─9449 nginx: worker process
+
+oct 07 11:06:47 cloud systemd[1]: Starting A high performance web server and a reverse proxy server...
+oct 07 11:06:47 cloud systemd[1]: nginx.service: Failed to read PID from file /run/nginx.pid: Invalid argument
+oct 07 11:06:47 cloud systemd[1]: Started A high performance web server and a reverse proxy server.
+sdelquin@cloud:~$ ps aux | grep nginx
+root      9448  0.0  0.3 125244  1632 ?        Ss   11:06   0:00 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;
+www-data  9449  0.0  1.0 125616  5136 ?        S    11:06   0:00 nginx: worker process
+sdelquin  9508  0.0  0.1  14160   976 pts/0    S+   11:12   0:00 grep --color=auto nginx
+sdelquin@cloud:~$ groups www-data
+www-data : www-data
+sdelquin@cloud:~$
+```
+
 ### Ficheros de configuración
 
 Podríamos decir que Nginx dispone de dos ficheros destacados de configuración:
@@ -239,6 +271,8 @@ Podríamos decir que Nginx dispone de dos ficheros destacados de configuración:
 ![](img/Nginx-Server-Location.png)
 
 Cada vez que queramos incluir un nuevo *virtual host*, debemos incluir un fichero en la ruta `/etc/nginx/sites-available` y luego enlazar dicho fichero desde la ruta `/etc/nginx/sites-enabled`.
+
+> ⚠️ Todos los `locations` que dependen de un mismo *virtual host (ó dominio)* deben estar en el mismo fichero.
 
 ### `hello.imwpto.me`
 
@@ -749,7 +783,45 @@ En la siguiente pantalla, pulsamos en **DOWNLOAD FILE**:
 
 ![SSL Namecheap Manage](img/DCV_SSL2.png)
 
-Se nos habrá descargado un fichero con un nombre bastante largo `FB5E7003F04FC4FD5458B99CF87796CA.txt`. Este fichero tendremos que subirlo a la máquina de producción, en concreto a la ruta: `/var/www/html/.well-known/pki-validation`.
+Se nos habrá descargado un fichero con un nombre bastante largo `FB5E7003F04FC4FD5458B99CF87796CA.txt`. Este fichero tendremos que subirlo a la máquina de producción, en concreto a la ruta: `/var/www/html/.well-known/pki-validation`:
+
+```console
+sdelquin@imw:~$ ls -l *.txt
+-rw-r--r-- 1 sdelquin sdelquin 91 oct  7 12:17 FB5E7003F04FC4FD5458B99CF87796CA.txt
+sdelquin@imw:~$ scp FB5E7003F04FC4FD5458B99CF87796CA.txt cloud:
+FB5E7003F04FC4FD5458B99CF87796CA.txt                                        100%   91     0.1KB/s   00:00
+sdelquin@imw:~$ ssh cloud
+Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.4.0-96-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  Get cloud support with Ubuntu Advantage Cloud Guest:
+    http://www.ubuntu.com/business/services/cloud
+
+Pueden actualizarse 45 paquetes.
+0 actualizaciones son de seguridad.
+
+
+Last login: Sat Oct  7 11:00:31 2017 from 83.34.20.244
+sdelquin@cloud:~$ sudo mkdir -p /var/www/html/.well-known/pki-validation/
+[sudo] password for sdelquin:
+sdelquin@cloud:~$ sudo mv FB5E7003F04FC4FD5458B99CF87796CA.txt /var/www/html/.well-known/pki-validation/
+sdelquin@cloud:~$
+```
+
+Comprobamos que el fichero se puede descargar correctamente. Para ello, ejecutamos lo siguiente:
+
+```console
+sdelquin@cloud:~$ curl -O imwpto.me:/var/www/html/.well-known/pki-validation/FB5E7003F04FC4FD5458B99CF87796CA.txt
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100   178  100   178    0     0    691      0 --:--:-- --:--:-- --:--:--   689
+sdelquin@cloud:~$ ls -l FB5E7003F04FC4FD5458B99CF87796CA.txt
+-rw-rw-r-- 1 sdelquin sdelquin 178 oct  7 11:22 FB5E7003F04FC4FD5458B99CF87796CA.txt
+sdelquin@cloud:~$
+```
 
 Una vez hecho esto, volvemos a la gestión del certificado SSL y pulsamos en **Edit methods**:
 
@@ -798,14 +870,16 @@ sdelquin@cloud:~$ sudo mv server.csr /etc/ssl/certs/ssl.imwpto.me.csr
 sdelquin@cloud:~$ sudo mv server.key /etc/ssl/certs/ssl.imwpto.me.key
 sdelquin@cloud:~$ sudo mv SSL.final.crt /etc/ssl/certs/ssl.imwpto.me.crt
 sdelquin@cloud:~$ cd /etc/ssl/certs/
-sdelquin@cloud:/etc/ssl/certs$ sudo chown root:root ssl.imwpto.me.*
-sdelquin@cloud:/etc/ssl/certs$ sudo chmod 755 ssl.imwpto.me.*
+sdelquin@cloud:/etc/ssl/certs$ sudo chmod 644 ssl.imwpto.me.crt ssl.imwpto.me.csr
+sdelquin@cloud:/etc/ssl/certs$ sudo chmod 600 ssl.imwpto.me.key
 sdelquin@cloud:/etc/ssl/certs$ ls -l ssl.imwpto.me.*
--rwxr-xr-x 1 root root 7529 sep 24 22:09 ssl.imwpto.me.crt
--rwxr-xr-x 1 root root 1127 sep 24 15:59 ssl.imwpto.me.csr
--rwxr-xr-x 1 root root 1704 sep 24 15:59 ssl.imwpto.me.key
+-rw-r--r-- 1 root root 7529 sep 24 22:09 ssl.imwpto.me.crt
+-rw-r--r-- 1 root root 1127 sep 24 15:59 ssl.imwpto.me.csr
+-rw------- 1 root root 1704 sep 24 15:59 ssl.imwpto.me.key
 sdelquin@cloud:/etc/ssl/certs$
 ```
+
+Hemos protegido la *clave privada* `ssl.imwpto.me.key` con permisos de lectura solamente para el `root`.
 
 ### Configurando el virtual host para certificado SSL
 
@@ -827,7 +901,7 @@ server {
 
 Ya sólo nos quedaría enlazar este *virtual host* en `sites-enabled`, y recargar la configuración de *Nginx* para que los cambios surtan efecto.
 
-Cuando accedemos a nuestro *virtual host* desde un navegador, vemos lo siguiente:
+Ahora accedemos a nuestro *virtual host* desde un navegador, utilizando protocolo `https`, es decir, accederíamos a: `https://ssl.aluXXXX.me`:
 
 ![](img/ssl_access.png)
 
@@ -865,6 +939,8 @@ Nótese las variables especiales que se usan en estas configuraciones:
 
 - `$host`: **nombre** de *dominio* al que estamos accediendo.
 -  `$request_uri`: **ruta** de la *url* a la que estamos accediendo.
+
+También es importante fijarse en el código de redirección **301**. Se trata de un *status code* que da información al agente que recibe la respuesta. [Códigos de estado HTTP](https://es.wikipedia.org/wiki/Anexo:C%C3%B3digos_de_estado_HTTP). 
 
 ### Trabajando siempre con SSL
 

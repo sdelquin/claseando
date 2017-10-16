@@ -184,7 +184,15 @@ sdelquin@imw:~$
 
 ## Rutas destacadas
 
-El directorio *root* por defecto de Nginx es: `/var/www/html`. Si echamos un vistazo, vemos lo siguiente:
+El directorio *root* por defecto de Nginx es: `/var/www/html`:
+
+```console
+sdelquin@cloud:~$ cat /etc/nginx/sites-enabled/default | grep root | head -1
+  root /var/www/html;
+sdelquin@cloud:~$
+```
+
+Si echamos un vistazo, vemos lo siguiente:
 
 ```console
 sdelquin@cloud:~$ sudo ls -l /var/www/html/
@@ -291,6 +299,8 @@ server {
     root /home/sdelquin;
 }
 ```
+
+> ⚠️   En el caso de que no especifiquemos un `root` el que toma por defecto será `/usr/share/nginx/html`. Esto es debido a las variables de configuración en el momento de compilar (`nginx -V`).
 
 A continuación tenemos que enlazar el fichero que hemos creado para que esté disponible desde los `sites-enabled`:
 

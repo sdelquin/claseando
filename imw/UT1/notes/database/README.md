@@ -220,7 +220,7 @@ collation-server = utf8mb4_unicode_ci
 Reiniciamos el servidor:
 
 ```console
-sdelquin@cloud:~$ sudo systemctl restart nginx
+sdelquin@cloud:~$ sudo systemctl restart mysql
 sdelquin@cloud:~$
 ```
 

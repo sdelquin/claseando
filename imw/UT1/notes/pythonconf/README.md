@@ -116,7 +116,6 @@ sdelquin@cloud:~$
 Para establecer `python 3.6` por defecto, podemos añadir un *alias* en el fichero `~/.bashrc`:
 
 ```console
-sdelquin@cloud:~$ vi .bashrc
 sdelquin@cloud:~$ echo 'alias python=python3.6' >> .bashrc
 sdelquin@cloud:~$ tail -1 .bashrc
 alias python=python3.6
@@ -303,6 +302,13 @@ Python 3.6.2
 (hellopython) sdelquin@cloud:~$
 ```
 
+Nótese que cuando hemos activado el entorno virtual, aparece delante del prompt `(hellpython)`, es decir, el nombre del entorno virtual. Para "salir" del entorno virtual, usamos el siguiente comando:
+
+```console
+(hellopython) sdelquin@cloud:~$ deactivate
+sdelquin@cloud:~$
+```
+
 ### uWSGI
 
 *uWSGI* es el encargado de procesar las peticiones *http* para aplicaciones con código *python*. Se puede ver como el *php-fpm* de *php*.
@@ -325,12 +331,14 @@ Successfully installed uwsgi-2.0.15
 (hellopython) sdelquin@cloud:~$
 ```
 
+> ⚠️  No importa en qué directorio estemos, siempre y cuando el entorno virtual esté activado. Una vez que lo tengamos activado, todos los paquetes que instalemos con `pip` se instalarán en la ruta que hemos especificado para el entorno virtual: en este caso `~/.virtualenvs/hellopython/`.
+
 ## Creación del "Hola Mundo"
 
 Lo primero será instalar un mini-framework de desarrollo web denominado `flask`:
 
 ```console
-(hellopython) sdelquin@cloud:~/hellopython$ pip install flask
+(hellopython) sdelquin@cloud:~$ pip install flask
 Collecting flask
   Downloading Flask-0.12.2-py2.py3-none-any.whl (83kB)
     100% |████████████████████████████████| 92kB 7.7MB/s
@@ -545,7 +553,7 @@ En este momento, las peticiones que lleguen a nuestro servidor *Nginx* en la url
 Se debe a que nos falta lanzar nuestra aplicación *uWSGI* para que escuche en el socket especificado y devuelva el sencillo *html* que hemos preparado en nuestra aplicación *python*:
 
 ```console
-sdelquin@hillvalley:~/hellopython$ run.sh
+sdelquin@hillvalley:~/hellopython$ ./run.sh
 [uWSGI] getting INI configuration from /home/sdelquin/hellopython/uwsgi.ini
 *** Starting uWSGI 2.0.13.1 (64bit) on [Sun Aug 28 17:13:08 2016] ***
 compiled with version: 4.9.2 on 28 August 2016 13:31:54

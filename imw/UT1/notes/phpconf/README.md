@@ -8,7 +8,7 @@
 
 Aunque ya hemos instalado [el servidor web Nginx](../webserver), necesitamos un módulo adicional que procese el lenguaje PHP.
 
-Existen varios módulos de tratamiento de PHP, pero el más usado es `php-fpm`. Para su instalación usaremos el paquete `php-fpm` disponible en los repositorios de *apt*:
+Existen varios módulos de procesamiento de PHP, pero el más usado es [php-fpm](https://php-fpm.org/)  (FastCGI Process Manager). Para su instalación usaremos el paquete `php-fpm` disponible en los repositorios de *apt*:
 
 ```console
 sdelquin@cloud:~$ sudo apt-get install php-fpm
@@ -193,5 +193,20 @@ sdelquin@cloud:~$ sudo vi /var/www/html/test.php
 A continuación, accedemos al fichero creado a través de un navegador web:
 
 ![](img/php_test.png)
+
+> ⚠️  Si tuviéramos problemas al acceder a través del nombre de dominio, porque existiera algún *virtual host* configurado con dicho nombre de dominio, podríamos acceder a través de la dirección IP:
+
+```console
+sdelquin@imw:~$ ping -c1 imwpto.me
+PING imwpto.me (138.68.99.84) 56(84) bytes of data.
+64 bytes from cloud (138.68.99.84): icmp_seq=1 ttl=50 time=60.3 ms
+
+--- imwpto.me ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 60.338/60.338/60.338/0.000 ms
+sdelquin@imw:~$
+```
+
+Podamos probar accediendo a: `http://138.68.99.84/test.php`
 
 * [x] Instalación correcta de PHP.

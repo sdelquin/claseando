@@ -14,22 +14,27 @@ La actividad consiste en configurar 4 sitios web (*virtual hosts*) en nuestro se
 
 ```python
 import datetime
+import pytz
 from flask import Flask
 app = Flask(__name__)
 
 @app.route("/")
 def hello():
+    now = datetime.datetime.now(pytz.timezone("Atlantic/Canary"))
     return """
     <h1>Testing Python over Nginx</h1>
+    <h2>In Canary Islands...</h2>
     Today is: {today}
     <br>
     Now is: {now}
     """.format(
-        today=datetime.datetime.now().strftime("%d/%m/%Y"),
-        now=datetime.datetime.now().strftime("%H:%Mh")
+        today=now.strftime("%d/%m/%Y"),
+        now=now.strftime("%H:%Mh")
     )
 ```
 
+
+- En el entorno virtual hay que instalar, al menos, los paquetes `uwsgi`, `flask` y `pytz`.
 - El código debe residir en `$HOME/now`.
 - Se debe configurar *supervisor* para gestionar el proceso *uwsgi*.
 - Se debe probar los siguientes comandos, y ver cómo es la respuesta del navegador al acceder a la web:

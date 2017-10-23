@@ -26,7 +26,7 @@ def hello():
     Now is: {now}
     """.format(
         today=datetime.datetime.now().strftime("%d/%m/%Y"),
-        now=datetime.datetime.now().strftime("%H:%mh")
+        now=datetime.datetime.now().strftime("%H:%Mh")
     )
 ```
 

@@ -422,6 +422,8 @@ Si ahora accedemos con un navegador al puerto 8080 de nuestra máquina de produc
 
 ![](img/uwsgi_test.png)
 
+> Para detener el proceso `uwsgi` basta con <kbd>CONTROL-C</kbd>.
+
 ## Configuración del servidor web
 
 ### `uWSGI`
@@ -498,6 +500,8 @@ detected binary path: /home/sdelquin/.virtualenvs/hellopython/bin/uwsgi
 ...
 ...
 ```
+
+> Para detener el script `run.sh` basta con <kbd>CONTROL-C</kbd>.
 
 ### `Nginx`
 
@@ -590,6 +594,8 @@ spawned uWSGI worker 4 (pid: 22095, cores: 1)
 Sin parar de ejecutar el comando anterior, volvemos a probar el acceso a través del navegador, y obtenemos lo siguiente:
 
 ![](img/uwsgi_nginx.png)
+
+> Para detener el proceso `uwsgi` basta con <kbd>CONTROL-C</kbd>.
 
 ## Supervisor
 

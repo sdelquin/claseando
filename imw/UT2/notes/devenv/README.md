@@ -229,12 +229,7 @@ sdelquin@imw:~$
 Necesitamos instalar el paquete `curl` para poder descargar ficheros de Internet:
 
 ```console
-sdelquin@imw:~$ gcc --version
-gcc (Ubuntu 5.4.0-6ubuntu1~16.04.5) 5.4.0 20160609
-Copyright (C) 2015 Free Software Foundation, Inc.
-This is free software; see the source for copying conditions.  There is NO
-warranty; not even for MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
+sdelquin@imw:~$ sudo apt install -y curl
 Se instalarán los siguientes paquetes NUEVOS:
   curl
 Se actualizarán los siguientes paquetes:
@@ -482,7 +477,7 @@ Para ver la versión que tenemos instalada de *Sublime Text*:
 
 ![](img/SublimeText-Version.png)
 
-Mostrar la consola de *Sublime Text*, pegar el código especificado en https://packagecontrol.io/installation (según versión del pograma) y pulsar ENTER:
+Mostrar la consola de *Sublime Text*, pegar el código especificado en https://packagecontrol.io/installation (**SUBLIME TEXT 3**) y pulsar ENTER:
 
 ![](img/SublimeText-Console.png)
 
@@ -504,9 +499,15 @@ Este paquete permite chequear nuestro código *python* cada vez que guardemos (`
 
 ### Ajuste de las indentaciones
 
-En *Python* son muy importante las **indentaciones** (bloques hacia adentro). Para evitar problemas, vamos a fijar que las indentaciones se hagan con espacios. Para ello hacemos lo siguiente:
+En *Python* son muy importante las **indentaciones** (bloques hacia adentro). Para evitar problemas, vamos a establecer que las indentaciones se hagan con espacios. Para ello hacemos lo siguiente:
 
-![](img/SublimeText-IndentSpaces.png)
+Primero pulsamos en "Spaces: 4" (margen inferior derecho):
+
+![](img/SublimeText-IndentSpaces1.png)
+
+Y luego comprobamos que estén activadas las dos siguientes opciones:
+
+![](img/SublimeText-IndentSpaces2.png)
 
 ### Ignorar ciertos errores de Flake8
 

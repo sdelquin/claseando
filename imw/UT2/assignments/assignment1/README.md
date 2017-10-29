@@ -1,23 +1,30 @@
 # UT2-A1: ¿Me da cambio por favor?
 
-La actividad consiste en hacer un programa *python* que:
+La actividad consiste en hacer un programa Python que:
 
-1. Lea una cantidad (ENTERA) de euros por teclado.
+1. Lea una cantidad (ENTERA) de euros como argumento desde la línea de comandos.
 2. Devuelva la cantidad de billetes de 50€, 20€, 10€, 5€; y de monedas de 2€ y 1€.
-3. Si no hay billetes/monedas de alguna cantidad, **NO** mostrar esos mensajes.
+
+> Detalles a tener en cuenta:
+> 1. Hay que controlar que el dato introducido sea realmente un número, y sea entero.
+> 2. Si no hay billetes/monedas de alguna cantidad, **NO** mostrar esos mensajes.
+> 3. El fichero se deberá llamar `main.py`.
 
 **Ejemplo:**
 
-> Entrada: 313  
+> Entrada: 313
 > Salida:
 >   * 6 billetes de 50€.
 >   * 1 billete de 10€.
 >   * 1 moneda de 2€.
 >   * 1 moneda de 1€.
 
-## Ficheros a entregar
+## Información a entregar
 
-Se deberán subir 2 ficheros:
+Se deberá entregar la *url* al commit en el repositorio privado *GitHub* de la asignatura *IMW*, apuntando al fichero que contiene el código Python. La *url* debe tener la siguiente estructura:
 
-1. `<fichero>.py` con el código fuente del programa.
-2. `<fichero>.pdf` con el código fuente del programa.
+```
+https://github.com/<usuario>/imw/blob/<id del commit>/<ut>/<actividad>/main.py
+```
+
+> ⚠️ Al subir la *url*, es importante crear un enlace. Es decir, poner un `href` a la *url* anterior, y no pegar el texto tal cual.

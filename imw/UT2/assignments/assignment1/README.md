@@ -12,6 +12,8 @@ La actividad consiste en hacer un programa Python que:
 
 **Ejemplo:**
 
+`$> python main.py 313`
+
 > Entrada: 313
 > Salida:
 >   * 6 billetes de 50€.

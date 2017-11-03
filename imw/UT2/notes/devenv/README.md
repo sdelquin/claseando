@@ -485,7 +485,30 @@ Después de la instalación, deberían ver algo así:
 
 ![](img/SublimeText-PackageInstalled.png)
 
-### Instalación del *linter* para *python*
+### Ajustes del editor
+
+De cara a mejorar nuestra experiencia de usuario, debemos fijar algunos ajustes en Sublime Text. Para ello debemos ir a <kbd>Preferences -> Settings</kbd>, y luego en la **VENTANA DE LA DERECHA** debemos sustituir lo que hay por lo siguiente:
+
+```python
+{
+    "color_scheme": "Packages/User/Monokai (Flake8Lint).tmTheme",
+    "ignored_packages":
+    [
+        "Vintage"
+    ],
+    "scroll_past_end": true,
+    "show_encoding": true,
+    "show_full_path": true,
+    "tab_size": 4,
+    "translate_tabs_to_spaces": true,
+    "highlight_line": true,
+    "ensure_newline_at_eof_on_save": true,
+}
+```
+
+A continuación guardamos los cambios con <kbd>CONTROL-S</kbd>
+
+### Instalación del *linter* para *Python*
 
 En *Python* disponemos de una *guía de estilo*, que especifica cómo se debe escribir código fuente. Esta guía está definida en el [PEP8](http://www.recursospython.com/pep8es.pdf).
 
@@ -497,19 +520,7 @@ Pulsar `Mayús+Ctrl+P` para abrir el *Package Control*. Escribir `Package Contro
 
 Este paquete permite chequear nuestro código *python* cada vez que guardemos (`CTRL-S`) y mostrar avisos para mejorar aquellas cuestiones sintácticas que no son correctas.
 
-### Ajuste de las indentaciones
-
-En *Python* son muy importante las **indentaciones** (bloques hacia adentro). Para evitar problemas, vamos a establecer que las indentaciones se hagan con espacios. Para ello hacemos lo siguiente:
-
-Primero pulsamos en "Spaces: 4" (margen inferior derecho):
-
-![](img/SublimeText-IndentSpaces1.png)
-
-Y luego comprobamos que estén activadas las dos siguientes opciones:
-
-![](img/SublimeText-IndentSpaces2.png)
-
-### Ignorar ciertos errores de Flake8
+#### Ignorar ciertos errores de Flake8
 
 Existen ciertos errores del módulo `Flake8` que no nos interesa que nos salgan, porque no son especialmente importantes.
 
@@ -526,3 +537,12 @@ Y a continuación escribir el siguiente código:
 ```
 
 Luego guardamos el fichero, y ya no tenemos que preocuparnos por los errores con los códigos que hemos especificado.
+
+### Uso de Sublime Text desde línea de comandos
+
+Sublime Text se puede usar desde línea de comandos, lo que nos facilita navegar por el sistema de archivos usando la terminal, y luego abrir el fichero que nos interese. Para ello sólo tenemos que hacer uso del comando `subl`:
+
+```console
+sdelquin@imw:~/python$ subl main.py
+...
+```

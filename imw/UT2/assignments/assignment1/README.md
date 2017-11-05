@@ -6,9 +6,8 @@ La actividad consiste en hacer un programa Python que:
 2. Devuelva la cantidad de billetes de 50€, 20€, 10€, 5€; y de monedas de 2€ y 1€.
 
 > Detalles a tener en cuenta:
-> 1. Hay que controlar que el dato introducido sea realmente un número, y sea entero.
-> 2. Si no hay billetes/monedas de alguna cantidad, **NO** mostrar esos mensajes.
-> 3. El fichero se deberá llamar `main.py`.
+> 1. Si no hay billetes/monedas de alguna cantidad, **NO** mostrar esos mensajes.
+> 2. El fichero se deberá llamar `main.py`.
 
 **Ejemplo:**
 

@@ -1,8 +1,8 @@
 # UT2-A4: Secuenciando!
 
-La actividad consiste en hacer varios programas *python*:
+La actividad consiste en hacer varios programas Python:
 
-## Programa1
+## Programa 1
 
 El programa debe cumplir con las siguientes especificaciones:
 
@@ -13,11 +13,14 @@ El programa debe cumplir con las siguientes especificaciones:
 
 > NOTA: Hacer este programa usando sólo cadenas! No se permite el uso de listas.
 
-### Ejemplo de comprobación
+### Modo de uso
 
-Puedes comprobar el programa con tu propio DNI.
+```console
+$> python program1.py 76543789
+76543789L
+```
 
-## Programa2
+## Programa 2
 
 El programa debe cumplir con las siguientes especificaciones:
 
@@ -38,7 +41,17 @@ El programa debe cumplir con las siguientes especificaciones:
 - `Cytosine: XX`
 - `Thymine: XX`
 
-## Programa3
+### Modo de uso
+
+```console
+$> python program2.py
+Adenine: 22
+Thymine: 24
+Cytosine: 27
+Guanine: 27
+```
+
+## Programa 3
 
 El programa debe cumplir con las siguientes especificaciones:
 
@@ -46,15 +59,14 @@ El programa debe cumplir con las siguientes especificaciones:
 2. Emitir un error si el número introducido no es positivo, y salir del programa.
 3. Decir cuántas palabras tienen longitud igual a `k`.
 
-### Ejemplo de comprobación
+### Modo de uso
 
 ```console
-$> python3 programa3.py 4 "esto es una cadena de prueba para probar mi programa"
+$> python program3.py 4 "esto es una cadena de prueba para probar mi programa"
+Hay 2 palabras de tamaño 4
 ```
 
-Salida: `Hay 2 palabras de tamaño 4`
-
-## Programa4
+## Programa 4
 
 El programa debe cumplir con las siguientes especificaciones:
 
@@ -64,20 +76,28 @@ El programa debe cumplir con las siguientes especificaciones:
 4. Calcular la media de los valores de la lista.
 5. Mostrar la media calculada.
 
-### Ejemplo de comprobación
+### Modo de uso
 
-Datos de entrada:
-
-- `h` = 6
-- Valores: `7, 4, 8, 10, 9, 1`
-
-Salida: `6.5`
+```console
+$> python program4.py 7
+Introduzca un valor flotante: 3.4
+Introduzca un valor flotante: 2.1
+Introduzca un valor flotante: 6.5
+Introduzca un valor flotante: 7.3
+Introduzca un valor flotante: 2.4
+Introduzca un valor flotante: 9.3
+Introduzca un valor flotante: 6.1
+La media de los valores es: 5.3
+```
 
 > No se pueden utilizar funciones predefinidas como `sum`.
 
-## Ficheros a entregar
+## Información a entregar
 
-Se deberán subir 2 ficheros:
+Se deberá entregar la *url* al commit en el repositorio privado *GitHub* de la asignatura *IMW*, apuntando a la carpeta que contiene los ficheros de código Python. La *url* debe tener la siguiente estructura:
 
-1. `<fichero>.zip` con los ficheros `.py` que contienen el código de tus programas.
-2. `<fichero>.pdf` con el código fuente de tus programas.
+```
+https://github.com/<usuario>/imw/blob/<id del commit>/<ut>/<actividad>/
+```
+
+> ⚠️ Al subir la *url*, es importante crear un enlace. Es decir, poner un `href` a la *url* anterior, y no pegar el texto tal cual.

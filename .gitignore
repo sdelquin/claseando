@@ -4,3 +4,4 @@ __pycache__
 .ipynb*
 solution
 solution.ipynb
+**/correction/*.py

@@ -12,6 +12,7 @@
 	curl --silent ${URL} | python - 9	
 	curl --silent ${URL} | python - 10	
 	curl --silent ${URL} | python - 12	
+	curl --silent ${URL} | python - -1	
 4:
 	curl --silent ${URL} -o p4.py
 	python p4.py 5

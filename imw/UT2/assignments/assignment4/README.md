@@ -70,27 +70,19 @@ Hay 2 palabras de tamaño 4
 
 El programa debe cumplir con las siguientes especificaciones:
 
-1. Leer un número `h`(entero positivo) por línea de comandos.
-2. Emitir un error si el número no es positivo, y salir del programa.
-3. Pedir `h` valores numéricos flotantes por teclado, e introducirlos en una lista.
-4. Calcular la media de los valores de la lista.
-5. Mostrar la media calculada.
+1. Leer un número indeterminado de valores flotantes por línea de comandos.
+2. Calcular la media de los valores de la lista.
+3. Mostrar la media calculada.
 
 ### Modo de uso
 
 ```console
-$> python program4.py 7
-Introduzca un valor flotante: 3.4
-Introduzca un valor flotante: 2.1
-Introduzca un valor flotante: 6.5
-Introduzca un valor flotante: 7.3
-Introduzca un valor flotante: 2.4
-Introduzca un valor flotante: 9.3
-Introduzca un valor flotante: 6.1
+$> python program4.py 3.4 2.1 6.5 7.3 2.4 9.3 6.1
 La media de los valores es: 5.3
 ```
 
 > No se pueden utilizar funciones predefinidas como `sum`.
+> PISTA: `sys.argv` es una lista.
 
 ## Información a entregar
 

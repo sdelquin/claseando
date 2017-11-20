@@ -51,6 +51,8 @@ Cytosine: 27
 Guanine: 27
 ```
 
+> NOTA: Esta salida puede variar en tu caso, ya que cada vez que se ejecuta el programa se genera una nueva secuencia aleatoria de bases de ADN.
+
 ## Programa 3
 
 El programa debe cumplir con las siguientes especificaciones:

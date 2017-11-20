@@ -76,7 +76,8 @@ Number of vowels: 12
 Number of whitespaces: 7
 Number of digits: 4
 Number of words: 8
-Inverse of text: dadivitca al raborp 4r4p 0lpmeje nu se 0tse
+Reverse of text: dadivitca al raborp 4r4p 0lpmeje nu se 0tse
+Length of text: 43
 Halfs of text: est0 es un ejempl0 p4 | r4 probar la actividad
 Text with uppercased vowels: Est0 Es Un EjEmpl0 p4r4 prObAr lA ActIvIdAd
 Sorted by words: actividad ejempl0 es est0 la p4r4 probar un

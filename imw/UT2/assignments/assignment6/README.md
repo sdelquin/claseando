@@ -1,6 +1,6 @@
 # UT2-A6: Búscalo en el diccionario!
 
-La actividad consiste en hacer varios programas *python*:
+La actividad consiste en hacer varios programas Python:
 
 ## Programa1
 
@@ -13,17 +13,17 @@ El programa debe cumplir con las siguientes especificaciones:
 
     ```python
     def count_words(sentence):
-        summary = dict()
+        summary = {}
         ...
         return summary
     ```
 
 4. Cuando se reciba el resultado de la función, hay que mostrar el diccionario de una forma "organizada" (ver ejemplo).
 
-### Ejemplo de comprobación
+### Modo de uso
 
-```
-$> python programa1.py "vamos a ver si repito algo que vamos que repito todo"
+```console
+$> python program1.py "vamos a ver si repito algo que vamos que repito todo"
 vamos: 2
 a: 1
 ver: 1
@@ -56,9 +56,12 @@ El programa debe cumplir con las siguientes especificaciones:
 4. Antes de llamar a la función `add_contact(phone_book, name, phone)` hay que pedir al usuario por teclado (`input`) que introduzca el nombre y el teléfono del nuevo contacto, y luego pasarlo como argumentos a nuestra función. Esta función no retorna nada. La función debe mostrar un error si el nombre ya existe.
 5. Antes de llamar a la función `remove_contact(phone_book, name)` hay que pedir al usuario por teclado (`input`) que introduzca el nombre del contacto que queremos borrar, y luego pasarlo como argumentos a nuestra función. Esta función no retorna nada. La función debe mostrar un error si el nombre no existe.
 
-## Ficheros a entregar
+## Información a entregar
 
-Se deberán subir 2 ficheros:
+Se deberá entregar la *url* al commit en el repositorio privado *GitHub* de la asignatura *IMW*, apuntando a la carpeta que contiene los ficheros de código Python. La *url* debe tener la siguiente estructura:
 
-1. `<fichero>.zip` con los ficheros `.py` que contienen el código de tus programas.
-2. `<fichero>.pdf` con el código fuente de tus programas.
+```
+https://github.com/<usuario>/imw/blob/<id del commit>/<ut>/<actividad>/
+```
+
+> ⚠️ Al subir la *url*, es importante crear un enlace. Es decir, poner un `href` a la *url* anterior, y no pegar el texto tal cual.

@@ -7,76 +7,54 @@
 Primero, como siempre, creamos un nuevo *entorno virtual*:
 
 ```console
-~|🍺  mkv3 myweb
-Running virtualenv with interpreter /usr/local/bin/python3
-Using base prefix "/usr/local/Cellar/python3/3.5.1/Frameworks/Python.framework/Versions/3.5"
-New python executable in /Users/sdelquin/.virtualenvs/myweb/bin/python3.5
-Also creating executable in /Users/sdelquin/.virtualenvs/myweb/bin/python
+sdelquin@imw:~$ mkvirtualenv myweb
+Using base prefix '/usr'
+New python executable in /home/sdelquin/.virtualenvs/myweb/bin/python3.6
+Also creating executable in /home/sdelquin/.virtualenvs/myweb/bin/python
 Installing setuptools, pip, wheel...done.
-virtualenvwrapper.user_scripts creating /Users/sdelquin/.virtualenvs/myweb/bin/predeactivate
-virtualenvwrapper.user_scripts creating /Users/sdelquin/.virtualenvs/myweb/bin/postdeactivate
-virtualenvwrapper.user_scripts creating /Users/sdelquin/.virtualenvs/myweb/bin/preactivate
-virtualenvwrapper.user_scripts creating /Users/sdelquin/.virtualenvs/myweb/bin/postactivate
-virtualenvwrapper.user_scripts creating /Users/sdelquin/.virtualenvs/myweb/bin/get_env_details
-Requirement already up-to-date: pip in ./.virtualenvs/myweb/lib/python3.5/site-packages
-Collecting ipython
-  Using cached ipython-5.1.0-py3-none-any.whl
-Collecting appnope; sys_platform == "darwin" (from ipython)
-  Using cached appnope-0.1.0-py2.py3-none-any.whl
-Collecting traitlets>=4.2 (from ipython)
-  Using cached traitlets-4.3.1-py2.py3-none-any.whl
-Collecting pexpect; sys_platform != "win32" (from ipython)
-  Using cached pexpect-4.2.1-py2.py3-none-any.whl
-Collecting prompt-toolkit<2.0.0,>=1.0.3 (from ipython)
-  Using cached prompt_toolkit-1.0.9-py3-none-any.whl
-Requirement already up-to-date: setuptools>=18.5 in ./.virtualenvs/myweb/lib/python3.5/site-packages (from ipython)
-Collecting simplegeneric>0.8 (from ipython)
-Collecting pickleshare (from ipython)
-  Using cached pickleshare-0.7.4-py2.py3-none-any.whl
-Collecting decorator (from ipython)
-  Using cached decorator-4.0.10-py2.py3-none-any.whl
-Collecting pygments (from ipython)
-  Using cached Pygments-2.1.3-py2.py3-none-any.whl
-Collecting six (from traitlets>=4.2->ipython)
-  Using cached six-1.10.0-py2.py3-none-any.whl
-Collecting ipython-genutils (from traitlets>=4.2->ipython)
-  Using cached ipython_genutils-0.1.0-py2.py3-none-any.whl
-Collecting ptyprocess>=0.5 (from pexpect; sys_platform != "win32"->ipython)
-  Using cached ptyprocess-0.5.1-py2.py3-none-any.whl
-Collecting wcwidth (from prompt-toolkit<2.0.0,>=1.0.3->ipython)
-  Using cached wcwidth-0.1.7-py2.py3-none-any.whl
-Installing collected packages: appnope, six, ipython-genutils, decorator, traitlets, ptyprocess, pexpect, wcwidth, prompt-toolkit, simplegeneric, pickleshare, pygments, ipython
-Successfully installed appnope-0.1.0 decorator-4.0.10 ipython-5.1.0 ipython-genutils-0.1.0 pexpect-4.2.1 pickleshare-0.7.4 prompt-toolkit-1.0.9 ptyprocess-0.5.1 pygments-2.1.3 simplegeneric-0.8.1 six-1.10.0 traitlets-4.3.1 wcwidth-0.1.7
-Requirement already up-to-date: wheel in ./.virtualenvs/myweb/lib/python3.5/site-packages
-~|🍺
+virtualenvwrapper.user_scripts creating /home/sdelquin/.virtualenvs/myweb/bin/predeactivate
+virtualenvwrapper.user_scripts creating /home/sdelquin/.virtualenvs/myweb/bin/postdeactivate
+virtualenvwrapper.user_scripts creating /home/sdelquin/.virtualenvs/myweb/bin/preactivate
+virtualenvwrapper.user_scripts creating /home/sdelquin/.virtualenvs/myweb/bin/postactivate
+virtualenvwrapper.user_scripts creating /home/sdelquin/.virtualenvs/myweb/bin/get_env_details
+(myweb) sdelquin@imw:~$
 ```
 
 Ahora instalamos la librería:
 
 ```console
-~|🍺  workon myweb
-(myweb) ~/Dropbox/Code/myweb|🍺
-(myweb) ~/Dropbox/Code/myweb|🍺  pip install flask
+(myweb) sdelquin@imw:~$ pip install flask
 Collecting flask
-  Using cached Flask-0.11.1-py2.py3-none-any.whl
-Collecting click>=2.0 (from flask)
-  Downloading click-6.6-py2.py3-none-any.whl (71kB)
-    100% |████████████████████████████████| 71kB 479kB/s
-Collecting Jinja2>=2.4 (from flask)
-  Using cached Jinja2-2.8-py2.py3-none-any.whl
+  Downloading Flask-0.12.2-py2.py3-none-any.whl (83kB)
+    100% |████████████████████████████████| 92kB 1.2MB/s
 Collecting Werkzeug>=0.7 (from flask)
-  Using cached Werkzeug-0.11.11-py2.py3-none-any.whl
+  Downloading Werkzeug-0.12.2-py2.py3-none-any.whl (312kB)
+    100% |████████████████████████████████| 317kB 2.4MB/s
 Collecting itsdangerous>=0.21 (from flask)
-Collecting MarkupSafe (from Jinja2>=2.4->flask)
-Installing collected packages: click, MarkupSafe, Jinja2, Werkzeug, itsdangerous, flask
-Successfully installed Jinja2-2.8 MarkupSafe-0.23 Werkzeug-0.11.11 click-6.6 flask-0.11.1 itsdangerous-0.24
-(myweb) ~/Dropbox/Code/myweb|🍺
+  Downloading itsdangerous-0.24.tar.gz (46kB)
+    100% |████████████████████████████████| 51kB 4.0MB/s
+Collecting click>=2.0 (from flask)
+  Downloading click-6.7-py2.py3-none-any.whl (71kB)
+    100% |████████████████████████████████| 71kB 3.5MB/s
+Collecting Jinja2>=2.4 (from flask)
+  Downloading Jinja2-2.10-py2.py3-none-any.whl (126kB)
+    100% |████████████████████████████████| 133kB 3.0MB/s
+Collecting MarkupSafe>=0.23 (from Jinja2>=2.4->flask)
+Building wheels for collected packages: itsdangerous
+  Running setup.py bdist_wheel for itsdangerous ... done
+  Stored in directory: /home/sdelquin/.cache/pip/wheels/fc/a8/66/24d655233c757e178d45dea2de22a04c6d92766abfb741129a
+Successfully built itsdangerous
+Installing collected packages: Werkzeug, itsdangerous, click, MarkupSafe, Jinja2, flask
+Successfully installed Jinja2-2.10 MarkupSafe-1.0 Werkzeug-0.12.2 click-6.7 flask-0.12.2 itsdangerous-0.24
+(myweb) sdelquin@imw:~$
 ```
 
 ## Primera aplicación *Flask*
 
 ```console
-(myweb) ~/Dropbox/Code/myweb|🍺  vi main.py
+(myweb) sdelquin@imw:~$ mkdir myweb
+(myweb) sdelquin@imw:~$ cd myweb/
+(myweb) sdelquin@imw:~/myweb$ vi main.py
 ```
 
 > Contenido:
@@ -96,11 +74,11 @@ Successfully installed Jinja2-2.8 MarkupSafe-0.23 Werkzeug-0.11.11 click-6.6 fla
 Lanzamos nuestra aplicación:
 
 ```console
-(myweb) ~/Dropbox/Code/myweb|🍺  python main.py
+(myweb) sdelquin@imw:~/myweb$ python main.py
  * Running on http://127.0.0.1:5000/ (Press CTRL+C to quit)
  * Restarting with stat
  * Debugger is active!
- * Debugger pin code: 203-004-358
+ * Debugger PIN: 336-454-291
 ```
 
 Si ahora accedemos en el navegador a la dirección que nos indica `http://127.0.0.1:5000/`
@@ -109,7 +87,7 @@ Si ahora accedemos en el navegador a la dirección que nos indica `http://127.0.
 
 ## Mejorando las URLs
 
-El [enrutamiento](http://flask.pocoo.org/docs/0.11/quickstart/#routing) es el mecanismo que nos permite vincular *URLs* con funciones *python*.
+El [enrutamiento](http://flask.pocoo.org/docs/0.12/quickstart/#url-building) es el mecanismo que nos permite vincular *URLs* con funciones *python*.
 
 ```python
 @app.route("/")

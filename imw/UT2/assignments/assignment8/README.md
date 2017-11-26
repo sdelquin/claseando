@@ -1,10 +1,10 @@
 # UT2-A8: Gestionando mi máquina virtual vía web
 
-La actividad consiste en hacer una web con *python* para gestionar una máquina virtual.
+La actividad consiste en hacer una web con Python para gestionar una máquina virtual.
 
 ## Entorno virtual
 
-Crear un entorno virtual con *Python3* que llamaremos `vmweb`.
+Crear un entorno virtual con Python que llamaremos `vmweb`.
 
 ## Ficheros necesarios
 
@@ -49,15 +49,9 @@ if __name__ == "__main__":
 
 ### `vm.py`
 
-```python
+Se proporciona el fichero [vm.py](vm.py)
 
-class VirtualMachine:
-
-    def __init__(self, name, ram=1, cpu=1.3, hdd=100, os="debian"):
-        ...
-
-    ...
-```
+## Wireframes
 
 ![](img/wireframes.png)
 
@@ -79,14 +73,24 @@ Recordar que podemos incorporar código `css` en nuestras plantillas utilizando 
 
 ## Despliegue
 
-Se deberá desplegar la aplicación en el servidor de producción, y deberá estar accesible a través de la url `http://vm.imw`
+Se deberá desplegar la aplicación en el servidor de producción, y deberá estar accesible a través de la url `http://vm.aluXXXX.me`
 
 > NOTA:
 > Debido a que estamos utilizando una variable global en nuestro código `vmachine`, para que la aplicación funcione bien en producción, debemos utilizar un único proceso. Por lo tanto, en el fichero `uwsgi.ini` tenemos que especificar `processes=1`.
 
+## Información a entregar
+
+Se deberá entregar la *url* al commit en el repositorio privado *GitHub* de la asignatura *IMW*, apuntando a la carpeta que contiene los [ficheros a entregar](#ficheros-a-entregar). La *url* debe tener la siguiente estructura:
+
+```
+https://github.com/<usuario>/imw/blob/<id del commit>/<ut>/<actividad>/
+```
+
+> ⚠️ Al subir la *url*, es importante crear un enlace. Es decir, poner un `href` a la *url* anterior, y no pegar el texto tal cual.
+
 ## Ficheros a entregar
 
-Se deberá entregar un fichero comprimido (`.zip`) con los siguientes archivos:
+La carpeta deberá contener, al menos, los siguientes ficheros:
 
 - `main.py`
 - `vm.py`
@@ -97,4 +101,4 @@ Se deberá entregar un fichero comprimido (`.zip`) con los siguientes archivos:
 - `run.sh`
 - `nginx.conf`
 - `supervisor.conf`
-- `capturas.pdf` (con las capturas de la web en el servidor de producción)
+

@@ -1,103 +1,74 @@
 # Despliegue
 
-El **despliegue** es el mecanismo que permite pasar un proyecto de software, desde la *máquina de desarrollo* al *servidor de producción*.
+El **despliegue** es el mecanismo que permite pasar un proyecto de software, desde la *máquina de desarrollo* al *servidor de producción*:
 
-Supongamos que vamos a desplegar un proyecto cuya carpeta raíz se denomina `hogwarts`.
+![DeployFlow](img/DeployFlow.png) 
 
-## Preparación del entorno en la máquina de producción
+## Fabric
 
-Hay que seguir los pasos descritos en [los apuntes de la UT1](http://imw.claseando.es/UT1/pythonconf/).
+Fabric es una librería Python para automatizar tareas a través de SSH para el despliegue de aplicaciones ó para tareas de administración.
 
-### Notas
+### Instalación
 
-1. Tener en cuenta que habrá que sustituir la carpeta `helloworld` por `hogwarts`.
-2. En vez de hacer el apartado *Creación del "Hola Mundo"*, tendríamos que copiar el código de nuestro proyecto desde la máquina de desarrollo a la máquina de producción:
-
-    ```console
-    ~|🍺  cd hogwarts
-    ~/hogwarts|🍺  scp -r * hillvalley.home:~/imw/hogwarts
-    vm.cpython-35.pyc                                                          100% 2617     2.6KB/s   00:00
-    main.py                                                                    100%  996     1.0KB/s   00:00
-    nginx.conf                                                                 100%  204     0.2KB/s   00:00
-    run.sh                                                                     100%  114     0.1KB/s   00:00
-    style.css                                                                  100%  495     0.5KB/s   00:00
-    supervisor.conf                                                            100%  258     0.3KB/s   00:00
-    index.html                                                                 100% 1436     1.4KB/s   00:00
-    run_process.html                                                           100%  874     0.9KB/s   00:00
-    uwsgi.ini                                                                  100%  145     0.1KB/s   00:00
-    vm.py                                                                      100% 1616     1.6KB/s   00:00
-    ~/hogwarts|🍺
-    ```
-3. Recordar la instalación, en la *máquina de producción* y con el entorno virtual *activado*, los siguientes paquetes:
-
-    ```console
-    (hogwarts) sdelquin@hillvalley:~/imw/hogwarts$ pip install flask uwsgi
-    Collecting flask
-      Using cached Flask-0.11.1-py2.py3-none-any.whl
-    Collecting uwsgi
-    Collecting Jinja2>=2.4 (from flask)
-      Using cached Jinja2-2.8-py2.py3-none-any.whl
-    Collecting Werkzeug>=0.7 (from flask)
-      Using cached Werkzeug-0.11.11-py2.py3-none-any.whl
-    Collecting click>=2.0 (from flask)
-      Using cached click-6.6-py2.py3-none-any.whl
-    Collecting itsdangerous>=0.21 (from flask)
-    Collecting MarkupSafe (from Jinja2>=2.4->flask)
-    Installing collected packages: MarkupSafe, Jinja2, Werkzeug, click, itsdangerous, flask, uwsgi
-    Successfully installed Jinja2-2.8 MarkupSafe-0.23 Werkzeug-0.11.11 click-6.6 flask-0.11.1 itsdangerous-0.24 uwsgi-2.0.14
-    (hogwarts) sdelquin@hillvalley:~/imw/hogwarts$
-    ```
-
-## Automatizando el despliegue
-
-Para no estar utilizando continuamente el comando `scp`, existen herramientas que permiten automatizar la copia y las acciones posteriores que se quieran llevar a cabo.
-
-Una de esas herramientas es `fabric3`. Se trata de un paquete *Python*. Procedemos a su instalación, en la **máquina de desarrollo** y con el entorno virtual `hogwarts` activado:
+En la máquina de desarrollo haremos lo siguiente:
 
 ```console
-~|🍺  workon hogwarts
-(hogwarts) ~|🍺  cd hogwarts
-(hogwarts) ~/hogwarts|🍺  pip install fabric3
+(myweb) sdelquin@imw:~/myweb$ pip install fabric3
 Collecting fabric3
-  Using cached Fabric3-1.12.post1-py3-none-any.whl
-Requirement already satisfied: six>=1.10.0 in /Users/sdelquin/.virtualenvs/hogwarts/lib/python3.5/site-packages (from fabric3)
-Collecting paramiko<2.0,>=1.17.2 (from fabric3)
-  Downloading paramiko-1.18.1-py2.py3-none-any.whl (172kB)
-    100% |████████████████████████████████| 174kB 1.6MB/s
-Collecting pycrypto!=2.4,<3.0,>=2.1 (from paramiko<2.0,>=1.17.2->fabric3)
-Collecting ecdsa<2.0,>=0.11 (from paramiko<2.0,>=1.17.2->fabric3)
-  Using cached ecdsa-0.13-py2.py3-none-any.whl
-Installing collected packages: pycrypto, ecdsa, paramiko, fabric3
-Successfully installed ecdsa-0.13 fabric3-1.12.post1 paramiko-1.18.1 pycrypto-2.6.1
-(hogwarts) ~/hogwarts|🍺
+  Using cached Fabric3-1.13.1.post1-py3-none-any.whl
+Collecting paramiko<3.0,>=2.0 (from fabric3)
+  Using cached paramiko-2.4.0-py2.py3-none-any.whl
+Collecting six>=1.10.0 (from fabric3)
+  Using cached six-1.11.0-py2.py3-none-any.whl
+Collecting pyasn1>=0.1.7 (from paramiko<3.0,>=2.0->fabric3)
+  Using cached pyasn1-0.4.2-py2.py3-none-any.whl
+Collecting bcrypt>=3.1.3 (from paramiko<3.0,>=2.0->fabric3)
+  Using cached bcrypt-3.1.4-cp36-cp36m-manylinux1_x86_64.whl
+Collecting cryptography>=1.5 (from paramiko<3.0,>=2.0->fabric3)
+  Using cached cryptography-2.1.3-cp36-cp36m-manylinux1_x86_64.whl
+Collecting pynacl>=1.0.1 (from paramiko<3.0,>=2.0->fabric3)
+  Using cached PyNaCl-1.2.0-cp36-cp36m-manylinux1_x86_64.whl
+Collecting cffi>=1.1 (from bcrypt>=3.1.3->paramiko<3.0,>=2.0->fabric3)
+  Using cached cffi-1.11.2-cp36-cp36m-manylinux1_x86_64.whl
+Collecting idna>=2.1 (from cryptography>=1.5->paramiko<3.0,>=2.0->fabric3)
+  Using cached idna-2.6-py2.py3-none-any.whl
+Collecting asn1crypto>=0.21.0 (from cryptography>=1.5->paramiko<3.0,>=2.0->fabric3)
+  Using cached asn1crypto-0.23.0-py2.py3-none-any.whl
+Collecting pycparser (from cffi>=1.1->bcrypt>=3.1.3->paramiko<3.0,>=2.0->fabric3)
+Installing collected packages: pyasn1, six, pycparser, cffi, bcrypt, idna, asn1crypto, cryptography, pynacl, paramiko, fabric3
+Successfully installed asn1crypto-0.23.0 bcrypt-3.1.4 cffi-1.11.2 cryptography-2.1.3 fabric3-1.13.1.post1 idna-2.6 paramiko-2.4.0 pyasn1-0.4.2 pycparser-2.18 pynacl-1.2.0 six-1.11.0
+(myweb) sdelquin@imw:~/myweb$
 ```
 
-A continuación tendremos que crear un fichero denominado `fabfile.py`:
+### Fichero de despliegue
+
+Vamos a suponer que en la máquina de producción, tenemos el proyecto en `~/myweb`, que ya se ha creado un entorno virtual con las dependencias necesarias y que tenemos una tarea funcionando en `supervisor`.
+
+Dentro de nuestro proyecto, crearemos un fichero denominado `fabfile.py` que contendrá las tareas a realizar por Fabric:
 
 ```console
-(hogwarts) ~/hogwarts|🍺  vi fabfile.py
+(myweb) sdelquin@imw:~/myweb$ vi fabfile.py
 ```
 
 > Contenido:
-> ```python
-> from fabric.api import env, cd, put, run
-> 
-> # nombre de la máquina de producción
-> env.hosts = ["hillvalley.home"]
-> # env.user
-> # env.password
-> 
-> # ruta al proyecto en la máquina de producción
-> PROJECT_PATH = "/home/sdelquin/imw/hogwarts"
-> 
-> 
-> def deploy():
->     put("*", PROJECT_PATH)
->     run("supervisorctl restart hogwarts")
-> ``
+```python
+from fabric.api import env, cd, local, run
 
-Esto nos va a permitir desplegar con el siguiente comando:
+# nombre de la máquina de producción
+env.hosts = ["cloud"]
+# env.user
+# env.password
+
+
+def deploy():
+    local("git push")
+    with cd("~/myweb"):
+        run("git pull")
+        run("supervisorctl restart myweb")
+```
+
+Ahora, para desplegar nuestra aplicación, sólo tendríamos que hacer lo siguiente desde la máquina de desarrollo:
 
 ```console
-(hogwarts) ~/hogwarts|🍺  fab deploy
+(myweb) sdelquin@imw:~/myweb$ fab deploy
 ```

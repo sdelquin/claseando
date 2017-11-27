@@ -39,10 +39,12 @@ todo: 1
 El programa debe cumplir con las siguientes especificaciones:
 
 1. Hacer una función que muestre un menú con 4 opciones:
-    3. Mostrar lista de contactos. `show_contacts(phone_book)`
-    4. Añadir contacto (nombre y teléfono). `add_contact(phone_book, name, phone)`
-    5. Borrar contacto (nombre). `remove_contact(phone_book, name)`
-    7. Salir.
+
+    1. Mostrar lista de contactos. `show_contacts(phone_book)`
+    2. Añadir contacto (nombre y teléfono). `add_contact(phone_book, name, phone)`
+    3. Borrar contacto (nombre). `remove_contact(phone_book, name)`
+    4. Salir.
+
 2. `phone_book` será una lista, donde cada elemento de la lista será un diccionario, es decir, una lista de diccionarios. Cada elemento de la lista representa un contacto, y viene representado por un diccionario con dos claves: `name` y `phone`. Esta variable hay que definirla al comienzo de la función `menu`.
 3. La función `show_contacts(phone_book)` debe mostrar la agenda telefónica de la siguiente manera:
 

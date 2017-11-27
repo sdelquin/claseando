@@ -45,7 +45,7 @@ El programa debe cumplir con las siguientes especificaciones:
     3. Borrar contacto (nombre). `remove_contact(phone_book, name)`
     4. Salir.
 
-2. `phone_book` será una lista, donde cada elemento de la lista será un diccionario, es decir, una lista de diccionarios. Cada elemento de la lista representa un contacto, y viene representado por un diccionario con dos claves: `name` y `phone`. Esta variable hay que definirla al comienzo de la función `menu`.
+2. `phone_book` será un diccionario. Las claves del diccionario serán los nombres de las personas y los valores serán los teléfonos. Esta variable hay que definirla al comienzo de la función `menu`.
 3. La función `show_contacts(phone_book)` debe mostrar la agenda telefónica de la siguiente manera:
 
     ```

@@ -6,9 +6,11 @@ Existen multitud de tipos de bases de datos. Aquí un esquema con las más relev
 
 ## Instalación de MySQL en la máquina de desarrollo
 
-En su momento instalamos [el sistema gestor de bases de datos `MySQL`](http://imw.claseando.es/UT1/database/) para la máquina de producción.
+En su momento instalamos [el sistema gestor de bases de datos `MySQL`](https://github.com/sdelquin/claseando/blob/master/imw/UT1/notes/database/README.md) para la máquina de producción.
 
-Tendremos que seguir los mismos pasos para instalarlo en la máquina de desarrollo.
+Tendremos que seguir los mismos pasos para instalarlo en la máquina de desarrollo. No es necesario que realices la instalación segura. Aunque es recomendable, estamos en desarrollo, y en teoría, la máquina no está tan expuesta.
+
+Recuerda el password de `root` que le asignaste al servidor *MySQL*.
 
 ## MySQL y Python
 
@@ -17,10 +19,16 @@ El módulo que vamos a usar para conectar *Python* con bases de datos *MySQL* es
 Para instalar dicho módulo habrá que ejecutar el siguiente comando, teniendo nuestro entorno virtual activo:
 
 ```console
-$> pip install pymysql
+(sandbox) sdelquin@imw:~/sandbox$ pip install pymysql
+Collecting pymysql
+  Downloading PyMySQL-0.8.0-py2.py3-none-any.whl (83kB)
+    100% |████████████████████████████████| 92kB 1.1MB/s
+Installing collected packages: pymysql
+Successfully installed pymysql-0.8.0
+(sandbox) sdelquin@imw:~/sandbox$
 ```
 
-**¿Qué datos necesito para acceder a MySQL?**
+### ¿Qué datos necesito para acceder a MySQL?
 
 ![](img/mysql_access.png)
 
@@ -31,13 +39,13 @@ El supuesto práctico consiste en desarrollar una aplicación para leer por cons
 ### Setup de la base de datos
 
 ```sql
-~|🍺  mysql -u root -p
+sdelquin@imw:~$ mysql -u root -p
 Enter password:
 Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 1235
-Server version: 5.7.10 MySQL Community Server (GPL)
+Your MySQL connection id is 5
+Server version: 5.7.20-0ubuntu0.16.04.1 (Ubuntu)
 
-Copyright (c) 2000, 2015, Oracle and/or its affiliates. All rights reserved.
+Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
 
 Oracle is a registered trademark of Oracle Corporation and/or its
 affiliates. Other names may be trademarks of their respective
@@ -67,15 +75,13 @@ Query OK, 0 rows affected (0,00 sec)
 mysql> use commands;
 Database changed
 
-mysql> create table commands (
-    -> name varchar(256) not null,
-    -> description varchar(512),
-    -> primary key (name)
-    -> );
+mysql> create table commands (name varchar(256) not null, description varchar(512), primary key (name));
 Query OK, 0 rows affected (0,02 sec)
 ```
 
 ### Código
+
+Creamos un fichero `main.py`:
 
 ```python
 import pymysql.cursors
@@ -109,20 +115,32 @@ with connection.cursor() as cursor:
 Si ejecutamos este código tenemos lo siguiente:
 
 ```console
-(imw)~/Dropbox/Code/imw/UT3/notes/mysql/code|master⚡🍺  python commands.py
+(sandbox) sdelquin@imw:~/sandbox$ python main.py
 Introduzca el comando: ls
 Introduzca la descripción: Listar el contenido de un directorio
-[{'description': 'Listar el contenido de un directorio', 'name': 'ls'}]
-(imw)~/Dropbox/Code/imw/UT3/notes/mysql/code|master⚡🍺  python commands.py
+[{'name': 'ls', 'description': 'Listar el contenido de un directorio'}]
+(sandbox) sdelquin@imw:~/sandbox$ python main.py
 Introduzca el comando: cd
 Introduzca la descripción: Cambiar a otro directorio
 [{'name': 'cd', 'description': 'Cambiar a otro directorio'}, {'name': 'ls', 'description': 'Listar el contenido de un directorio'}]
-(imw)~/Dropbox/Code/imw/UT3/notes/mysql/code|master⚡🍺
+(sandbox) sdelquin@imw:~/sandbox$
 ```
 
 ### Reorganizando el código
 
-Vamos a crear una clase `DB` dentro de un fichero `mysql.py` para empaquetar los métodos que necesitamos de acceso a base de datos:
+Vamos a dividir el fichero `main.py` en dos:
+
+```console
+(sandbox) sdelquin@imw:~/sandbox$ tree
+.
+├── main.py
+└── mysql.py
+
+0 directories, 2 files
+(sandbox) sdelquin@imw:~/sandbox$
+```
+
+En el fichero `mysql.py` creamos una clase llamada `DB` para empaquetar los métodos que necesitamos de acceso a base de datos:
 
 ```python
 import pymysql.cursors
@@ -151,7 +169,7 @@ class DB():
             return cursor.fetchall()
 ```
 
-Con esto, el código de nuestro programa quedaría de la siguiente forma:
+En el fichero `main.py` quedaría el resto de la aplicación:
 
 ```python
 from mysql import DB
@@ -166,4 +184,14 @@ db.run(sql)
 
 sql = "select * from commands order by name"
 print(db.query(sql))
+```
+
+Si probamos a ejecutar:
+
+```console
+(sandbox) sdelquin@imw:~/sandbox$ python main.py
+Introduzca el comando: rm
+Introduzca la descripción: Borra archivos y/o directorios
+[{'name': 'cd', 'description': 'Cambiar a otro directorio'}, {'name': 'ls', 'description': 'Listar el contenido de un directorio'}, {'name': 'rm', 'description': 'Borra archivos y/o directorios'}]
+(sandbox) sdelquin@imw:~/sandbox$
 ```

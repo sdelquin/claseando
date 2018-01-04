@@ -1,6 +1,6 @@
 # UT3-A1: Acceso a bases de datos desde Python
 
-Vamos a continuar con la práctica de las *máquinas virtuales*. La idea es almacenar en una base de datos *MySQL* la información siguiente:
+Vamos a continuar con la actividad de las *máquinas virtuales*. La idea es almacenar en una base de datos *MySQL* la información siguiente:
 
 ![](img/ER.png)
 
@@ -70,8 +70,16 @@ mysql>
 
 ## Objetivo
 
-Modificar las líneas necesarias de la [solución de la actividad anterior](http://imw.claseando.es/UT2/assignments/assignment8/solution.html), para que los datos de la máquina virtual y de los procesos, se escriban y se lean en/desde una base de datos *MySQL*.
+Modificar las líneas necesarias de la actividad anterior, para que los datos de la máquina virtual y de los procesos, se escriban y se lean en/desde una base de datos *MySQL*.
 
 ## Posible mejora
 
 Ampliar el código para tener en cuenta más de una máquina virtual.
+
+## Información a entregar
+
+Se deberá entregar la *url* al commit en el repositorio privado *GitHub* de la asignatura *IMW*, apuntando a la carpeta que contiene los ficheros que conforman el proyecto. La *url* debe tener la siguiente estructura:
+
+```
+https://github.com/<usuario>/imw/blob/<id del commit>/<ut>/<actividad>/
+```

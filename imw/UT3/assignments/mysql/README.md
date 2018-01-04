@@ -70,7 +70,7 @@ mysql>
 
 ## Objetivo
 
-Modificar las líneas necesarias de la actividad anterior, para que los datos de la máquina virtual y de los procesos, se escriban y se lean en/desde una base de datos *MySQL*.
+Modificar las líneas necesarias de [la solución de la actividad anterior](https://www.dropbox.com/home/code/claseando/imw/ut2/assignments/assignment8/solution), para que los datos de la máquina virtual y de los procesos, se escriban y se lean en/desde una base de datos *MySQL*.
 
 ## Posible mejora
 

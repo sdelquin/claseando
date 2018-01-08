@@ -70,7 +70,9 @@ mysql>
 
 ## Objetivo
 
-Modificar las líneas necesarias de [la solución de la actividad anterior](https://www.dropbox.com/home/code/claseando/imw/ut2/assignments/assignment8/solution), para que los datos de la máquina virtual y de los procesos, se escriban y se lean en/desde una base de datos *MySQL*.
+Modificar las líneas necesarias de [la solución de la actividad anterior](https://www.dropbox.com/sh/fk3xcksdo1ht40c/AABFhH5Xk4bVC6ybDvJcYotZa?dl=0), para que los datos de la máquina virtual y de los procesos, se escriban y se lean en/desde una base de datos *MySQL*.
+
+[Fichero `mysql.py` de acceso a base de datos](mysql.py) 
 
 ## Posible mejora
 

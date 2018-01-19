@@ -221,6 +221,39 @@ Así habremos podido acceder a la interfaz administrativa de Wordpress:
 
 ![](img/wp05.png)
 
+## Ajuste de permalinks
+
+En primer lugar activamos esta opción dentro de la interfaz administrativa de Wordpress:
+
+![AjustesPermalinks1](img/wp06.png) 
+
+Seleccionamos el ajuste **Día y nombre**. Pulsamos en <kbd>Guardar cambios</kbd>.
+
+![AjustesPermalinks2](img/wp07.png) 
+
+Ahora debemos indicar a Nginx que procese estas URLs:
+
+~~~console
+sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/wordpress
+~~~
+
+> Añadir lo siguiente:
+
+~~~nginx
+location / {
+    try_files $uri $uri/ /index.php?$args;
+}
+~~~
+
+No olvidarnos de recargar la configuración de Nginx:
+
+~~~console
+sdelquin@cloud:~$ sudo systemctl reload nginx
+sdelquin@cloud:~$
+~~~
+
+Una ventaja que tiene este método es que podemos acceder a la **zona administrativa** utilizando la siguiente URL: `http://wordpress.imwpto.me/admin`
+
 ## Límite de tamaño en la subida de archivos
 
 Por defecto, el límite de subida de archivos para aplicaciones *PHP* suele ser bastante bajo, en torno a los 2MB.

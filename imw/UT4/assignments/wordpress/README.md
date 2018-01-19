@@ -3,10 +3,14 @@
 1. Realizar la instalación de Wordpress en el dominio `wordpress.aluXXXX.me`.
 2. Instalar y activar un tema gratuito.
 2. Ajustar los permalinks a *Día y Nombre*.
-3. Escribir un post con las estadísticas de uso de *Wordpress*.
+3. Escribir un post con las estadísticas de uso de Wordpress vistas en clase y entrar a dicho post.
 
-## Fichero a entregar
+## Información a entregar
 
-Informe en PDF explicando todo el proceso y capturas de pantallas correspondientes.
+Se deberá entregar la *url* al commit en el repositorio privado *GitHub* de la asignatura *IMW*, apuntando al `README.md` que contiene un informe detallado de la actividad, donde expliques lo que has hecho, justificando tus decisiones. La *url* debe tener la siguiente estructura:
 
-> NOTA: En las capturas se deben ver las URLs a las que se está accediendo.
+```
+https://github.com/<usuario>/imw/blob/<id del commit>/<ut>/<actividad>/README.md
+```
+
+> ⚠️ Al subir la *url*, es importante crear un enlace. Es decir, poner un `href` a la *url* anterior, y no pegar el texto tal cual.

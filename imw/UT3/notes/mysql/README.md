@@ -142,7 +142,7 @@ Vamos a dividir el fichero `main.py` en dos:
 
 En el fichero `mysql.py` creamos una clase llamada `DB` para empaquetar los métodos que necesitamos de acceso a base de datos:
 
-```python
+~~~python
 import pymysql.cursors
 
 
@@ -162,12 +162,9 @@ class DB():
     def run(self, sql):
         with self.connection.cursor() as cursor:
             cursor.execute(sql)
-
-    def query(self, sql):
-        with self.connection.cursor() as cursor:
-            cursor.execute(sql)
-            return cursor.fetchall()
-```
+            if sql.startswith("select"):
+                return cursor.fetchall()
+~~~
 
 En el fichero `main.py` quedaría el resto de la aplicación:
 
@@ -183,7 +180,7 @@ sql = "insert into commands values ('{}', '{}')".format(cmd, desc)
 db.run(sql)
 
 sql = "select * from commands order by name"
-print(db.query(sql))
+print(db.run(sql))
 ```
 
 Si probamos a ejecutar:

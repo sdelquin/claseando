@@ -2,13 +2,13 @@ import pymysql.cursors
 
 
 class DB():
-    def __init__(self, username, password):
+    def __init__(self, username, password, database):
         self.connection = pymysql.connect(
             host="localhost",
             port=3306,
             user=username,
             password=password,
-            db="commands",
+            db=database,
             charset="utf8mb4",
             cursorclass=pymysql.cursors.DictCursor,
             autocommit=True
@@ -17,8 +17,5 @@ class DB():
     def run(self, sql):
         with self.connection.cursor() as cursor:
             cursor.execute(sql)
-
-    def query(self, sql):
-        with self.connection.cursor() as cursor:
-            cursor.execute(sql)
-            return cursor.fetchall()
+            if sql.startswith("select"):
+                return cursor.fetchall()

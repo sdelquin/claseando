@@ -1,14 +1,14 @@
 # UT5-A1: Apariencia en Wordpress
 
 - Se trata de crear un *blog* personal de ASIR mediante *Wordpress*.
-- La *url* debe ser `http://<usuario>.asir.iespto`.
-    + `<usuario>` se deberá sustituir por tu nombre de pila.
+- La *url* debe ser `http://asir.aluXXXX.me`.
 
 ## Tema
 
-- Utilizar el tema `Twenty Seventeen`.
+- Utilizar el tema `HarmonUX Core`.
 
 ## Identidad del sitio
+
 - Título del sitio: *El blog de ASIR*
 - Descripción corta: *Mi experiencia en el IES Puerto de la Cruz - Telesforo Bravo*
 
@@ -58,7 +58,7 @@ Crear el menú principal:
     + Python España (http://www.es.python.org/)
     + Docker (https://www.docker.com/)
     + OpenSuse (https://es.opensuse.org/Bienvenidos_a_openSUSE.org)
-    + Debian (https://www.debian.org/index.es.html)
+    + Ubuntu (https://www.ubuntu.com/)
 
 ## Páginas
 
@@ -90,6 +90,6 @@ Crear el menú principal:
 - Pie de la derecha:
     + Dejar sólo el widget de "Acerca de este sitio" y actualizarlo explicando para qué es la página web.
 
-## Ficheros a entregar
+## Información a entregar
 
-Informe en PDF con capturas de pantalla (donde se vean claramente las URLs) explicando paso a paso lo que se ha hecho, y el resultado.
+No es necesario entregar informe. Únicamente habrá que subir la URL del blog: `http://asir.aluXXXX.me`.

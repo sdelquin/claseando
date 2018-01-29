@@ -52,7 +52,7 @@ Dentro de nuestro proyecto, crearemos un fichero denominado `fabfile.py` que con
 
 > Contenido:
 ```python
-from fabric.api import env, cd, local, run
+from fabric.api import env, cd, prefix, local, run
 
 # nombre de la máquina de producción
 env.hosts = ["cloud"]
@@ -62,9 +62,10 @@ env.hosts = ["cloud"]
 
 def deploy():
     local("git push")
-    with cd("~/myweb"):
-        run("git pull")
-        run("supervisorctl restart myweb")
+    with prefix("source ~/.virtualenvs/vmweb/bin/activate")
+      with cd("~/myweb"):
+          run("git pull")
+          run("supervisorctl restart myweb")
 ```
 
 Ahora, para desplegar nuestra aplicación, sólo tendríamos que hacer lo siguiente desde la máquina de desarrollo:

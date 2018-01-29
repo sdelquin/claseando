@@ -62,7 +62,7 @@ env.hosts = ["cloud"]
 
 def deploy():
     local("git push")
-    with prefix("source ~/.virtualenvs/vmweb/bin/activate")
+    with prefix("source ~/.virtualenvs/vmweb/bin/activate"):
       with cd("~/myweb"):
           run("git pull")
           run("supervisorctl restart myweb")

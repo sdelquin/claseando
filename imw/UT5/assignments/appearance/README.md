@@ -12,9 +12,8 @@
 - Título del sitio: *El blog de ASIR*
 - Descripción corta: *Mi experiencia en el IES Puerto de la Cruz - Telesforo Bravo*
 
-## Apariencia
+## Enlaces permanentes
 
-- La cabecera debe contener el vídeo: `https://youtu.be/uiOGiczyLoo`
 - Establecer los *permalinks* a *Día y nombre*.
 
 ## Información previa
@@ -45,12 +44,6 @@ Crear las siguientes categorías:
 
 ## Menús
 
-Crear el menú de redes sociales:
-- Blog del instituto.
-- Facebook del instituto.
-- Twitter del instituto.
-- Youtube del instituto.
-
 Crear el menú principal:
 - Todas las categorías creadas.
 - Prácticas en empresa (enlace a una página)
@@ -80,15 +73,12 @@ Crear el menú principal:
 
 ## Widgets
 
-- Barra lateral:
-    + Actualizar el widget de "Encuéntranos" con la dirección del instituto.
-    + Poner en primer lugar el widget de "Búsqueda".
-    + Añadir widget de "Nube de etiquetas".
-    + Eliminar el widget de "Acerca de este sitio".
-- Pie de la izquierda:
-    + Dejar sólo el widget de redes sociales.
-- Pie de la derecha:
-    + Dejar sólo el widget de "Acerca de este sitio" y actualizarlo explicando para qué es la página web.
+- Adaptar el menú (widget) de **redes sociales** y enlazar a:
+    - Facebook del instituto.
+    - Twitter del instituto.
+    - Youtube del instituto.
+- Widget de **búsqueda**.
+- Widget con **nube de etiquetas**.
 
 ## Información a entregar
 

@@ -64,6 +64,7 @@ Crear el menú principal:
 - Alguna de las entradas debe tener un enlace a un fichero PDF previamente subido a la plataforma.
 - Cada entrada debe tener 3 etiquetas.
 - Asignar imagen destacada.
+- El contenido de la entrada debe estar relacionado con la categoría de la entrada.
 - Utilizar:
     + Negritas.
     + Cursivas.

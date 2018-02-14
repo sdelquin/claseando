@@ -63,6 +63,7 @@ Crear el menú principal:
 - Cada entrada debe tener una imagen, colocada en un lugar diferente. Utilizar la *biblioteca multimedia* para subir los ficheros.
 - Alguna de las entradas debe tener un enlace a un fichero PDF previamente subido a la plataforma.
 - Cada entrada debe tener 3 etiquetas.
+- Asignar imagen destacada.
 - Utilizar:
     + Negritas.
     + Cursivas.

@@ -50,6 +50,6 @@ Ojo a los siguientes detalles:
 
 > Ojo con los permisos de los ficheros. El usuario que utiliza Nginx es `www-data`, por lo tanto debemos asegurarnos que los ficheros tienen permiso de lectura para *"others"*. Lo más fácil sería utilizar la máscara 755.
 
-## Ficheros a entregar
+## Información a entregar
 
-Se debe entregar un informe en PDF explicando las modificaciones que se han hecho, paso por paso, e incluyendo en dicho informe el código (*html, php, css*) que se ha escrito y capturas de pantalla (donde se vea claramente la `url` del navegador).
+No es necesario entregar informe. Únicamente habrá que subir la URL del blog: `http://customwp.aluXXXX.me`.

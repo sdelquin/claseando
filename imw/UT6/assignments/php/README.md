@@ -37,6 +37,12 @@ Utiliza el método `GET` para enviar el número.
 
 Crea un formulario que pida dos números (filas y columnas). Ambos tienen que valer 1 ó más, de no ser así se indica el error. El resultado será una tabla (se mostrará en la misma página del formulario) con el tamaño indicado.
 
-## Ficheros a entregar
+## Información a entregar
 
-Se deberá subir un único fichero comprimido (.zip) con el código PHP de los diferentes ejercicios.
+Se deberá entregar la *url* al commit en el repositorio privado *GitHub* de la asignatura *IMW*, apuntando a la carpeta que contiene los ficheros de código Php. La *url* debe tener la siguiente estructura:
+
+```
+https://github.com/<usuario>/imw/blob/<id del commit>/<ut>/<actividad>/
+```
+
+> ⚠️ Al subir la *url*, es importante crear un enlace. Es decir, poner un `href` a la *url* anterior, y no pegar el texto tal cual.

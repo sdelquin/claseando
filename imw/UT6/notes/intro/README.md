@@ -26,7 +26,7 @@
 #### Ventajas
 
 - Es la principal forma de hacer modificaciones extensas.
-- Se puede cambiar cualquie aspectos de tu tema *Wordpress*.
+- Se puede cambiar cualquier aspecto de tu tema *Wordpress*.
 
 #### Desventajas
 
@@ -44,4 +44,4 @@
 #### Desventajas
 
 - Es la forma más compleja.
-- Requieres de conocimientos PHP para sacarles el máximo partido.
+- Requiere de conocimientos PHP para sacarle el máximo partido.

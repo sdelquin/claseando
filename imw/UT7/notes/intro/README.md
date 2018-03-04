@@ -13,4 +13,8 @@ Existen productos integrales, que ofrecen multitud de herramientas para trabajo 
 - Apple: **iCloud**
 - Dropbox: **Dropbox Paper**
 
+## Editores colaborativos
+
 A nivel de editores de texto online, hay tanta cantidad y variedad, que sería imposible hacer aquí un listado. Bastaría con hacer una búsqueda en Google de `text online editor` para tener acceso a múltiples sitios web donde editar documentos online.
+
+Yo destacaría la aplicación [Etherpad](https://etherpad.net/).

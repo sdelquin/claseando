@@ -27,7 +27,7 @@ Ojo a los siguientes detalles:
 7. El panel debe controlar que no se deje el *email* vacío y también que el *email* sea válido:  
 ![](img/subscribe2.png)
 ![](img/subscribe3.png)
-8. Al pulsar en *SUSCRIBIRME!* se debe enviar la petición a un fichero `subscribe.php` que debe hacer 3 cosas:
+8. Al pulsar en *SUSCRIBIRME!* se debe enviar la petición a un fichero `/wp-content/themes/MySparkling/subscribe.php` que debe hacer 3 cosas:
     - Mostrar un *alert* con el siguiente aspecto:  
     ![](img/subscribe4.png)
     - Guardar el email pasado por `POST` en un fichero `subscribers.txt`.
@@ -39,7 +39,13 @@ Ojo a los siguientes detalles:
 10. El aspecto global de la web debería ser el siguiente:  
 ![](img/wireframe.png)
 
+## Notas
+
 > Todas las modificaciones de estilo deben incluirse bien en el fichero `style.css` ó bien en un nuevo fichero creado para ello. Es decir, no se permiten reglas de estilo dentro de los propios ficheros *php*/*html*.
+
+> Ojo con los permisos de los ficheros. El usuario que utiliza Nginx es `www-data`, por lo tanto debemos asegurarnos que los ficheros tienen permiso de lectura para *"others"*. Lo más fácil sería utilizar la máscara 755.
+
+> Una manera sencilla de modificar los ficheros del tema es utilizando el editor visual de código integrado en el propio Wordpress.
 
 ## Enlaces
 
@@ -47,8 +53,6 @@ Ojo a los siguientes detalles:
 - [Mostrar un `alert` a través de PHP](http://stackoverflow.com/a/13851576)
 - [Iconos de Font Awesome](http://fontawesome.io/icons/)
 - [Bootstrap](http://getbootstrap.com/)
-
-> Ojo con los permisos de los ficheros. El usuario que utiliza Nginx es `www-data`, por lo tanto debemos asegurarnos que los ficheros tienen permiso de lectura para *"others"*. Lo más fácil sería utilizar la máscara 755.
 
 ## Información a entregar
 

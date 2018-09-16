@@ -35,7 +35,7 @@ iface ens33:0 inet static
     netmask 255.255.0.0
     broadcast 172.18.255.255
     post-up route add default gw 172.18.0.1
-    dns-nameservers 8.8.8.8 8.8.4.4
+    dns-nameservers 1.1.1.1 1.0.0.1
 
 # home interface
 auto ens33:1
@@ -44,7 +44,7 @@ iface ens33:1 inet static
     netmask 255.255.255.0
     broadcast 192.168.1.255
     post-up route add default gw 192.168.1.1
-    dns-nameservers 8.8.8.8 8.8.4.4
+    dns-nameservers 1.1.1.1 1.0.0.1
 ```
 
 Ahora debemos reiniciar nuestra máquina, para que todos estos cambios tengan efecto. Ejecutamos como **root**:

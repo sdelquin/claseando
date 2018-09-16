@@ -6,17 +6,15 @@ Vamos a intentar tener una máquina en producción a través de los servicios of
 
 Dado que todos salimos a internet por la *misma IP pública*, es posible que seamos *baneados* por los servicios que vamos a utilizar, ya que hay demasiados accesos simultáneos, y se podría pensar que somos *robots*. Para solucionar esto, vamos a hacer uso de **VPN**, que crea un túnel para que podamos salir por *otra IP pública*.
 
-Existen múltiples sitios para túneles VPN. Una posibilidad es `TunnelBear`. Instrucciones:
+![TunnelBear](img/tunnel_bear.png)
 
-- [Registro en el servicio TunnelBear](https://www.tunnelbear.com/account#/signup) 
-- [TunnelBear para Linux](https://www.tunnelbear.com/blog/linux_support/) 
-- [TunnelBear para Mac](https://www.tunnelbear.com/apps/mac) 
-- [TunnelBear para Windows](https://www.tunnelbear.com/apps/windows) 
-- [TunnelBear para Chrome](https://www.tunnelbear.com/apps/browser) 
+Existen múltiples servicios para túneles VPN. Una posibilidad es `TunnelBear`. En primer lugar debemos realizar el [registro en el servicio TunnelBear](https://www.tunnelbear.com/account#/signup) y a continuación instalar la extensión en nuestro navegador:
+- [Extensión de TunnelBear para **Firefox**](https://addons.mozilla.org/en-US/firefox/addon/tunnelbear-vpn-firefox/)
+-  [Extensión de TunnelBear para **Chrome**](https://chrome.google.com/webstore/detail/tunnelbear-vpn/omdakjcmkglenbhjadbccaookpfjihpa).
 
 ## Cuenta de correo del centro
 
-En primer lugar necesitamos tener una cuenta de correo del IES Puerto de la Cruz - Telesforo Bravo. Han sido creadas cuentas para todo el alumnado de esta asignatura, en la forma:
+Necesitamos tener una **cuenta de correo del IES Puerto de la Cruz - Telesforo Bravo**. Han sido creadas cuentas para todo el alumnado de esta asignatura, en la forma:
 
 > `aluXXXX@iespuertodelacruz.es`  
 
@@ -33,7 +31,7 @@ En la bandeja de entrada tendremos dos correos, que, en principio, podremos igno
 
 ## Cuenta en GitHub
 
-`GitHub` es una plataforma de desarrollo colaborativo para alojar proyectos utilizando el sistema de control de versiones *Git*. [GitHub tiene actualmente cerca de 20 millones de repositorios de código](https://octoverse.github.com/).
+`GitHub` es una plataforma de desarrollo colaborativo para alojar proyectos utilizando el sistema de control de versiones *Git*. [GitHub tiene actualmente mas de 67 millones de repositorios de código](https://octoverse.github.com/).
 
 ![GitHub](img/github-octocat.png) 
 
@@ -60,7 +58,7 @@ Rellenar el formulario teniendo en cuenta lo siguiente:
 - **Name**: tu nombre y apellidos.
 - **school-issued email address**: tu dirección de correo del centro.
 - **School name**: IES Puerto de la Cruz - Telesforo Bravo
-- **Graduation year**: 2018
+- **Graduation year**: 2019
 - **How do you plan to use GitHub?**: I want to use GitHub for my lessons at the school, and, of course, for my future code projects.
 
 Si todo va bien, en poco tiempo recibiremos un correo confirmando la aprobación del `Student Developer Pack`.
@@ -81,12 +79,12 @@ Una vez que completemos el registro, debemos acceder a la [configuración de pag
 
 Tendremos que crear un **droplet** (*máquina virtual*) con las siguientes características:
 
-- Ubuntu 16.04.3 x64.
+- **Ubuntu 18.04 x64**.
 - 5$/mo
-- 512MB
-- 1 CPU
-- 20GB SSD disk
-- 1000GB transfer
+- 1 GB
+- 1 vCPU
+- 25 GB SSD disk
+- 1 TB transfer
 - Datacenter region: Frankfurt
 - Hostname: `cloud`
 
@@ -96,19 +94,19 @@ Cuando hayamos terminado este proceso, tendremos una máquina disponible con una
 
 Podemos comprobarlo haciendo un ping a la IP que nos hayan asignado en el droplet:
 
-```console
-sdelquin@imw:~$ ping -c4 138.68.99.84
-PING 138.68.99.84 (138.68.99.84) 56(84) bytes of data.
-64 bytes from 138.68.99.84: icmp_seq=1 ttl=54 time=60.9 ms
-64 bytes from 138.68.99.84: icmp_seq=2 ttl=54 time=60.7 ms
-64 bytes from 138.68.99.84: icmp_seq=3 ttl=54 time=60.7 ms
-64 bytes from 138.68.99.84: icmp_seq=4 ttl=54 time=61.0 ms
+~~~console
+sdelquin@imw:~$ ping -c4 207.154.234.62
+PING 207.154.234.62 (207.154.234.62) 56(84) bytes of data.
+64 bytes from 207.154.234.62: icmp_seq=1 ttl=52 time=65.0 ms
+64 bytes from 207.154.234.62: icmp_seq=2 ttl=52 time=63.9 ms
+64 bytes from 207.154.234.62: icmp_seq=3 ttl=52 time=66.1 ms
+64 bytes from 207.154.234.62: icmp_seq=4 ttl=52 time=68.1 ms
 
---- 138.68.99.84 ping statistics ---
+--- 207.154.234.62 ping statistics ---
 4 packets transmitted, 4 received, 0% packet loss, time 3006ms
-rtt min/avg/max/mdev = 60.724/60.888/61.071/0.286 ms
+rtt min/avg/max/mdev = 63.914/65.825/68.185/1.591 ms
 sdelquin@imw:~$
-```
+~~~
 
 ## Namecheap
 
@@ -128,9 +126,9 @@ El objetivo es crear un dominio que apunte a la máquina que hemos creado en *Di
 
 Una vez creado el dominio, debemos establecer los DNS apuntando a *Digital Ocean*. Para ello, entramos con nuestras credenciales en *Namecheap*, y accedemos a:
 
-```
+~~~
 Domain List -> Manage -> Advanced DNS
-```
+~~~
 
 Una vez ahí, establecemos los siguientes registros con la IP de la máquina de producción de *Digital Ocean*:
 
@@ -140,16 +138,16 @@ Una vez ahí, establecemos los siguientes registros con la IP de la máquina de 
 
 Es posible que la propagación de los DNS no sea inmediata, y que, por tanto, no podamos acceder al dominio creado. Podemos comprobar dónde está apuntando el dominio a través de un ping:
 
-```console
-sdelquin@imw:~$ ping -c4 imwpto.me
-PING imwpto.me (138.68.99.84) 56(84) bytes of data.
-64 bytes from cloud (138.68.99.84): icmp_seq=1 ttl=54 time=64.4 ms
-64 bytes from cloud (138.68.99.84): icmp_seq=2 ttl=54 time=60.9 ms
-64 bytes from cloud (138.68.99.84): icmp_seq=3 ttl=54 time=60.7 ms
-64 bytes from cloud (138.68.99.84): icmp_seq=4 ttl=54 time=60.6 ms
+~~~console
+sdelquin@imw:~$ ping -c4 vps.claseando.es
+PING vps.claseando.es (207.154.234.62) 56(84) bytes of data.
+64 bytes from 207.154.234.62 (207.154.234.62): icmp_seq=1 ttl=52 time=61.5 ms
+64 bytes from 207.154.234.62 (207.154.234.62): icmp_seq=2 ttl=52 time=61.6 ms
+64 bytes from 207.154.234.62 (207.154.234.62): icmp_seq=3 ttl=52 time=67.0 ms
+64 bytes from 207.154.234.62 (207.154.234.62): icmp_seq=4 ttl=52 time=61.9 ms
 
---- imwpto.me ping statistics ---
+--- vps.claseando.es ping statistics ---
 4 packets transmitted, 4 received, 0% packet loss, time 3006ms
-rtt min/avg/max/mdev = 60.660/61.693/64.411/1.591 ms
+rtt min/avg/max/mdev = 61.547/63.054/67.072/2.324 ms
 sdelquin@imw:~$
-```
+~~~

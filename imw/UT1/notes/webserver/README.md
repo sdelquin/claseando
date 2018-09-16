@@ -2,7 +2,6 @@
 
 [Instalando Nginx](#instalando-nginx)  
 [Server y Location](#server-y-location)  
-[Rutas destacadas](#rutas-destacadas)  
 [Listado de directorios](#listado-de-directorios)  
 [Acceso restringido con clave](#acceso-restringido-con-clave)  
 [Ficheros de log](#ficheros-de-log)  
@@ -20,28 +19,29 @@ La instalación del servidor **Nginx** es muy sencilla. Lo único que debemos ha
 
 Lo primero es actualizar la lista de paquetes:
 
-```console
-sdelquin@cloud:~$ sudo apt-get update
+~~~console
+sdelquin@claseando:~$ sudo apt update
 [sudo] password for sdelquin:
-Des:1 http://security.ubuntu.com/ubuntu xenial-security InRelease [102 kB]
-Des:2 http://security.ubuntu.com/ubuntu xenial-security/main Sources [91,3 kB]
-Des:3 http://security.ubuntu.com/ubuntu xenial-security/main amd64 Packages [354 kB]
-Des:4 http://security.ubuntu.com/ubuntu xenial-security/universe amd64 Packages [169 kB]
-Obj:5 http://ams2.mirrors.digitalocean.com/ubuntu xenial InRelease
-Des:6 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates InRelease [102 kB]
-Des:7 http://ams2.mirrors.digitalocean.com/ubuntu xenial-backports InRelease [102 kB]
-Des:8 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main Sources [275 kB]
-Des:9 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 Packages [631 kB]
-Des:10 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/universe amd64 Packages [536 kB]
-Descargados 2.363 kB en 1s (1.595 kB/s)
+Des:1 http://security.ubuntu.com/ubuntu bionic-security InRelease [83,2 kB]
+Obj:2 http://ams2.mirrors.digitalocean.com/ubuntu bionic InRelease
+Des:5 http://ams2.mirrors.digitalocean.com/ubuntu bionic/main Translation-es [364 kB]
+Des:3 http://ams2.mirrors.digitalocean.com/ubuntu bionic-updates InRelease [88,7 kB]
+Des:4 http://ams2.mirrors.digitalocean.com/ubuntu bionic-backports InRelease [74,6 kB]
+Des:6 http://ams2.mirrors.digitalocean.com/ubuntu bionic/restricted Translation-es [1.960 B]
+Des:7 http://ams2.mirrors.digitalocean.com/ubuntu bionic/universe Translation-es [1.259 kB]
+Des:8 http://ams2.mirrors.digitalocean.com/ubuntu bionic/multiverse Translation-es [74,9 kB]
+Descargados 1.946 kB en 1s (1.360 kB/s)
 Leyendo lista de paquetes... Hecho
-sdelquin@cloud:~$
-```
+Creando árbol de dependencias
+Leyendo la información de estado... Hecho
+Se pueden actualizar 27 paquetes. Ejecute «apt list --upgradable» para verlos.
+sdelquin@claseando:~$
+~~~
 
 A continuación instalaremos el paquete `nginx`:
 
-```console
-sdelquin@cloud:~$ sudo apt-get install nginx
+~~~console
+sdelquin@claseando:~$ sudo apt -y install nginx
 Leyendo lista de paquetes... Hecho
 Creando árbol de dependencias
 Leyendo la información de estado... Hecho
@@ -49,162 +49,110 @@ El paquete indicado a continuación se instaló de forma automática y ya no es 
   grub-pc-bin
 Utilice «sudo apt autoremove» para eliminarlo.
 Se instalarán los siguientes paquetes adicionales:
-  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0 libjpeg-turbo8 libjpeg8 libtiff5
-  libvpx3 libxpm4 libxslt1.1 nginx-common nginx-core
+  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0 libjpeg-turbo8 libjpeg8
+  libnginx-mod-http-geoip libnginx-mod-http-image-filter libnginx-mod-http-xslt-filter libnginx-mod-mail
+  libnginx-mod-stream libtiff5 libwebp6 libxpm4 nginx-common nginx-core
 Paquetes sugeridos:
   libgd-tools fcgiwrap nginx-doc ssl-cert
 Se instalarán los siguientes paquetes NUEVOS:
-  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0 libjpeg-turbo8 libjpeg8 libtiff5
-  libvpx3 libxpm4 libxslt1.1 nginx nginx-common nginx-core
-0 actualizados, 14 nuevos se instalarán, 0 para eliminar y 15 no actualizados.
-Se necesita descargar 3.000 kB de archivos.
-Se utilizarán 9.783 kB de espacio de disco adicional después de esta operación.
-¿Desea continuar? [S/n]
-Des:1 http://ams2.mirrors.digitalocean.com/ubuntu xenial/main amd64 libjpeg-turbo8 amd64 1.4.2-0ubuntu3 [111 kB]
-Des:2 http://ams2.mirrors.digitalocean.com/ubuntu xenial/main amd64 libjbig0 amd64 2.1-3.1 [26,6 kB]
-Des:3 http://ams2.mirrors.digitalocean.com/ubuntu xenial/main amd64 fonts-dejavu-core all 2.35-1 [1.039 kB]
-Des:4 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 fontconfig-config all 2.11.94-0ubuntu1.1 [49,9 kB]
-Des:5 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 libfontconfig1 amd64 2.11.94-0ubuntu1.1 [131 kB]
-Des:6 http://ams2.mirrors.digitalocean.com/ubuntu xenial/main amd64 libjpeg8 amd64 8c-2ubuntu8 [2.194 B]
-Des:7 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 libtiff5 amd64 4.0.6-1ubuntu0.2 [146 kB]
-Des:8 http://ams2.mirrors.digitalocean.com/ubuntu xenial/main amd64 libvpx3 amd64 1.5.0-2ubuntu1 [732 kB]
-Des:9 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 libxpm4 amd64 1:3.5.11-1ubuntu0.16.04.1 [33,8 kB]
-Des:10 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 libgd3 amd64 2.1.1-4ubuntu0.16.04.8 [126 kB]
-Des:11 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 libxslt1.1 amd64 1.1.28-2.1ubuntu0.1 [145 kB]
-Des:12 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 nginx-common all 1.10.3-0ubuntu0.16.04.2 [26,6 kB]
-Des:13 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 nginx-core amd64 1.10.3-0ubuntu0.16.04.2 [428 kB]
-Des:14 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 nginx all 1.10.3-0ubuntu0.16.04.2 [3.490 B]
-Descargados 3.000 kB en 1s (1.943 kB/s)
-Preconfigurando paquetes ...
-Seleccionando el paquete libjpeg-turbo8:amd64 previamente no seleccionado.
-(Leyendo la base de datos ... 82162 ficheros o directorios instalados actualmente.)
-Preparando para desempaquetar .../libjpeg-turbo8_1.4.2-0ubuntu3_amd64.deb ...
-Desempaquetando libjpeg-turbo8:amd64 (1.4.2-0ubuntu3) ...
-Seleccionando el paquete libjbig0:amd64 previamente no seleccionado.
-Preparando para desempaquetar .../libjbig0_2.1-3.1_amd64.deb ...
-Desempaquetando libjbig0:amd64 (2.1-3.1) ...
-Seleccionando el paquete fonts-dejavu-core previamente no seleccionado.
-Preparando para desempaquetar .../fonts-dejavu-core_2.35-1_all.deb ...
-Desempaquetando fonts-dejavu-core (2.35-1) ...
-Seleccionando el paquete fontconfig-config previamente no seleccionado.
-Preparando para desempaquetar .../fontconfig-config_2.11.94-0ubuntu1.1_all.deb ...
-Desempaquetando fontconfig-config (2.11.94-0ubuntu1.1) ...
-Seleccionando el paquete libfontconfig1:amd64 previamente no seleccionado.
-Preparando para desempaquetar .../libfontconfig1_2.11.94-0ubuntu1.1_amd64.deb ...
-Desempaquetando libfontconfig1:amd64 (2.11.94-0ubuntu1.1) ...
-Seleccionando el paquete libjpeg8:amd64 previamente no seleccionado.
-Preparando para desempaquetar .../libjpeg8_8c-2ubuntu8_amd64.deb ...
-Desempaquetando libjpeg8:amd64 (8c-2ubuntu8) ...
-Seleccionando el paquete libtiff5:amd64 previamente no seleccionado.
-Preparando para desempaquetar .../libtiff5_4.0.6-1ubuntu0.2_amd64.deb ...
-Desempaquetando libtiff5:amd64 (4.0.6-1ubuntu0.2) ...
-Seleccionando el paquete libvpx3:amd64 previamente no seleccionado.
-Preparando para desempaquetar .../libvpx3_1.5.0-2ubuntu1_amd64.deb ...
-Desempaquetando libvpx3:amd64 (1.5.0-2ubuntu1) ...
-Seleccionando el paquete libxpm4:amd64 previamente no seleccionado.
-Preparando para desempaquetar .../libxpm4_1%3a3.5.11-1ubuntu0.16.04.1_amd64.deb ...
-Desempaquetando libxpm4:amd64 (1:3.5.11-1ubuntu0.16.04.1) ...
-Seleccionando el paquete libgd3:amd64 previamente no seleccionado.
-Preparando para desempaquetar .../libgd3_2.1.1-4ubuntu0.16.04.8_amd64.deb ...
-Desempaquetando libgd3:amd64 (2.1.1-4ubuntu0.16.04.8) ...
-Seleccionando el paquete libxslt1.1:amd64 previamente no seleccionado.
-Preparando para desempaquetar .../libxslt1.1_1.1.28-2.1ubuntu0.1_amd64.deb ...
-Desempaquetando libxslt1.1:amd64 (1.1.28-2.1ubuntu0.1) ...
-Seleccionando el paquete nginx-common previamente no seleccionado.
-Preparando para desempaquetar .../nginx-common_1.10.3-0ubuntu0.16.04.2_all.deb ...
-Desempaquetando nginx-common (1.10.3-0ubuntu0.16.04.2) ...
-Seleccionando el paquete nginx-core previamente no seleccionado.
-Preparando para desempaquetar .../nginx-core_1.10.3-0ubuntu0.16.04.2_amd64.deb ...
-Desempaquetando nginx-core (1.10.3-0ubuntu0.16.04.2) ...
-Seleccionando el paquete nginx previamente no seleccionado.
-Preparando para desempaquetar .../nginx_1.10.3-0ubuntu0.16.04.2_all.deb ...
-Desempaquetando nginx (1.10.3-0ubuntu0.16.04.2) ...
-Procesando disparadores para libc-bin (2.23-0ubuntu9) ...
-Procesando disparadores para man-db (2.7.5-1) ...
-Procesando disparadores para ureadahead (0.100.0-19) ...
-Procesando disparadores para ufw (0.35-0ubuntu2) ...
-Procesando disparadores para systemd (229-4ubuntu19) ...
-Configurando libjpeg-turbo8:amd64 (1.4.2-0ubuntu3) ...
-Configurando libjbig0:amd64 (2.1-3.1) ...
-Configurando fonts-dejavu-core (2.35-1) ...
-Configurando fontconfig-config (2.11.94-0ubuntu1.1) ...
-Configurando libfontconfig1:amd64 (2.11.94-0ubuntu1.1) ...
+  fontconfig-config fonts-dejavu-core libfontconfig1 libgd3 libjbig0 libjpeg-turbo8 libjpeg8
+  libnginx-mod-http-geoip libnginx-mod-http-image-filter libnginx-mod-http-xslt-filter libnginx-mod-mail
+  libnginx-mod-stream libtiff5 libwebp6 libxpm4 nginx nginx-common nginx-core
+0 actualizados, 18 nuevos se instalarán, 0 para eliminar y 27 no actualizados.
+Se necesita descargar 2.458 kB de archivos.
+Se utilizarán 8.193 kB de espacio de disco adicional después de esta operación.
+Des:1 http://ams2.mirrors.digitalocean.com/ubuntu bionic-updates/main amd64 libjpeg-turbo8 amd64 1.5.2-0ubuntu5.18.04.1 [110 kB]
+Des:2 http://ams2.mirrors.digitalocean.com/ubuntu bionic/main amd64 fonts-dejavu-core all 2.37-1 [1.041 kB]
+Des:3 http://ams2.mirrors.digitalocean.com/ubuntu bionic/main amd64 fontconfig-config all 2.12.6-0ubuntu2 [55,8 kB]
+Des:4 http://ams2.mirrors.digitalocean.com/ubuntu bionic/main amd64 libfontconfig1 amd64 2.12.6-0ubuntu2 [137 kB]
+Created symlink /etc/systemd/system/multi-user.target.wants/nginx.service → /lib/systemd/system/nginx.service.
+Configurando libjpeg-turbo8:amd64 (1.5.2-0ubuntu5.18.04.1) ...
+Procesando disparadores para libc-bin (2.27-3ubuntu1) ...
+Procesando disparadores para systemd (237-3ubuntu10.3) ...
+Configurando libnginx-mod-mail (1.14.0-0ubuntu1) ...
+Configurando libxpm4:amd64 (1:3.5.12-1) ...
+Procesando disparadores para man-db (2.8.3-2) ...
+Configurando libnginx-mod-http-xslt-filter (1.14.0-0ubuntu1) ...
+Configurando libnginx-mod-http-geoip (1.14.0-0ubuntu1) ...
+Configurando libwebp6:amd64 (0.6.1-2) ...
 Configurando libjpeg8:amd64 (8c-2ubuntu8) ...
-Configurando libtiff5:amd64 (4.0.6-1ubuntu0.2) ...
-Configurando libvpx3:amd64 (1.5.0-2ubuntu1) ...
-Configurando libxpm4:amd64 (1:3.5.11-1ubuntu0.16.04.1) ...
-Configurando libgd3:amd64 (2.1.1-4ubuntu0.16.04.8) ...
-Configurando libxslt1.1:amd64 (1.1.28-2.1ubuntu0.1) ...
-Configurando nginx-common (1.10.3-0ubuntu0.16.04.2) ...
-Configurando nginx-core (1.10.3-0ubuntu0.16.04.2) ...
-Configurando nginx (1.10.3-0ubuntu0.16.04.2) ...
-Procesando disparadores para libc-bin (2.23-0ubuntu9) ...
-Procesando disparadores para systemd (229-4ubuntu19) ...
-Procesando disparadores para ureadahead (0.100.0-19) ...
-Procesando disparadores para ufw (0.35-0ubuntu2) ...
-sdelquin@cloud:~$
-```
+Configurando fontconfig-config (2.12.6-0ubuntu2) ...
+Configurando libnginx-mod-stream (1.14.0-0ubuntu1) ...
+Configurando libtiff5:amd64 (4.0.9-5) ...
+Configurando libfontconfig1:amd64 (2.12.6-0ubuntu2) ...
+Configurando libgd3:amd64 (2.2.5-4ubuntu0.2) ...
+Configurando libnginx-mod-http-image-filter (1.14.0-0ubuntu1) ...
+Configurando nginx-core (1.14.0-0ubuntu1) ...
+Configurando nginx (1.14.0-0ubuntu1) ...
+Procesando disparadores para ureadahead (0.100.0-20) ...
+Procesando disparadores para ufw (0.35-5) ...
+Procesando disparadores para libc-bin (2.27-3ubuntu1) ...
+sdelquin@claseando:~$
+~~~
 
 Con esto, en principio, debería estar instalado el servidor web **Nginx**. Podemos comprobarlo con el siguiente comando:
 
-```console
-sdelquin@cloud:~$ sudo systemctl status nginx
+~~~console
+sdelquin@claseando:~$ sudo systemctl status nginx
 ● nginx.service - A high performance web server and a reverse proxy server
    Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
-   Active: active (running) since jue 2017-09-21 15:09:21 UTC; 26s ago
- Main PID: 28992 (nginx)
+   Active: active (running) since Sun 2018-09-16 12:29:54 UTC; 42s ago
+     Docs: man:nginx(8)
+  Process: 2552 ExecStart=/usr/sbin/nginx -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+  Process: 2543 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; (code=exited, status=0/SUC
+ Main PID: 2555 (nginx)
+    Tasks: 2 (limit: 1152)
    CGroup: /system.slice/nginx.service
-           ├─28992 nginx: master process /usr/sbin/nginx -g daemon on; master_process on
-           └─28993 nginx: worker process
+           ├─2555 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;
+           └─2558 nginx: worker process
 
-sep 21 15:09:21 cloud systemd[1]: Starting A high performance web server and a reverse proxy server...
-sep 21 15:09:21 cloud systemd[1]: nginx.service: Failed to read PID from file /run/nginx.pid: Invalid argument
-sep 21 15:09:21 cloud systemd[1]: Started A high performance web server and a reverse proxy server.
-sdelquin@cloud:~$
-```
+sep 16 12:29:54 claseando systemd[1]: Starting A high performance web server and a reverse proxy server...
+sep 16 12:29:54 claseando systemd[1]: nginx.service: Failed to parse PID from file /run/nginx.pid: Invalid arg
+sep 16 12:29:54 claseando systemd[1]: Started A high performance web server and a reverse proxy server.
+~~~
 
-Para comprobar nuestra instalación de **Nginx**, accedemos al nombre de la máquina:
+Para comprobar nuestra instalación de **Nginx**, accedemos al nombre de dominio asignado a la máquina:
 
 ![](img/nginx_test.png)
 
 Igualmente, podemos acceder a la IP de la máquina, y la respuesta debe ser la misma:
 
-```console
-sdelquin@imw:~$ ping imwpto.me
-PING imwpto.me (138.68.99.84) 56(84) bytes of data.
-64 bytes from cloud (138.68.99.84): icmp_seq=1 ttl=55 time=66.0 ms
-^C
---- imwpto.me ping statistics ---
+~~~console
+sdelquin@imw:~$ ping -c1 vps.claseando.es
+PING vps.claseando.es (207.154.234.62) 56(84) bytes of data.
+64 bytes from claseando (207.154.234.62): icmp_seq=1 ttl=52 time=78.8 ms
+
+--- vps.claseando.es ping statistics ---
 1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 66.050/66.050/66.050/0.000 ms
+rtt min/avg/max/mdev = 78.808/78.808/78.808/0.000 ms
 sdelquin@imw:~$
-```
+~~~
 
 ![](img/nginx_test_by_ip.png)
 
-## Rutas destacadas
+### Rutas destacadas
 
 El directorio *root* por defecto de Nginx es: `/var/www/html`:
 
-```console
-sdelquin@cloud:~$ cat /etc/nginx/sites-enabled/default | grep root | head -1
-  root /var/www/html;
-sdelquin@cloud:~$
-```
+~~~console
+sdelquin@claseando:~$ cat /etc/nginx/sites-enabled/default | grep root | head -1
+	root /var/www/html;
+sdelquin@claseando:~$
+~~~
 
-Si echamos un vistazo, vemos lo siguiente:
+Si echamos un vistazo a este directorio, vemos lo siguiente:
 
-```console
-sdelquin@cloud:~$ sudo ls -l /var/www/html/
+~~~console
+sdelquin@claseando:~$ ls -l /var/www/html
 total 4
--rw-r--r-- 1 root root 612 sep 21 15:09 index.nginx-debian.html
-sdelquin@cloud:~$
-```
+-rw-r--r-- 1 root root 612 sep 16 12:29 index.nginx-debian.html
+sdelquin@claseando:~$
+~~~
 
 Cuando accedemos a nuestra máquina de producción, lo que realmente está pasando es que Nginx trata de buscar un fichero índice en el *root*. De hecho si miramos el contenido del fichero `index.nginx-debian.html` podemos ver que su contenido coincide con lo que nos muestra el servidor web:
 
-```console
-sdelquin@cloud:~$ cat /var/www/html/index.nginx-debian.html
+~~~console
+sdelquin@claseando:~$ cat /var/www/html/index.nginx-debian.html
 <!DOCTYPE html>
 <html>
 <head>
@@ -230,47 +178,39 @@ Commercial support is available at
 <p><em>Thank you for using nginx.</em></p>
 </body>
 </html>
-sdelquin@cloud:~$
-```
+sdelquin@claseando:~$
+~~~
+
+### Workers (trabajadores)
+
+*Nginx* tiene la posibilidad de lanzar procesos *workers* (trabajadores) que son los encargados de procesar las peticiones entrantes. Este valor se puede configurar en la variable `worker_processes` del fichero `/etc/nginx/nginx.conf`.
+
+~~~console
+sdelquin@claseando:~$ cat /etc/nginx/nginx.conf | grep worker_processes
+worker_processes auto;
+sdelquin@claseando:~$
+~~~
+
+> http://nginx.org/en/docs/ngx_core_module.html#worker_processes
 
 ### Usuario de trabajo de `Nginx`
 
 Cuando el servicio `Nginx` lanza sus procesos, estos se ejecutan utilizando el usuario `www-data` y el grupo `www-data`. Lo podemos ver a continuación:
 
-```console
-sdelquin@cloud:~$ sudo systemctl status nginx
-● nginx.service - A high performance web server and a reverse proxy server
-   Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
-   Active: active (running) since sáb 2017-10-07 11:06:47 UTC; 5min ago
-  Process: 9434 ExecStop=/sbin/start-stop-daemon --quiet --stop --retry QUIT/5 --pidfile /run/nginx.pid (code=
-  Process: 9444 ExecStart=/usr/sbin/nginx -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
-  Process: 9440 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; (code=exited, status=0/SUC
- Main PID: 9448 (nginx)
-    Tasks: 2
-   Memory: 2.9M
-      CPU: 40ms
-   CGroup: /system.slice/nginx.service
-           ├─9448 nginx: master process /usr/sbin/nginx -g daemon on; master_process on
-           └─9449 nginx: worker process
-
-oct 07 11:06:47 cloud systemd[1]: Starting A high performance web server and a reverse proxy server...
-oct 07 11:06:47 cloud systemd[1]: nginx.service: Failed to read PID from file /run/nginx.pid: Invalid argument
-oct 07 11:06:47 cloud systemd[1]: Started A high performance web server and a reverse proxy server.
-sdelquin@cloud:~$ ps aux | grep nginx
-root      9448  0.0  0.3 125244  1632 ?        Ss   11:06   0:00 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;
-www-data  9449  0.0  1.0 125616  5136 ?        S    11:06   0:00 nginx: worker process
-sdelquin  9508  0.0  0.1  14160   976 pts/0    S+   11:12   0:00 grep --color=auto nginx
-sdelquin@cloud:~$ groups www-data
+~~~console
+sdelquin@claseando:~$ ps aux | grep nginx | grep worker
+www-data  2558  0.0  0.6 143312  6344 ?        S    12:29   0:00 nginx: worker process
+sdelquin@claseando:~$ groups www-data
 www-data : www-data
-sdelquin@cloud:~$
-```
+sdelquin@claseando:~$
+~~~
 
 ### Ficheros de configuración
 
 Podríamos decir que Nginx dispone de dos ficheros destacados de configuración:
 
 * `/etc/nginx/nginx.conf`: para las configuraciones del servicio.
-* `/etc/nginx/sites-enabled/default`: para las configuraciones del sitio web.
+* `/etc/nginx/sites-enabled/default`: para las configuraciones del sitio web por defecto.
 
 ## Server y Location
 
@@ -282,98 +222,120 @@ Cada vez que queramos incluir un nuevo *virtual host*, debemos incluir un ficher
 
 > ⚠️ Todos los `locations` que dependen de un mismo *virtual host (ó dominio)* deben estar en el mismo fichero.
 
-### `hello.imwpto.me`
+### Deshabilitando el virtual host por defecto
 
-Supongamos que queremos mostrar una página web que hemos creado en la carpeta *home* del usuario *sdelquin*. Además queremos que se muestre esa página cuando se acceda en el navegador a la *url* `http://hello.imwpto.me/`.
+Realizamos esta acción para no tener conflictos con las configuraciones que hagamos. Siempre tendremos disponible la configuración `default` en la ruta `/etc/nginx/sites-available`.
 
-Añadimos el fichero de configuración de *Nginx* que tratará las peticiones que se hagan al nombre de dominio `hello.imwpto.me`:
+~~~console
+sdelquin@claseando:~$ cd /etc/nginx/sites-enabled/
+sdelquin@claseando:/etc/nginx/sites-enabled$ sudo rm default
+sdelquin@claseando:/etc/nginx/sites-enabled$
+~~~
 
-```console
-sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/hello
-```
+### `hello.vps.claseando.es`
 
-> Contenido
-```nginx
+Supongamos que queremos mostrar una página web que hemos creado en la carpeta *home* del usuario *sdelquin*. Además queremos que se muestre esa página cuando se acceda en el navegador a la *url* `http://hello.vps.claseando.es`.
+
+Añadimos el fichero de configuración de *Nginx* que tratará las peticiones que se hagan al nombre de dominio `hello.vps.claseando.es`:
+
+~~~console
+sdelquin@claseando:~$ sudo vi /etc/nginx/sites-available/hello.vps.claseando.es
+...
+~~~
+
+~~~nginx
 server {
-    server_name hello.imwpto.me;
-    root /home/sdelquin;
+    server_name hello.vps.claseando.es;
+    root /home/sdelquin/webapps/hello/;
 }
-```
+~~~
 
 > ⚠️   En el caso de que no especifiquemos un `root` el que toma por defecto será `/usr/share/nginx/html`. Esto es debido a las variables de configuración en el momento de compilar (`nginx -V`).
 
 A continuación tenemos que enlazar el fichero que hemos creado para que esté disponible desde los `sites-enabled`:
 
-```console
-sdelquin@cloud:~$ cd /etc/nginx/sites-enabled/
-sdelquin@cloud:/etc/nginx/sites-enabled$ sudo ln -s ../sites-available/hello
-sdelquin@cloud:/etc/nginx/sites-enabled$ ls -l
+~~~console
+sdelquin@claseando:/etc/nginx/sites-enabled$ sudo ln -s ../sites-available/hello.vps.claseando.es
+sdelquin@claseando:/etc/nginx/sites-enabled$ ls -l
 total 0
-lrwxrwxrwx 1 root root 34 sep 21 15:09 default -> /etc/nginx/sites-available/default
-lrwxrwxrwx 1 root root 27 sep 21 15:22 hello -> ../sites-available/hello
-sdelquin@cloud:/etc/nginx/sites-enabled$
-```
+lrwxrwxrwx 1 root root 41 sep 16 15:32 hello.vps.claseando.es -> ../sites-available/hello.vps.claseando.es
+sdelquin@claseando:/etc/nginx/sites-enabled$
+~~~
 
 Por último, tenemos que recargar la configuración de *Nginx* para que los cambios surtan efecto:
 
-```console
-sdelquin@cloud:/etc/nginx/sites-enabled$ sudo systemctl reload nginx
-sdelquin@cloud:/etc/nginx/sites-enabled$
-```
+~~~console
+sdelquin@claseando:/etc/nginx/sites-enabled$ sudo systemctl reload nginx
+sdelquin@claseando:/etc/nginx/sites-enabled$
+~~~
 
 > No es lo mismo *recargar* (`reload`) que *reiniciar* (`restart`).
 
+Si ahora accedemos a `http://hello.vps.claseando.es` nos daría un error **403 Forbidden** porque no hemos definido ninguno fichero índice.
+
 Ahora ya podemos escribir la página web en nuestro *home*:
 
-```console
-sdelquin@cloud:~$ vi index.html
-```
+~~~console
+sdelquin@claseando:~$ mkdir -p webapps/hello
+sdelquin@claseando:~$ vi webapps/hello/index.html
+...
+~~~
 
-> Contenido:
-```html
+~~~html
 <h1>My first site powered by Nginx</h1>
 This is a new website.<br>
 Have a good day!
-```
+~~~
 
 Si ahora accedemos desde un navegador, deberíamos ver lo siguiente:
 
 ![](img/virtual_server.png)
 
-### `hello.imwpto.me/blog/`
+### `vps.claseando.es/blog`
 
-Supongamos que ahora queremos, que cuando se acceda a `http://hello.imwpto.me/blog/`, nos muestre la web que vamos a diseñar en el directorio `/home/sdelquin/webapps/blog`. Dado que se trata de un *location* dentro de un *virtual host*, tendremos que utilizar la siguiente directiva:
+Supongamos que ahora queremos, que cuando se acceda a `http://vps.claseando.es/blog/`, nos muestre la web que vamos a diseñar en el directorio `/home/sdelquin/webapps/blog`. Dado que se trata de un *location* dentro de un *virtual host*, tendremos que utilizar la siguiente directiva:
 
-```console
-sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/hello
-```
+~~~console
+sdelquin@claseando:~$ sudo vi /etc/nginx/sites-available/vps.claseando.es
+...
+~~~
 
-> Contenido
-```nginx
+~~~nginx
 server {
-    server_name hello.imwpto.me;
-    root /home/sdelquin;
-    
+    server_name vps.claseando.es;
+
     location /blog {
         root /home/sdelquin/webapps;
     }
 }
-```
+~~~
+
+Habilitamos el fichero creado:
+
+~~~console
+sdelquin@claseando:~$ cd /etc/nginx/sites-enabled/
+sdelquin@claseando:/etc/nginx/sites-enabled$ sudo ln -s ../sites-available/vps.claseando.es
+sdelquin@claseando:/etc/nginx/sites-enabled$ ls -l
+total 0
+lrwxrwxrwx 1 root root 41 sep 16 15:32 hello.vps.claseando.es -> ../sites-available/hello.vps.claseando.es
+lrwxrwxrwx 1 root root 35 sep 16 15:35 vps.claseando.es -> ../sites-available/vps.claseando.es
+sdelquin@claseando:/etc/nginx/sites-enabled$
+~~~
 
 Una vez más, recargamos nuestro servidor para que los cambios surtan efecto:
 
-```console
-sdelquin@cloud:~$ sudo systemctl reload nginx
-sdelquin@cloud:~$
-```
+~~~console
+sdelquin@claseando:~$ sudo systemctl reload nginx
+sdelquin@claseando:~$
+~~~
 
 Ahora, como usuario `sdelquin`, podemos desarrollar nuestro blog en la ruta `/home/sdelquin/webapps/blog`. Lo típico sería empezar por un fichero `index.html`:
 
-```console
-sdelquin@cloud:~$ mkdir -p webapps/blog
-sdelquin@cloud:~$ echo "Brand new blog!" > webapps/blog/index.html
-sdelquin@cloud:~$
-```
+~~~console
+sdelquin@claseando:~$ mkdir -p webapps/blog
+sdelquin@claseando:~$ echo "Brand new blog!" > webapps/blog/index.html
+sdelquin@claseando:~$
+~~~
 
 Si accedemos mediante un navegador, deberíamos ver algo como lo siguiente:
 
@@ -389,9 +351,8 @@ Supongamos que tenemos una carpeta `share` en nuestro *HOME* que queremos compar
 
 Necesitaremos la utilidad `unzip`. Para ello la instalamos usando `apt-get`:
 
-```console
-sdelquin@cloud:~$ sudo apt-get install unzip
-[sudo] password for sdelquin:
+~~~console
+sdelquin@claseando:~$ sudo apt install unzip
 Leyendo lista de paquetes... Hecho
 Creando árbol de dependencias
 Leyendo la información de estado... Hecho
@@ -401,185 +362,132 @@ Utilice «sudo apt autoremove» para eliminarlo.
 Paquetes sugeridos:
   zip
 Se instalarán los siguientes paquetes NUEVOS:
-Se utilizarán 530 kB de espacio de disco adicional después de esta operación.
-Des:1 http://ams2.mirrors.digitalocean.com/ubuntu xenial/main amd64 unzip amd64 6.0-20ubuntu1 [158 kB]
-Descargados 158 kB en 0s (306 kB/s)
+  unzip
+0 actualizados, 1 nuevos se instalarán, 0 para eliminar y 27 no actualizados.
+Se necesita descargar 167 kB de archivos.
+Se utilizarán 558 kB de espacio de disco adicional después de esta operación.
+Des:1 http://ams2.mirrors.digitalocean.com/ubuntu bionic/main amd64 unzip amd64 6.0-21ubuntu1 [167 kB]
+Descargados 167 kB en 0s (351 kB/s)
 Seleccionando el paquete unzip previamente no seleccionado.
-(Leyendo la base de datos ... 86094 ficheros o directorios instalados actualmente.)
-Preparando para desempaquetar .../unzip_6.0-20ubuntu1_amd64.deb ...
-Desempaquetando unzip (6.0-20ubuntu1) ...
-Procesando disparadores para mime-support (3.59ubuntu1) ...
-Procesando disparadores para man-db (2.7.5-1) ...
-Configurando unzip (6.0-20ubuntu1) ...
-sdelquin@cloud:~$
-```
+(Leyendo la base de datos ... 90835 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../unzip_6.0-21ubuntu1_amd64.deb ...
+Desempaquetando unzip (6.0-21ubuntu1) ...
+Procesando disparadores para mime-support (3.60ubuntu1) ...
+Configurando unzip (6.0-21ubuntu1) ...
+Procesando disparadores para man-db (2.8.3-2) ...
+sdelquin@claseando:~$
+~~~
 
 Ahora descargamos algunas cosas en la carpeta que queremos compartir:
 
-```console
-sdelquin@cloud:~$ mkdir share
-sdelquin@cloud:~$ cd share
-sdelquin@cloud:~/share$ curl -O http://design.ubuntu.com/wp-content/uploads/bcb4/ubuntu-logo-set-web-svg.zip
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100 61473  100 61473    0     0   810k      0 --:--:-- --:--:-- --:--:--  822k
-sdelquin@cloud:~/share$ unzip ubuntu-logo-set-web-svg.zip
-Archive:  ubuntu-logo-set-web-svg.zip
-   creating: ubuntu-logo-set-web-svg/
-  inflating: ubuntu-logo-set-web-svg/LICENCE.txt
-   creating: __MACOSX/
-   creating: __MACOSX/ubuntu-logo-set-web-svg/
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/._LICENCE.txt
-   creating: ubuntu-logo-set-web-svg/SVG/
-  inflating: ubuntu-logo-set-web-svg/SVG/photos-1.dropbox.com.url
-   creating: __MACOSX/ubuntu-logo-set-web-svg/SVG/
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG/._photos-1.dropbox.com.url
-  inflating: ubuntu-logo-set-web-svg/SVG/ubuntu_black-orange_hex.svg
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG/._ubuntu_black-orange_hex.svg
-  inflating: ubuntu-logo-set-web-svg/SVG/ubuntu_black_hex.svg
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG/._ubuntu_black_hex.svg
-  inflating: ubuntu-logo-set-web-svg/SVG/ubuntu_orange_hex.svg
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG/._ubuntu_orange_hex.svg
-  inflating: ubuntu-logo-set-web-svg/SVG/ubuntu_white-orange(cof)_hex.svg
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG/._ubuntu_white-orange(cof)_hex.svg
-  inflating: ubuntu-logo-set-web-svg/SVG/ubuntu_white-orange_hex.svg
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG/._ubuntu_white-orange_hex.svg
-  inflating: ubuntu-logo-set-web-svg/SVG/ubuntu_white_hex.svg
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG/._ubuntu_white_hex.svg
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/._SVG
-   creating: ubuntu-logo-set-web-svg/SVG_small_use/
-  inflating: ubuntu-logo-set-web-svg/SVG_small_use/ubuntu_black-orange_hex_su.svg
-   creating: __MACOSX/ubuntu-logo-set-web-svg/SVG_small_use/
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_small_use/._ubuntu_black-orange_hex_su.svg
-  inflating: ubuntu-logo-set-web-svg/SVG_small_use/ubuntu_black_hex_su.svg
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_small_use/._ubuntu_black_hex_su.svg
-  inflating: ubuntu-logo-set-web-svg/SVG_small_use/ubuntu_orange_hex_su.svg
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_small_use/._ubuntu_orange_hex_su.svg
-  inflating: ubuntu-logo-set-web-svg/SVG_small_use/ubuntu_white-orange(cof)_hex_su.svg
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_small_use/._ubuntu_white-orange(cof)_hex_su.svg
-  inflating: ubuntu-logo-set-web-svg/SVG_small_use/ubuntu_white-orange_hex_su.svg
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_small_use/._ubuntu_white-orange_hex_su.svg
-  inflating: ubuntu-logo-set-web-svg/SVG_small_use/ubuntu_white_hex_su.svg
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_small_use/._ubuntu_white_hex_su.svg
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/._SVG_small_use
-   creating: ubuntu-logo-set-web-svg/SVG_stacked/
-  inflating: ubuntu-logo-set-web-svg/SVG_stacked/ubuntu_black-orange_st_hex.svg
-   creating: __MACOSX/ubuntu-logo-set-web-svg/SVG_stacked/
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_stacked/._ubuntu_black-orange_st_hex.svg
-  inflating: ubuntu-logo-set-web-svg/SVG_stacked/ubuntu_black_st_hex.svg
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_stacked/._ubuntu_black_st_hex.svg
-  inflating: ubuntu-logo-set-web-svg/SVG_stacked/ubuntu_orange_st_hex.svg
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_stacked/._ubuntu_orange_st_hex.svg
-  inflating: ubuntu-logo-set-web-svg/SVG_stacked/ubuntu_white-orange(cof)_st_hex.svg
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_stacked/._ubuntu_white-orange(cof)_st_hex.svg
-  inflating: ubuntu-logo-set-web-svg/SVG_stacked/ubuntu_white-orange_st_hex.svg
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_stacked/._ubuntu_white-orange_st_hex.svg
-  inflating: ubuntu-logo-set-web-svg/SVG_stacked/ubuntu_white_st_hex.svg
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/SVG_stacked/._ubuntu_white_st_hex.svg
-  inflating: __MACOSX/ubuntu-logo-set-web-svg/._SVG_stacked
-  inflating: __MACOSX/._ubuntu-logo-set-web-svg
-sdelquin@cloud:~/share$ ls
-__MACOSX  ubuntu-logo-set-web-svg  ubuntu-logo-set-web-svg.zip
-sdelquin@cloud:~/share$ rm -r __MACOSX/ ubuntu-logo-set-web-svg.zip
-sdelquin@cloud:~/share$ chmod -R 755 ubuntu-logo-set-web-svg/
-sdelquin@cloud:~/share$
-```
+~~~console
+sdelquin@claseando:~$ cd webapps/
+sdelquin@claseando:~/webapps$ mkdir share
+sdelquin@claseando:~/webapps$ cd share
+sdelquin@claseando:~/webapps/share$ curl -sOL https://assets.ubuntu.com/v1/8d029862-ubuntu-logo-set-web-png.zipsdelquin@claseando:~/webapps/share$ ls
+8d029862-ubuntu-logo-set-web-png.zip
+sdelquin@claseando:~/webapps/share$ unzip 8d029862-ubuntu-logo-set-web-png.zip
+Archive:  8d029862-ubuntu-logo-set-web-png.zip
+...
+sdelquin@claseando:~/webapps/share$ ls
+8d029862-ubuntu-logo-set-web-png.zip  __MACOSX  ubuntu-logo-set-web-png
+sdelquin@claseando:~/webapps/share$ rm -r __MACOSX/ 8d029862-ubuntu-logo-set-web-png.zip
+sdelquin@claseando:~/webapps/share$
+~~~
 
-Ahora vamos a crear un *virtual host* para servir esta carpeta compartida `share` a través del dominio `share.imwpto.me`:
+Damos los permisos necesarios:
 
-```console
-sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/share
-```
+~~~console
+sdelquin@claseando:~/webapps/share$ chmod -R 755 *
+sdelquin@claseando:~/webapps/share$
+~~~
 
-> Contenido
-```nginx
+Ahora vamos a crear un *virtual host* para servir esta carpeta compartida `share` a través del dominio `share.vps.claseando.es`:
+
+~~~console
+sdelquin@claseando:~$ sudo vi /etc/nginx/sites-available/share.vps.claseando.es
+...
+~~~
+
+~~~nginx
 server {
-    server_name share.imwpto.me;
-    root /home/sdelquin/share;
+    server_name share.vps.claseando.es;
+    root /home/sdelquin/webapps/share;
     autoindex on;
 }
-```
+~~~
 
 Enlazamos el *virtual host* para que esté disponible:
 
-```console
-sdelquin@cloud:~$ cd /etc/nginx/sites-enabled/
-sdelquin@cloud:/etc/nginx/sites-enabled$ sudo ln -s ../sites-available/share
-sdelquin@cloud:/etc/nginx/sites-enabled$
-```
+~~~console
+sdelquin@claseando:~$ cd /etc/nginx/sites-enabled/
+sdelquin@claseando:/etc/nginx/sites-enabled$ sudo ln -s ../sites-available/share.vps.claseando.es
+sdelquin@claseando:/etc/nginx/sites-enabled$ ls -l
+total 0
+lrwxrwxrwx 1 root root 41 sep 16 15:32 hello.vps.claseando.es -> ../sites-available/hello.vps.claseando.es
+lrwxrwxrwx 1 root root 41 sep 16 15:50 share.vps.claseando.es -> ../sites-available/share.vps.claseando.es
+lrwxrwxrwx 1 root root 35 sep 16 15:35 vps.claseando.es -> ../sites-available/vps.claseando.es
+sdelquin@claseando:/etc/nginx/sites-enabled$
+~~~
 
 Ahora recargamos el servidor para que los cambios tengan efecto:
 
-```console
-sdelquin@cloud:~$ sudo systemctl reload nginx
-sdelquin@cloud:~$
-```
+~~~console
+sdelquin@claseando:/etc/nginx/sites-enabled$ sudo systemctl reload nginx
+sdelquin@claseando:/etc/nginx/sites-enabled$
+~~~
 
 > NOTA: Hay que tener mucho cuidado con el uso de esta configuración en el `root` de *Nginx*, pues dará acceso al contenido de los subdirectorios que cuelgan de `/var/www/html`
 
 Al acceder al dominio, vemos que podemos *"navegar"* por la carpeta:
 
-![Nginx Autoindex](img/nginx_autoindex.png)
-
-Podemos ver el contenido de esta carpeta:
-
-![Nginx Autoindex](img/nginx_autoindex_list.png)
+![Nginx Autoindex](img/nginx_autoindex.gif)
 
 ## Acceso restringido con clave
 
 Es posible pedir usuario/clave al acceder a determinadas ubicaciones de nuestro servidor *Nginx*.
 
-Supongamos que queremos tener acceso a la carpeta `/home/sdelquin/share`, pero que no nos interesa que sea pública, sino a través de un usuario/clave.
+Supongamos que queremos tener acceso a la carpeta `/home/sdelquin/webapps/share`, pero que no nos interesa que sea pública, sino a través de un usuario/clave.
 
 En primer lugar tendremos que generar el fichero `.htpasswd`. Este fichero tiene una estructura en el que cada línea identifica a un posible usuario en la forma:
 
-```
+~~~
 username:encrypted-password:comment
-```
+~~~
 
 Para generar nuestro *password* encriptado, podemos usar el lenguaje *perl* (que suele instalarse con el sistema base), utilizando el siguiente comando:
 
-```console
-sdelquin@cloud:~$ perl -le 'print crypt("restringido", "salt-hash")'
-saOQOMmS3k30w
-sdelquin@cloud:~$
-```
+~~~console
+sdelquin@claseando:~$ perl -le 'print crypt("superpassword", 'fewsalt')'
+fe4sUUEp5mfjw
+sdelquin@claseando:~$
+~~~
 
-Lo que hemos hecho es encriptar el password `restringido`. Ahora podemos crear el fichero `.htpasswd`. En este caso el nombre de usuario será `admin` y el password es el que hemos creado anteriormente:
+Lo que hemos hecho es encriptar el password `superpassword`. Ahora podemos crear el fichero `.htpasswd`. En este caso el nombre de usuario será `admin` y el password es el que hemos creado anteriormente:
 
-```console
-sdelquin@cloud:~/share$ echo "admin:saOQOMmS3k30w" > .htpasswd
-sdelquin@cloud:~/share$
-```
+~~~console
+sdelquin@claseando:~/webapps/share$ echo "admin:fe4sUUEp5mfjw" > .htpasswd
+sdelquin@claseando:~/webapps/share$
+~~~
 
-Ahora añadimos el *location* correspondiente a nuestra configuración de *Nginx*:
+Ahora añadimos la autenticación a la configuración de *Nginx*:
 
-```console
-sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/share
-```
+~~~console
+sdelquin@claseando:~$ sudo vi /etc/nginx/sites-available/share.vps.claseando.es
+...
+~~~
 
-> Contenido
-```nginx
+~~~nginx
 server {
-    server_name share.imwpto.me;
-    root /home/sdelquin/share;
+    server_name share.vps.claseando.es;
+    root /home/sdelquin/webapps/share;
     autoindex on;
-    auth_basic "Administrator Login";
-    auth_basic_user_file /home/sdelquin/share/.htpasswd;
+    auth_basic "Restricted Access";
+    auth_basic_user_file /home/sdelquin/webapps/share/.htpasswd;
 }
-```
+~~~
 
-Recargamos la configuración de *Nginx* y probamos el acceso. Al acceder a la ruta `http://share.imwpto.me` vemos que nos aparece un cuadro de diálogo preguntándonos por el usuario/clave:
-
-![](img/auth1.png)
-
-Rellenamos los campos con las credenciales que pusimos anteriormente en el fichero de configuración: `admin` | `restringido`:
-
-![](img/auth2.png)
-
-Vemos que podemos acceder y se nos muestra el contenido del directorio, que ahora mismo, está vacío:
-
-![](img/auth3.png)
+![](img/auth.gif)
 
 ### Denegando el acceso a determinadas carpetas
 
@@ -587,21 +495,22 @@ Supongamos que queremos prohibir el acceso a la carpeta `private` dentro de `sha
 
 Primero creamos la carpeta privada:
 
-```console
-sdelquin@cloud:~/share$ mkdir private
-sdelquin@cloud:~/share$ cd private/
-sdelquin@cloud:~/share/private$ cat /proc/cpuinfo > cpuinfo.txt
-sdelquin@cloud:~/share/private$
-```
+~~~console
+sdelquin@claseando:~$ cd webapps/share/
+sdelquin@claseando:~/webapps/share$ mkdir private
+sdelquin@claseando:~/webapps/share$ cd private/
+sdelquin@claseando:~/webapps/share/private$ echo 'SUPER SECRETO' > secret.txt
+sdelquin@claseando:~/webapps/share/private$
+~~~
 
 Ahora denegamos el acceso desde el fichero de configuración:
 
-```console
-sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/share
-```
+~~~console
+
+~~~
 
 > Contenido
-```nginx
+~~~nginx
 server {
     server_name share.imwpto.me;
     root /home/sdelquin/share;
@@ -613,11 +522,11 @@ server {
         deny all;
     }
 }
-```
+~~~
 
 Recargamos la configuración de *Nginx*. Ahora vemos que el acceso a la carpeta `private` no está permitido, obteniendo un error *403*:
 
-![](img/auth4.png)
+![](img/auth_deny.gif)
 
 ## Ficheros de log
 
@@ -628,38 +537,38 @@ Es importante conocer la ubicación de los *logfiles* de *Nginx*. Por defecto, e
 
 ### `access.log`
 
-```console
-sdelquin@cloud:~$ sudo tail -5 /var/log/nginx/access.log
-83.50.205.28 - admin [24/Sep/2017:15:08:28 +0000] "GET /private/ HTTP/1.1" 403 208 "http://share.imwpto.me/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"
-83.50.205.28 - admin [24/Sep/2017:15:08:31 +0000] "GET /ubuntu-logo-set-web-svg/ HTTP/1.1" 200 275 "http://share.imwpto.me/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"
-83.50.205.28 - admin [24/Sep/2017:15:08:48 +0000] "GET / HTTP/1.1" 200 217 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"
-83.50.205.28 - admin [24/Sep/2017:15:08:53 +0000] "GET /private/ HTTP/1.1" 403 208 "http://share.imwpto.me/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"
-83.50.205.28 - admin [24/Sep/2017:15:10:05 +0000] "GET /private/ HTTP/1.1" 403 208 "http://share.imwpto.me/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36"
-sdelquin@cloud:~$
-```
+~~~console
+sdelquin@claseando:~$ sudo tail -5 /var/log/nginx/access.log
+88.27.15.116 - admin [16/Sep/2018:17:13:46 +0000] "GET /ubuntu-logo-set-web-png/PNG_small_use/ubuntu_black_hex_su.png HTTP/1.1" 200 2656 "http://share.vps.claseando.es/ubuntu-logo-set-web-png/PNG_small_use/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15"
+88.27.15.116 - admin [16/Sep/2018:17:18:34 +0000] "GET / HTTP/1.1" 200 218 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15"
+88.27.15.116 - admin [16/Sep/2018:17:18:40 +0000] "GET /private/ HTTP/1.1" 403 152 "http://share.vps.claseando.es/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15"
+88.27.15.116 - admin [16/Sep/2018:17:19:08 +0000] "GET / HTTP/1.1" 200 218 "-" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15"
+88.27.15.116 - admin [16/Sep/2018:17:19:11 +0000] "GET /private/ HTTP/1.1" 403 152 "http://share.vps.claseando.es/" "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15"
+sdelquin@claseando:~$
+~~~
 
 ### `error.log`
 
-```console
-sdelquin@cloud:~$ sudo tail -5 /var/log/nginx/error.log
-2017/09/24 14:54:58 [notice] 17102#17102: signal process started
-2017/09/24 15:08:13 [notice] 17403#17403: signal process started
-2017/09/24 15:08:28 [error] 17407#17407: *293 access forbidden by rule, client: 83.50.205.28, server: share.imwpto.me, request: "GET /private/ HTTP/1.1", host: "share.imwpto.me", referrer: "http://share.imwpto.me/"
-2017/09/24 15:08:53 [error] 17407#17407: *294 access forbidden by rule, client: 83.50.205.28, server: share.imwpto.me, request: "GET /private/ HTTP/1.1", host: "share.imwpto.me", referrer: "http://share.imwpto.me/"
-2017/09/24 15:10:05 [error] 17407#17407: *296 access forbidden by rule, client: 83.50.205.28, server: share.imwpto.me, request: "GET /private/ HTTP/1.1", host: "share.imwpto.me", referrer: "http://share.imwpto.me/"
-sdelquin@cloud:~$
-```
+~~~console
+sdelquin@claseando:~$ sudo tail -5 /var/log/nginx/error.log
+2018/09/16 16:08:27 [error] 6563#6563: *47 open() "/home/sdelquin/webapps/share/favicon.ico" failed (2: No such file or directory), client: 88.27.15.116, server: share.vps.claseando.es, request: "GET /favicon.ico HTTP/1.1", host: "share.vps.claseando.es", referrer: "http://share.vps.claseando.es/"
+2018/09/16 16:52:31 [notice] 6930#6930: signal process started
+2018/09/16 17:18:18 [notice] 7200#7200: signal process started
+2018/09/16 17:18:40 [error] 7201#7201: *70 access forbidden by rule, client: 88.27.15.116, server: share.vps.claseando.es, request: "GET /private/ HTTP/1.1", host: "share.vps.claseando.es", referrer: "http://share.vps.claseando.es/"
+2018/09/16 17:19:11 [error] 7201#7201: *70 access forbidden by rule, client: 88.27.15.116, server: share.vps.claseando.es, request: "GET /private/ HTTP/1.1", host: "share.vps.claseando.es", referrer: "http://share.vps.claseando.es/"
+sdelquin@claseando:~$
+~~~
 
 Además, para cada *virtual host* y/o para cada *location*, podemos definir *logfiles* propios. Para hacer esto habría que añadir las siguientes líneas a las secciones correspondientes:
 
-```nginx
+~~~nginx
 server {
     ...
     access_log /path/to/your/access.log;
     error_log /path/to/your/error.log;
     ...
 }
-```
+~~~
 
 ## Configurando SSL
 
@@ -685,9 +594,9 @@ Vamos a volver a utilizar nuestro [Student Developer Pack](https://education.git
 
 Entramos en el sitio web de *Namecheap* y nos logeamos. A continuación vamos a:
 
-```
+~~~
 Security -> SSL Certificates -> PositiveSSL
-```
+~~~
 
 Aplicamos el código de promoción:
 
@@ -713,7 +622,7 @@ Desde aquí, pulsamos en el botón *ACTIVATE*.
 
 Ejecutamos el siguiente comando:
 
-```console
+~~~console
 sdelquin@cloud:~$ openssl req -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr
 Generating a 2048 bit RSA private key
 .....................................................+++
@@ -742,7 +651,7 @@ An optional company name []:
 sdelquin@cloud:~$ ls
 index.html  server.csr  server.key  share  webapps
 sdelquin@cloud:~$
-```
+~~~
 
 Con este comando ya hemos obtenido:
 
@@ -795,7 +704,7 @@ En la siguiente pantalla, pulsamos en **DOWNLOAD FILE**:
 
 Se nos habrá descargado un fichero con un nombre bastante largo `FB5E7003F04FC4FD5458B99CF87796CA.txt`. Este fichero tendremos que subirlo a la máquina de producción, en concreto a la ruta: `/var/www/html/.well-known/pki-validation`:
 
-```console
+~~~console
 sdelquin@imw:~$ ls -l *.txt
 -rw-r--r-- 1 sdelquin sdelquin 91 oct  7 12:17 FB5E7003F04FC4FD5458B99CF87796CA.txt
 sdelquin@imw:~$ scp FB5E7003F04FC4FD5458B99CF87796CA.txt cloud:
@@ -819,11 +728,11 @@ sdelquin@cloud:~$ sudo mkdir -p /var/www/html/.well-known/pki-validation/
 [sudo] password for sdelquin:
 sdelquin@cloud:~$ sudo mv FB5E7003F04FC4FD5458B99CF87796CA.txt /var/www/html/.well-known/pki-validation/
 sdelquin@cloud:~$
-```
+~~~
 
 Comprobamos que el fichero se puede descargar correctamente. Para ello, ejecutamos lo siguiente:
 
-```console
+~~~console
 sdelquin@cloud:~$ curl -O imwpto.me:/var/www/html/.well-known/pki-validation/FB5E7003F04FC4FD5458B99CF87796CA.txt
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
@@ -831,7 +740,7 @@ sdelquin@cloud:~$ curl -O imwpto.me:/var/www/html/.well-known/pki-validation/FB5
 sdelquin@cloud:~$ ls -l FB5E7003F04FC4FD5458B99CF87796CA.txt
 -rw-rw-r-- 1 sdelquin sdelquin 178 oct  7 11:22 FB5E7003F04FC4FD5458B99CF87796CA.txt
 sdelquin@cloud:~$
-```
+~~~
 
 Una vez hecho esto, volvemos a la gestión del certificado SSL y pulsamos en **Edit methods**:
 
@@ -849,7 +758,7 @@ Pasados unos minutos deberíamos recibir dos correos con la notificación de que
 
 En uno de los correos tendremos el fichero adjunto `ssl_imwpto_me.zip`. Desde la *máquina de desarrollo* haremos lo siguiente:
 
-```console
+~~~console
 sdelquin@imw:~$ ls
 ssl_imwpto_me.zip
 sdelquin@imw:~$ unzip ssl_imwpto_me.zip
@@ -863,7 +772,7 @@ sdelquin@imw:~$ cat ssl_imwpto_me.crt ssl_imwpto_me.ca-bundle >> SSL.final.crt
 sdelquin@imw:~$ scp SSL.final.crt cloud:
 SSL.final.crt                                                   100% 7529     7.4KB/s   00:00
 sdelquin@imw:~$
-```
+~~~
 
 En este caso, los ficheros análogos al [diagrama](#configurando-ssl) serían:
 
@@ -872,7 +781,7 @@ En este caso, los ficheros análogos al [diagrama](#configurando-ssl) serían:
 
 Ahora, desde la *máquina de producción* haremos lo siguiente:
 
-```console
+~~~console
 sdelquin@cloud:~$ ls
 index.html  server.csr  server.key  share  SSL.final.crt  webapps
 sdelquin@cloud:~$ sudo mv server.csr /etc/ssl/certs/ssl.imwpto.me.csr
@@ -887,18 +796,18 @@ sdelquin@cloud:/etc/ssl/certs$ ls -l ssl.imwpto.me.*
 -rw-r--r-- 1 root root 1127 sep 24 15:59 ssl.imwpto.me.csr
 -rw------- 1 root root 1704 sep 24 15:59 ssl.imwpto.me.key
 sdelquin@cloud:/etc/ssl/certs$
-```
+~~~
 
 Hemos protegido la *clave privada* `ssl.imwpto.me.key` con permisos de lectura solamente para el `root`.
 
 ### Configurando el virtual host para certificado SSL
 
-```console
+~~~console
 sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/ssl
-```
+~~~
 
 > Contenido
-```nginx
+~~~nginx
 server {
     listen 443;
     server_name ssl.imwpto.me;
@@ -907,7 +816,7 @@ server {
     ssl_certificate /etc/ssl/certs/ssl.imwpto.me.crt;
     ssl_certificate_key /etc/ssl/certs/ssl.imwpto.me.key;
 }
-```
+~~~
 
 Ya sólo nos quedaría enlazar este *virtual host* en `sites-enabled`, y recargar la configuración de *Nginx* para que los cambios surtan efecto.
 
@@ -923,7 +832,7 @@ Si pulsamos botón derecho sobre la página y luego `Inspeccionar -> Security ->
 
 Puede darse el caso de que queramos redireccionar ciertas *urls* a otras. De hecho, podría utilizarse como regla general, el hecho de trabajar siempre sobre la url `https://tudominio.com`.
 
-```nginx
+~~~nginx
 # Redirige de http://tudominio.com a https://tudominio.com
 server {  
     listen 80;
@@ -943,7 +852,7 @@ server {
     server_name www.tudominio.com;
     return 301 $scheme://tudominio.com$request_uri;
 }
-```
+~~~
 
 Nótese las variables especiales que se usan en estas configuraciones:
 
@@ -956,13 +865,13 @@ También es importante fijarse en el código de redirección **301**. Se trata d
 
 Vamos a ver cómo configuramos una redirección que nos lleve siempre a `https://ssl.imwpto.me`:
 
-```console
+~~~console
 sdelquin@cloud:/etc/nginx/sites-enabled$ cd
 sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/ssl
-```
+~~~
 
 > Contenido
-```nginx
+~~~nginx
 server {
     listen 80;
     server_name ssl.imwpto.me;
@@ -977,7 +886,7 @@ server {
     ssl_certificate /etc/ssl/certs/SSL.final.crt;
     ssl_certificate_key /etc/ssl/certs/server.key;
 }
-```
+~~~
 
 De esta manera, siempre que accedamos a `http://ssl.imwpto.me` se nos hará una redirección a `https://ssl.imwpto.me`.
 

@@ -10,7 +10,7 @@ Si en el momento de hacer estos ajustes, aún no tuviéramos acceso a `cloud` a 
 
 ## Ajuste de locales
 
-Accedemos a la máquina de producción `cloud`:
+Accedemos a la **máquina de producción**:
 
 ~~~console
 sdelquin@imw:~$ ssh root@vps.claseando.es

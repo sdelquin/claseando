@@ -6,16 +6,12 @@ Los requerimientos son los siguientes:
 
 1. Se debe acceder al listado al entrar en **http://aluXXXX.me/shared/**
 2. El listado debe contener los siguientes ficheros:
-    - `/boot/initrd.img-4.4.0-93-generic` (imagen del kernel)
+    - `/etc/apt/sources.list` (repositorios de paquetes)
     - `/etc/resolv.conf` (listado de DNS)
     - `/etc/bash.bashrc` (configuración global de bash)
     - `/proc/cpuinfo` (características de la máquina)
 
 > NOTA: No se permite copiar los ficheros, sólo se podrán usar enlaces simbólicos utilizando el comando `ln -s`
-
-## Salida deseada
-
-![](img/sample.png)
 
 ## Información a entregar
 

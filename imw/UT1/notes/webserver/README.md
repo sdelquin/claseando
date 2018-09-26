@@ -572,261 +572,187 @@ server {
 
 ## Configurando SSL
 
-Cuando queremos que nuestro sitio web use *SSL* (Secure Sockets Layer), necesitamos configurar el servidor web *Nignx* con certificados de seguridad, específicamente creados para nuestro dominio. El procedimiento que se debe seguir para esto se explica a continuación:
+Hoy en día es fundamental que los sitios web utilicen protocolo **https** y cifren el tráfico a través de un certificado de seguridad SSL (*Secure Sockets Layer*). Entre otras cosas porque [desde julio de 2018 Google marca todas las webs que no usen https como inseguras](https://es.gizmodo.com/se-acabo-a-partir-de-julio-google-chrome-marcara-toda-1822842221).
 
-![](img/SSL_workflow.png)
+## Let's Encrypt
 
-Por lo tanto, necesitamos contar con 4 ficheros, más un quinto que se genera a partir de otros dos. Los ficheros serían los siguientes:
+Los certificados de seguridad *SSL* son emitidos por entidades certificadoras de autoridad. La gran mayoría de certificadoras cobran por los certificados, pero [Let's Encrypt](https://letsencrypt.org/) es un proyecto que surge con el objetivo de democratizar el acceso a los certificados de seguridad, emitiéndolos de forma gratuita y ofreciendo gran variedad de herramientas para trabajar con ellos.
 
-- `server.key`: clave privada.
-- `server.crs`: solicitud de firma de certificado de seguridad.
-- `SSL.crt`: certificado SSL.
-- `intermediate.crt`: certificados intermedios.
-- `SSL.final.crt`: certificado final resultante de la unión de `SSL.crt` y `intermediate.crt`
+## Certbot
 
-> Hoy en día, las entidades certificadoras facilitan la creación de todos estos ficheros, a través de sencillos asistentes. Una vez que obtengamos los citados ficheros, se suelen guardar en `/etc/ssl/`. Ejemplo: [DonDominio](http://dondominio.com)
+### Instalación
 
-### Certificado SSL en Namecheap
+Existen [múltiples clientes](https://letsencrypt.org/docs/client-options/) de *Let's Encrypt* que permiten validar nuestros dominios, pero la herramienta más recomendada es [Certbot](https://certbot.eff.org/).
 
-Vamos a volver a utilizar nuestro [Student Developer Pack](https://education.github.com/pack/offers) para obtener un código de promoción SSL en *Namecheap*:
+La página de Certbot nos permite elegir incluso el servidor web que estamos utilizando y sobre qué sistema operativo corre.
 
-![SSL Namecheap](img/SSL_Namecheap1.png) 
+![Certbot1](img/certbot1.png)
 
-Entramos en el sitio web de *Namecheap* y nos logeamos. A continuación vamos a:
+A partir de ahí nos aparecen las instrucciones específicas según las opciones que hemos marcado en la pantalla anterior.
 
-~~~
-Security -> SSL Certificates -> PositiveSSL
-~~~
-
-Aplicamos el código de promoción:
-
-![PromoCode SSL Namecheap](img/SSL_Namecheap2.png) 
-
-Nos quedaría de esta forma:
-
-![PromoCode SSL Namecheap](img/SSL_Namecheap3.png) 
-
-Ahora pulsamos en **Confirm Order**, y en la siguiente pantalla rellenamos la información de contacto. Pulsamos en **Continue** y en la última pantalla pusamos en **Pay Now**.
-
-Al terminar es posible que aparezca una encuesta. La pueden rellenar o cerrar el cuadro de diálogo.
-
-Una vez terminado el proceso de compra/adquisición, pulsamos en el botón **Manage**:
-
-![SSL Namecheap Manage](img/SSL_Namecheap4.png)
-
-Desde aquí, pulsamos en el botón *ACTIVATE*.
-
-### Activación del certificado SSL
-
-#### Obtención del Certificate Signing Request - CSR
-
-Ejecutamos el siguiente comando:
+Lo primero que haremos será instalar el cliente:
 
 ~~~console
-sdelquin@cloud:~$ openssl req -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr
-Generating a 2048 bit RSA private key
-.....................................................+++
-.+++
-writing new private key to 'server.key'
------
-You are about to be asked to enter information that will be incorporated
-into your certificate request.
-What you are about to enter is what is called a Distinguished Name or a DN.
-There are quite a few fields but you can leave some blank
-For some fields there will be a default value,
-If you enter '.', the field will be left blank.
------
-Country Name (2 letter code) [AU]:ES
-State or Province Name (full name) [Some-State]:Santa Cruz de Tenerife
-Locality Name (eg, city) []:Puerto de la Cruz
-Organization Name (eg, company) [Internet Widgits Pty Ltd]:IES Puerto de la Cruz
-Organizational Unit Name (eg, section) []:2ASIR
-Common Name (e.g. server FQDN or YOUR name) []:ssl.imwpto.me
-Email Address []:sdelquin@iespuertodelacruz.es
-
-Please enter the following 'extra' attributes
-to be sent with your certificate request
-A challenge password []:
-An optional company name []:
-sdelquin@cloud:~$ ls
-index.html  server.csr  server.key  share  webapps
-sdelquin@cloud:~$
+sdelquin@claseando:~$ sudo apt update
+sdelquin@claseando:~$ sudo apt install -y software-properties-common
+sdelquin@claseando:~$ sudo add-apt-repository -y ppa:certbot/certbot
+sdelquin@claseando:~$ sudo apt update
+sdelquin@claseando:~$ sudo apt install -y python-certbot-nginx
 ~~~
 
-Con este comando ya hemos obtenido:
+### Configuración
 
-- `server.key`: clave privada.
-- `server.csr`: solicitud de firma de certificado de seguridad.
+Ahora ya podemos lanzar el cliente que nos permitirá obtener los certificados SSL y configurar el sitio web que queramos para que utilice protocolo **https**.
 
-#### Activar PositiveSSL
-
-![SSL Namecheap Manage](img/PositiveSSL1.png)
-
-- En el campo **Enter CSR** pondremos el contenido del fichero `server.csr`.
-- El campo **Primary Domain** se debería rellenar automáticamente con `ssl.aluXXXX.me`
-- En el campo **Server Type** pondremos `Apache, Nginx, cPanel or other`.
-
-![SSL Namecheap Manage](img/PositiveSSL2.png)
-
-Pulsamos en **Submit** y después de comprobar los datos, pulsamos en **Next**:
-
-![SSL Namecheap Manage](img/PositiveSSL3.png)
-
-En el campo **DCV Method** hay que seleccionar `HTTP-based`. Pulsamos en el botón **Next**
-
-![SSL Namecheap Manage](img/PositiveSSL4.png)
-
-En esta pantalla, sólo hay que rellenar los siguientes campos:
-
-- Company Name
-- Address
-- City
-- State/Province
-- ZIP/Postal Code
-- Country
-- Email Address
-
-Pulsamos en **Next** y llegamos a la última pantalla. Ahí pulsamos en **Confirm**.
-
-![SSL Namecheap Manage](img/PositiveSSL5.png)
-
-En esta pantalla pulsamos en `go to Certificate Details page`:
-
-![SSL Namecheap Manage](img/PositiveSSL6.png)
-
-En la siguiente pantalla, desplegamos **EDIT METHODS** y pulsamos en **Download File**.
-
-![SSL Namecheap Manage](img/DCV_SSL1.png)
-
-En la siguiente pantalla, pulsamos en **DOWNLOAD FILE**:
-
-![SSL Namecheap Manage](img/DCV_SSL2.png)
-
-Se nos habrá descargado un fichero con un nombre bastante largo `FB5E7003F04FC4FD5458B99CF87796CA.txt`. Este fichero tendremos que subirlo a la máquina de producción, en concreto a la ruta: `/var/www/html/.well-known/pki-validation`:
+Vamos a configurar el host virtual **`http://hello.vps.claseando.es`**:
 
 ~~~console
-sdelquin@imw:~$ ls -l *.txt
--rw-r--r-- 1 sdelquin sdelquin 91 oct  7 12:17 FB5E7003F04FC4FD5458B99CF87796CA.txt
-sdelquin@imw:~$ scp FB5E7003F04FC4FD5458B99CF87796CA.txt cloud:
-FB5E7003F04FC4FD5458B99CF87796CA.txt                                        100%   91     0.1KB/s   00:00
-sdelquin@imw:~$ ssh cloud
-Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.4.0-96-generic x86_64)
+sdelquin@claseando:~$ sudo certbot --nginx
+Saving debug log to /var/log/letsencrypt/letsencrypt.log
+Plugins selected: Authenticator nginx, Installer nginx
+Enter email address (used for urgent renewal and security notices) (Enter 'c' to
+cancel): sdelquin@gmail.com
 
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/advantage
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Please read the Terms of Service at
+https://letsencrypt.org/documents/LE-SA-v1.2-November-15-2017.pdf. You must
+agree in order to register with the ACME server at
+https://acme-v02.api.letsencrypt.org/directory
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+(A)gree/(C)ancel: a
 
-  Get cloud support with Ubuntu Advantage Cloud Guest:
-    http://www.ubuntu.com/business/services/cloud
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Would you be willing to share your email address with the Electronic Frontier
+Foundation, a founding partner of the Let's Encrypt project and the non-profit
+organization that develops Certbot? We'd like to send you email about our work
+encrypting the web, EFF news, campaigns, and ways to support digital freedom.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+(Y)es/(N)o: n
 
-Pueden actualizarse 45 paquetes.
-0 actualizaciones son de seguridad.
+Which names would you like to activate HTTPS for?
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+1: vps.claseando.es
+2: hello.vps.claseando.es
+3: share.vps.claseando.es
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Select the appropriate numbers separated by commas and/or spaces, or leave input
+blank to select all options shown (Enter 'c' to cancel): 2
+Obtaining a new certificate
+Performing the following challenges:
+http-01 challenge for hello.vps.claseando.es
+Waiting for verification...
+Cleaning up challenges
+Deploying Certificate to VirtualHost /etc/nginx/sites-enabled/hello.vps.claseando.es
 
+Please choose whether or not to redirect HTTP traffic to HTTPS, removing HTTP access.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+1: No redirect - Make no further changes to the webserver configuration.
+2: Redirect - Make all requests redirect to secure HTTPS access. Choose this for
+new sites, or if you're confident your site works on HTTPS. You can undo this
+change by editing your web server's configuration.
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Select the appropriate number [1-2] then [enter] (press 'c' to cancel): 2
+Redirecting all traffic on port 80 to ssl in /etc/nginx/sites-enabled/hello.vps.claseando.es
 
-Last login: Sat Oct  7 11:00:31 2017 from 83.34.20.244
-sdelquin@cloud:~$ sudo mkdir -p /var/www/html/.well-known/pki-validation/
-[sudo] password for sdelquin:
-sdelquin@cloud:~$ sudo mv FB5E7003F04FC4FD5458B99CF87796CA.txt /var/www/html/.well-known/pki-validation/
-sdelquin@cloud:~$
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+Congratulations! You have successfully enabled https://hello.vps.claseando.es
+
+You should test your configuration at:
+https://www.ssllabs.com/ssltest/analyze.html?d=hello.vps.claseando.es
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+IMPORTANT NOTES:
+ - Congratulations! Your certificate and chain have been saved at:
+   /etc/letsencrypt/live/hello.vps.claseando.es/fullchain.pem
+   Your key file has been saved at:
+   /etc/letsencrypt/live/hello.vps.claseando.es/privkey.pem
+   Your cert will expire on 2018-12-25. To obtain a new or tweaked
+   version of this certificate in the future, simply run certbot again
+   with the "certonly" option. To non-interactively renew *all* of
+   your certificates, run "certbot renew"
+ - Your account credentials have been saved in your Certbot
+   configuration directory at /etc/letsencrypt. You should make a
+   secure backup of this folder now. This configuration directory will
+   also contain certificates and private keys obtained by Certbot so
+   making regular backups of this folder is ideal.
+ - If you like Certbot, please consider supporting our work by:
+
+   Donating to ISRG / Let's Encrypt:   https://letsencrypt.org/donate
+   Donating to EFF:                    https://eff.org/donate-le
+
+sdelquin@claseando:~$
 ~~~
 
-Comprobamos que el fichero se puede descargar correctamente. Para ello, ejecutamos lo siguiente:
+Ahora vamos a echar un vistazo a los cambios que ha sufrido el archivo de configuración del host virtual:
 
 ~~~console
-sdelquin@cloud:~$ curl -O imwpto.me:/var/www/html/.well-known/pki-validation/FB5E7003F04FC4FD5458B99CF87796CA.txt
-  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
-                                 Dload  Upload   Total   Spent    Left  Speed
-100   178  100   178    0     0    691      0 --:--:-- --:--:-- --:--:--   689
-sdelquin@cloud:~$ ls -l FB5E7003F04FC4FD5458B99CF87796CA.txt
--rw-rw-r-- 1 sdelquin sdelquin 178 oct  7 11:22 FB5E7003F04FC4FD5458B99CF87796CA.txt
-sdelquin@cloud:~$
+sdelquin@claseando:~$ cat /etc/nginx/sites-enabled/hello.vps.claseando.es
 ~~~
 
-Una vez hecho esto, volvemos a la gestión del certificado SSL y pulsamos en **Edit methods**:
+> Contenido:
 
-![SSL Namecheap Manage](img/DCV_SSL3.png)
-
-Desde ahí, pulsamos en **Save changes / Retry Alt DCV**:
-
-![SSL Namecheap Manage](img/DCV_SSL4.png)
-
-Por último pulsamos en **DONE**.
-
-### Emisión del certificado SSL
-
-Pasados unos minutos deberíamos recibir dos correos con la notificación de que el certificado SSL se ha emitido satisfactoriamente.
-
-En uno de los correos tendremos el fichero adjunto `ssl_imwpto_me.zip`. Desde la *máquina de desarrollo* haremos lo siguiente:
-
-~~~console
-sdelquin@imw:~$ ls
-ssl_imwpto_me.zip
-sdelquin@imw:~$ unzip ssl_imwpto_me.zip
-Archive:  ssl_imwpto_me.zip
-  inflating: ssl_imwpto_me.crt
-  inflating: ssl_imwpto_me.ca-bundle
-  inflating: ssl_imwpto_me.p7b
-sdelquin@imw:~$ ls
-ssl_imwpto_me.ca-bundle  ssl_imwpto_me.crt  ssl_imwpto_me.p7b  ssl_imwpto_me.zip
-sdelquin@imw:~$ cat ssl_imwpto_me.crt ssl_imwpto_me.ca-bundle >> SSL.final.crt
-sdelquin@imw:~$ scp SSL.final.crt cloud:
-SSL.final.crt                                                   100% 7529     7.4KB/s   00:00
-sdelquin@imw:~$
-~~~
-
-En este caso, los ficheros análogos al [diagrama](#configurando-ssl) serían:
-
-- `ssl_imwpto_me.crt` ~ `SSL.crt`
-- `sl_imwpto_me.ca-bundle` ~ `intermediate.crt`
-
-Ahora, desde la *máquina de producción* haremos lo siguiente:
-
-~~~console
-sdelquin@cloud:~$ ls
-index.html  server.csr  server.key  share  SSL.final.crt  webapps
-sdelquin@cloud:~$ sudo mv server.csr /etc/ssl/certs/ssl.imwpto.me.csr
-[sudo] password for sdelquin:
-sdelquin@cloud:~$ sudo mv server.key /etc/ssl/certs/ssl.imwpto.me.key
-sdelquin@cloud:~$ sudo mv SSL.final.crt /etc/ssl/certs/ssl.imwpto.me.crt
-sdelquin@cloud:~$ cd /etc/ssl/certs/
-sdelquin@cloud:/etc/ssl/certs$ sudo chmod 644 ssl.imwpto.me.crt ssl.imwpto.me.csr
-sdelquin@cloud:/etc/ssl/certs$ sudo chmod 600 ssl.imwpto.me.key
-sdelquin@cloud:/etc/ssl/certs$ ls -l ssl.imwpto.me.*
--rw-r--r-- 1 root root 7529 sep 24 22:09 ssl.imwpto.me.crt
--rw-r--r-- 1 root root 1127 sep 24 15:59 ssl.imwpto.me.csr
--rw------- 1 root root 1704 sep 24 15:59 ssl.imwpto.me.key
-sdelquin@cloud:/etc/ssl/certs$
-~~~
-
-Hemos protegido la *clave privada* `ssl.imwpto.me.key` con permisos de lectura solamente para el `root`.
-
-### Configurando el virtual host para certificado SSL
-
-~~~console
-sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/ssl
-~~~
-
-> Contenido
 ~~~nginx
 server {
-    listen 443;
-    server_name ssl.imwpto.me;
+    server_name hello.vps.claseando.es;
+    root /home/sdelquin/webapps/hello;
 
-    ssl on;
-    ssl_certificate /etc/ssl/certs/ssl.imwpto.me.crt;
-    ssl_certificate_key /etc/ssl/certs/ssl.imwpto.me.key;
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/hello.vps.claseando.es/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/hello.vps.claseando.es/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+}
+
+server {
+    if ($host = hello.vps.claseando.es) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    server_name hello.vps.claseando.es;
+    listen 80;
+    return 404; # managed by Certbot
 }
 ~~~
 
-Ya sólo nos quedaría enlazar este *virtual host* en `sites-enabled`, y recargar la configuración de *Nginx* para que los cambios surtan efecto.
+### Probando el acceso seguro
 
-Ahora accedemos a nuestro *virtual host* desde un navegador, utilizando protocolo `https`, es decir, accederíamos a: `https://ssl.aluXXXX.me`:
+Antes de probar el acceso desde nuestro dominio, debemos reiniciar el servidor web para que las nuevas configuraciones surtan efecto:
 
-![](img/ssl_access.png)
+~~~console
+sdelquin@claseando:~$ sudo systemctl restart nginx
+sdelquin@claseando:~$
+~~~
 
-Si pulsamos botón derecho sobre la página y luego `Inspeccionar -> Security -> View certificate`, podemos comprobar la autenticidad del certificado y su información asociada:
+Ahora accedemos a http://hello.vps.claseando.es (incluso sin *https*):
 
-![](img/ssl_certificate_info.png)
+![secure_connection](img/secure_connection.png)
+
+Podemos desplegar la **información del certificado**:
+
+![ssl_certificate](img/ssl_certificate.png)
+
+### Renovación automática del certificado
+
+Los certificados de *Let's Encrypt* tienen una validez de **90 días**, pero afortunadamente, `certbot` instala una tarea en el cron del sistema de manera que renueva los certificados antes de que expiren:
+
+~~~console
+sdelquin@claseando:~$ cat /etc/cron.d/certbot
+# /etc/cron.d/certbot: crontab entries for the certbot package
+#
+# Upstream recommends attempting renewal twice a day
+#
+# Eventually, this will be an opportunity to validate certificates
+# haven't been revoked, etc.  Renewal will only occur if expiration
+# is within 30 days.
+SHELL=/bin/sh
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+
+0 */12 * * * root test -x /usr/bin/certbot -a \! -d /run/systemd/system && perl -e 'sleep int(rand(43200))' && certbot -q renew
+sdelquin@claseando:~$
+~~~
 
 ## Redirecciones
 
@@ -836,6 +762,7 @@ Puede darse el caso de que queramos redireccionar ciertas *urls* a otras. De hec
 # Redirige de http://tudominio.com a https://tudominio.com
 server {  
     listen 80;
+    server_name tudominio.com;
     return 301 https://$host$request_uri;
 }
 
@@ -860,35 +787,6 @@ Nótese las variables especiales que se usan en estas configuraciones:
 -  `$request_uri`: **ruta** de la *url* a la que estamos accediendo.
 
 También es importante fijarse en el código de redirección **301**. Se trata de un *status code* que da información al agente que recibe la respuesta. [Códigos de estado HTTP](https://es.wikipedia.org/wiki/Anexo:C%C3%B3digos_de_estado_HTTP). 
-
-### Trabajando siempre con SSL
-
-Vamos a ver cómo configuramos una redirección que nos lleve siempre a `https://ssl.imwpto.me`:
-
-~~~console
-sdelquin@cloud:/etc/nginx/sites-enabled$ cd
-sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/ssl
-~~~
-
-> Contenido
-~~~nginx
-server {
-    listen 80;
-    server_name ssl.imwpto.me;
-    return 301 https://$host$request_uri;
-}
-
-server {
-    listen 443;
-    server_name ssl.imwpto.me;
-
-    ssl on;
-    ssl_certificate /etc/ssl/certs/SSL.final.crt;
-    ssl_certificate_key /etc/ssl/certs/server.key;
-}
-~~~
-
-De esta manera, siempre que accedamos a `http://ssl.imwpto.me` se nos hará una redirección a `https://ssl.imwpto.me`.
 
 ## Variables
 

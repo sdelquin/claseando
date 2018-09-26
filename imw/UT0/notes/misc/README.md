@@ -373,3 +373,18 @@ sdelquin@cloud:~$
 En el caso de querer *deshabilitar* el Swap se puede hacer con el comando `swapoff /var/swap.img`.
 
 [Cómo configurar memoria virtual (fichero Swap) en un VPS - DigitalOcean](https://www.digitalocean.com/community/tutorials/how-to-configure-virtual-memory-swap-file-on-a-vps) 
+
+## Completar repositorios
+
+Es posible que la versión `server` de Ubuntu sólo fije los repositorios básicos. Para ampliarlos habría que hacer lo siguiente:
+
+~~~console
+$ sudo vi /etc/apt/sources.list
+...
+~~~
+
+~~~console
+deb http://archive.ubuntu.com/ubuntu bionic main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu bionic-security main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu bionic-updates main restricted universe multiverse
+~~~

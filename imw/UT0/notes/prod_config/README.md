@@ -257,5 +257,5 @@ sdelquin@claseando:~$
 Instalación de paquetes necesarios en el futuro:
 
 ~~~console
-sudo apt install -y tree
+sdelquin@claseando:~$ sudo apt install -y tree
 ~~~

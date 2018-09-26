@@ -15,9 +15,13 @@ La *.iso* también estará disponible en el servidor *Leela*.
 - **Nombre de la máquina**: `imw<expediente>` (ej. *imw3421*) Así evitamos conflictos del mismo nombre de máquina en la red local.
 - **Nombre de usuario**: `alu<expediente>` (ej. *alu3421*)
 
+> **NOTA**:Puede que haya problemas de **"freezing"** con VirtualBox y máquinas virtuales Ubuntu 18.04. Si esto pasa, se recomienda cambiar el *adaptador de red* de la máquina virtual a **NAT**.
+
+> Realizar **instalación mínima** y **desactivar actualizaciones**.
+
 ## Configuración de la interfaz de red
 
-Si vamos a trabajar en el instituto y en casa, tendremos que poder acceder a la máquina de origen desde las dos localizaciones.
+Si vamos a trabajar en el instituto y en casa, tendremos que poder acceder a la máquina de desarrollo desde las dos localizaciones.
 
 ### Asignar una IP fija
 

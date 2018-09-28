@@ -528,6 +528,27 @@ Recargamos la configuración de *Nginx*. Ahora vemos que el acceso a la carpeta 
 
 ![](img/auth_deny.gif)
 
+Si queremos denegar el acceso a **determinados ficheros** podemos hacerlo utilizando **expresiones regulares**:
+
+~~~nginx
+{
+    # prohibir acceso a ficheros de configuración
+    location ~ \.ini$ {
+        return 403;
+    }
+
+    # prohibir acceso a una determinada ruta
+    location ~ ^/base/[a-z]+/config/$ {
+        return 403;
+    }
+
+    # prohibir acceso a un fichero concreto
+    location = /private/jamesbond.dat {
+        return 403;
+    }
+}
+~~~
+
 ## Ficheros de log
 
 Es importante conocer la ubicación de los *logfiles* de *Nginx*. Por defecto, estos ficheros son los siguientes:

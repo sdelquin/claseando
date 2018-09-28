@@ -512,14 +512,14 @@ Ahora denegamos el acceso desde el fichero de configuración:
 > Contenido
 ~~~nginx
 server {
-    server_name share.imwpto.me;
-    root /home/sdelquin/share;
+    server_name share.vps.claseando.es;
+    root /home/sdelquin/webapps/share;
     autoindex on;
-    auth_basic "Administrator Login";
-    auth_basic_user_file /home/sdelquin/share/.htpasswd;
+    auth_basic "Restricted Access";
+    auth_basic_user_file /home/sdelquin/webapps/share/.htpasswd;
 
-    location ~ private {
-        deny all;
+    location /private {
+        return 403;
     }
 }
 ~~~

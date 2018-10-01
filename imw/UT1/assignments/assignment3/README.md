@@ -14,6 +14,7 @@ La actividad consiste en configurar 4 sitios web (*virtual hosts*) en nuestro se
 
 - `http://varlib.aluXXXX.me:9000`
 - Debe mostrar el listado de ficheros y directorios de `/var/lib` de la máquina de producción.
+- Utilizar enlaces simbólicos.
 
 ## Sitio web 3
 

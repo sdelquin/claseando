@@ -5,7 +5,7 @@ La actividad consiste en configurar 4 sitios web (*virtual hosts*) en nuestro se
 ## Sitio web 1
 
 - `http://imw.aluXXXX.me`
-    - Debe mostrar una página con la imagen de "Diagrama de unidades de trabajo" de *IMW* (ver *moodle* de la asignatura).
+    - Debe mostrar una página con la imagen del "Diagrama de unidades de trabajo" de *IMW*": [enlace al diagrama](unidades.png).
     - La imagen no debe ser enlazada en remoto, sino se debe descargar al directorio de trabajo en la máquina de producción, y luego usar un tag `<img>` apuntando a la ruta local.
 - `http://imw.aluXXXX.me/mec/`
     - Debe mostrar una página con un enlace al Real decreto del título de Administración de Sistemas Informáticos en Red - MEC (ver *moodle* de la asignatura).

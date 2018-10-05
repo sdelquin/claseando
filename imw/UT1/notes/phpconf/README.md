@@ -10,203 +10,164 @@ Aunque ya hemos instalado [el servidor web Nginx](../webserver), necesitamos un 
 
 Existen varios módulos de procesamiento de PHP, pero el más usado es [php-fpm](https://php-fpm.org/)  (FastCGI Process Manager). Para su instalación usaremos el paquete `php-fpm` disponible en los repositorios de *apt*:
 
-```console
-sdelquin@cloud:~$ sudo apt-get install php-fpm
+~~~console
+sdelquin@claseando:~$ sudo apt install -y php-fpm
 Leyendo lista de paquetes... Hecho
 Creando árbol de dependencias
 Leyendo la información de estado... Hecho
+El paquete indicado a continuación se instaló de forma automática y ya no es necesario.
+  grub-pc-bin
+Utilice «sudo apt autoremove» para eliminarlo.
 Se instalarán los siguientes paquetes adicionales:
-  php-common php7.0-cli php7.0-common php7.0-fpm php7.0-json php7.0-opcache php7.0-readline
+  libsodium23 php-common php7.2-cli php7.2-common php7.2-fpm php7.2-json php7.2-opcache php7.2-readline
 Paquetes sugeridos:
-  php-pear
-Se instalarán los siguientes paquetes NUEVOS:
-  php-common php-fpm php7.0-cli php7.0-common php7.0-fpm php7.0-json php7.0-opcache php7.0-readline
-0 actualizados, 8 nuevos se instalarán, 0 para eliminar y 22 no actualizados.
-Se necesita descargar 3.543 kB de archivos.
-Se utilizarán 14,1 MB de espacio de disco adicional después de esta operación.
-¿Desea continuar? [S/n]
-Des:1 http://ams2.mirrors.digitalocean.com/ubuntu xenial/main amd64 php-common all 1:35ubuntu6 [10,8 kB]
-Des:2 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 php7.0-common amd64 7.0.22-0ubuntu0.16.04.1 [843 kB]
-Des:3 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 php7.0-json amd64 7.0.22-0ubuntu0.16.04.1 [16,9 kB]
-Des:4 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 php7.0-opcache amd64 7.0.22-0ubuntu0.16.04.1 [77,1 kB]
-Des:5 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 php7.0-readline amd64 7.0.22-0ubuntu0.16.04.1 [12,8 kB]
-Des:6 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 php7.0-cli amd64 7.0.22-0ubuntu0.16.04.1 [1.287 kB]
-Des:7 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/universe amd64 php7.0-fpm amd64 7.0.22-0ubuntu0.16.04.1 [1.293 kB]
-Des:8 http://ams2.mirrors.digitalocean.com/ubuntu xenial/universe amd64 php-fpm all 1:7.0+35ubuntu6 [2.926 B]
-Descargados 3.543 kB en 1s (2.323 kB/s)
-Seleccionando el paquete php-common previamente no seleccionado.
-(Leyendo la base de datos ... 86141 ficheros o directorios instalados actualmente.)
-Preparando para desempaquetar .../php-common_1%3a35ubuntu6_all.deb ...
-Desempaquetando php-common (1:35ubuntu6) ...
-Seleccionando el paquete php7.0-common previamente no seleccionado.
-Preparando para desempaquetar .../php7.0-common_7.0.22-0ubuntu0.16.04.1_amd64.deb ...
-Desempaquetando php7.0-common (7.0.22-0ubuntu0.16.04.1) ...
-Seleccionando el paquete php7.0-json previamente no seleccionado.
-Preparando para desempaquetar .../php7.0-json_7.0.22-0ubuntu0.16.04.1_amd64.deb ...
-Desempaquetando php7.0-json (7.0.22-0ubuntu0.16.04.1) ...
-Seleccionando el paquete php7.0-opcache previamente no seleccionado.
-Preparando para desempaquetar .../php7.0-opcache_7.0.22-0ubuntu0.16.04.1_amd64.deb ...
-Desempaquetando php7.0-opcache (7.0.22-0ubuntu0.16.04.1) ...
-Seleccionando el paquete php7.0-readline previamente no seleccionado.
-Preparando para desempaquetar .../php7.0-readline_7.0.22-0ubuntu0.16.04.1_amd64.deb ...
-Desempaquetando php7.0-readline (7.0.22-0ubuntu0.16.04.1) ...
-Seleccionando el paquete php7.0-cli previamente no seleccionado.
-Preparando para desempaquetar .../php7.0-cli_7.0.22-0ubuntu0.16.04.1_amd64.deb ...
-Desempaquetando php7.0-cli (7.0.22-0ubuntu0.16.04.1) ...
-Seleccionando el paquete php7.0-fpm previamente no seleccionado.
-Preparando para desempaquetar .../php7.0-fpm_7.0.22-0ubuntu0.16.04.1_amd64.deb ...
-Desempaquetando php7.0-fpm (7.0.22-0ubuntu0.16.04.1) ...
-Seleccionando el paquete php-fpm previamente no seleccionado.
-Preparando para desempaquetar .../php-fpm_1%3a7.0+35ubuntu6_all.deb ...
-Desempaquetando php-fpm (1:7.0+35ubuntu6) ...
-Procesando disparadores para man-db (2.7.5-1) ...
-Procesando disparadores para ureadahead (0.100.0-19) ...
-Procesando disparadores para systemd (229-4ubuntu19) ...
-Configurando php-common (1:35ubuntu6) ...
-Configurando php7.0-common (7.0.22-0ubuntu0.16.04.1) ...
+Creating config file /etc/php/7.2/mods-available/readline.ini with new version
+Configurando php7.2-json (7.2.10-0ubuntu0.18.04.1) ...
 
-Creating config file /etc/php/7.0/mods-available/calendar.ini with new version
+Creating config file /etc/php/7.2/mods-available/json.ini with new version
+Configurando php7.2-opcache (7.2.10-0ubuntu0.18.04.1) ...
 
-Creating config file /etc/php/7.0/mods-available/ctype.ini with new version
+Creating config file /etc/php/7.2/mods-available/opcache.ini with new version
+Configurando php7.2-cli (7.2.10-0ubuntu0.18.04.1) ...
+update-alternatives: utilizando /usr/bin/php7.2 para proveer /usr/bin/php (php) en modo automático
+update-alternatives: utilizando /usr/bin/phar7.2 para proveer /usr/bin/phar (phar) en modo automático
+update-alternatives: utilizando /usr/bin/phar.phar7.2 para proveer /usr/bin/phar.phar (phar.phar) en modo automático
 
-Creating config file /etc/php/7.0/mods-available/exif.ini with new version
+Creating config file /etc/php/7.2/cli/php.ini with new version
+Configurando php7.2-fpm (7.2.10-0ubuntu0.18.04.1) ...
 
-Creating config file /etc/php/7.0/mods-available/fileinfo.ini with new version
+Creating config file /etc/php/7.2/fpm/php.ini with new version
+Created symlink /etc/systemd/system/multi-user.target.wants/php7.2-fpm.service → /lib/systemd/system/php7.2-fpm.service.
+Configurando php-fpm (1:7.2+60ubuntu1) ...
+Procesando disparadores para ureadahead (0.100.0-20) ...
+Procesando disparadores para systemd (237-3ubuntu10.3) ...
+sdelquin@claseando:~$
+~~~
 
-Creating config file /etc/php/7.0/mods-available/ftp.ini with new version
+Tras la instalación podemos comprobar que está funcionando correctamente:
 
-Creating config file /etc/php/7.0/mods-available/gettext.ini with new version
+~~~console
+sdelquin@claseando:~$ sudo systemctl status php7.2-fpm
+● php7.2-fpm.service - The PHP 7.2 FastCGI Process Manager
+   Loaded: loaded (/lib/systemd/system/php7.2-fpm.service; enabled; vendor preset: enabled)
+   Active: active (running) since Fri 2018-10-05 08:53:34 UTC; 4min 45s ago
+     Docs: man:php-fpm7.2(8)
+ Main PID: 28821 (php-fpm7.2)
+   Status: "Processes active: 0, idle: 2, Requests: 0, slow: 0, Traffic: 0req/sec"
+    Tasks: 3 (limit: 1152)
+   CGroup: /system.slice/php7.2-fpm.service
+           ├─28821 php-fpm: master process (/etc/php/7.2/fpm/php-fpm.conf)
+           ├─28833 php-fpm: pool www
+           └─28834 php-fpm: pool www
 
-Creating config file /etc/php/7.0/mods-available/iconv.ini with new version
-
-Creating config file /etc/php/7.0/mods-available/pdo.ini with new version
-
-Creating config file /etc/php/7.0/mods-available/phar.ini with new version
-
-Creating config file /etc/php/7.0/mods-available/posix.ini with new version
-
-Creating config file /etc/php/7.0/mods-available/shmop.ini with new version
-
-Creating config file /etc/php/7.0/mods-available/sockets.ini with new version
-
-Creating config file /etc/php/7.0/mods-available/sysvmsg.ini with new version
-
-Creating config file /etc/php/7.0/mods-available/sysvsem.ini with new version
-
-Creating config file /etc/php/7.0/mods-available/sysvshm.ini with new version
-
-Creating config file /etc/php/7.0/mods-available/tokenizer.ini with new version
-Configurando php7.0-json (7.0.22-0ubuntu0.16.04.1) ...
-
-Creating config file /etc/php/7.0/mods-available/json.ini with new version
-Configurando php7.0-opcache (7.0.22-0ubuntu0.16.04.1) ...
-
-Creating config file /etc/php/7.0/mods-available/opcache.ini with new version
-Configurando php7.0-readline (7.0.22-0ubuntu0.16.04.1) ...
-
-Creating config file /etc/php/7.0/mods-available/readline.ini with new version
-Configurando php7.0-cli (7.0.22-0ubuntu0.16.04.1) ...
-update-alternatives: utilizando /usr/bin/php7.0 para proveer /usr/bin/php (php) en modo automático
-update-alternatives: utilizando /usr/bin/phar7.0 para proveer /usr/bin/phar (phar) en modo automático
-update-alternatives: utilizando /usr/bin/phar.phar7.0 para proveer /usr/bin/phar.phar (phar.phar) en modo automático
-
-Creating config file /etc/php/7.0/cli/php.ini with new version
-Configurando php7.0-fpm (7.0.22-0ubuntu0.16.04.1) ...
-
-Creating config file /etc/php/7.0/fpm/php.ini with new version
-Configurando php-fpm (1:7.0+35ubuntu6) ...
-Procesando disparadores para systemd (229-4ubuntu19) ...
-Procesando disparadores para ureadahead (0.100.0-19) ...
-sdelquin@cloud:~$
-```
+oct 05 08:53:34 claseando systemd[1]: Starting The PHP 7.2 FastCGI Process Manager...
+oct 05 08:53:34 claseando systemd[1]: Started The PHP 7.2 FastCGI Process Manager.
+sdelquin@claseando:~$
+~~~
 
 ## Configuración
 
 A continuación tenemos que indicarle al servidor web, en este caso **Nginx**, que debe utilizar el módulo `php-fpm` cuando vaya a manejar ficheros `.php`.
 
-El fichero de configuración de **Nginx** está en `/etc/nginx/nginx.conf`. A su vez, existen una serie de ficheros adicionales de configuración colgando de `/etc/nginx/sites-available`. En concreto, debemos editar el fichero de configuración general `/etc/nginx/sites-available/default`:
+Supongamos que queremos interpretar ficheros `.php` desde nuestra primera web `hello.vps.claseando.es`. Para ello, debemos realizar los siguientes pasos:
 
-```console
-sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/default
-```
-
-Buscamos la sección de **PHP**:
-
-```nginx
-38     # Add index.php to the list if you are using PHP
-39     index index.html index.htm index.nginx-debian.html;
-       ...
-       ...
-       ...
-52     #location ~ \.php$ {
-53     #   include snippets/fastcgi-php.conf;
-54     #
-55     #   # With php7.0-cgi alone:
-56     #   fastcgi_pass 127.0.0.1:9000;
-57     #   # With php7.0-fpm:
-58     #   fastcgi_pass unix:/run/php/php7.0-fpm.sock;
-59     #}
-```
-
-Añadimos `index.php` como posible fichero de inicio y descomentamos las líneas que nos interesan, con lo que quedaría así:
-
-```nginx
-# Add index.php to the list if you are using PHP
-index index.html index.htm index.nginx-debian.html index.php;
+~~~console
+sdelquin@claseando:~$ sudo vi /etc/nginx/sites-available/hello.vps.claseando.es
 ...
-...
-...
-location ~ \.php$ {
-    include snippets/fastcgi-php.conf;
+~~~
 
-#   # With php7.0-cgi alone:
-#   fastcgi_pass 127.0.0.1:9000;
-#   # With php7.0-fpm:
-    fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+~~~nginx
+server {
+    server_name hello.vps.claseando.es;
+    root /home/sdelquin/webapps/hello;
+
+
+    listen 443 ssl; # managed by Certbot
+    ssl_certificate /etc/letsencrypt/live/hello.vps.claseando.es/fullchain.pem; # managed by Certbot
+    ssl_certificate_key /etc/letsencrypt/live/hello.vps.claseando.es/privkey.pem; # managed by Certbot
+    include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
+    # ----> php file handling through php-fpm
+    location ~ \.php {
+        fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+    }
 }
-```
+
+server {
+    if ($host = hello.vps.claseando.es) {
+        return 301 https://$host$request_uri;
+    } # managed by Certbot
+
+
+    server_name hello.vps.claseando.es;
+    listen 80;
+    return 404; # managed by Certbot
+}
+~~~
 
 Ya sólo nos falta recargar el servidor web:
 
 ```console
-sdelquin@cloud:~$ sudo systemctl reload nginx
-sdelquin@cloud:~$
+sdelquin@claseando:~$ sudo systemctl reload nginx
+sdelquin@claseando:~$
 ```
 
 ## Comprobación de funcionamiento
 
-Si queremos saber el *document root* del servidor web **Nginx**, podemos ver el valor de la variable `root /var/www/html;` dentro de la sección `server` del fichero de configuración general `/etc/nginx/sites-available/default`.
-
-Por tanto, vamos a crear un fichero sencillo en *php* en dicho directorio, para comprobar el funcionamiento:
+Vamos a crear un fichero sencillo en *php* en el root de nuestro sitio web para comprobar el funcionamiento:
 
 ```console
-sdelquin@cloud:~$ sudo vi /var/www/html/test.php
-```
-
-> Contenido:
-```php
-<?php
-    phpinfo();
-?>    
+sdelquin@claseando:~$ echo '<?php phpinfo(); ?>' > webapps/hello/test.php
+sdelquin@claseando:~$
 ```
 
 A continuación, accedemos al fichero creado a través de un navegador web:
 
-![](img/php_test.png)
+![PHP test](img/php_test.png)
 
-> ⚠️  Si tuviéramos problemas al acceder a través del nombre de dominio, porque existiera algún *virtual host* configurado con dicho nombre de dominio, podríamos acceder a través de la dirección IP:
+## Acceso por fichero de índice
 
-```console
-sdelquin@imw:~$ ping -c1 imwpto.me
-PING imwpto.me (138.68.99.84) 56(84) bytes of data.
-64 bytes from cloud (138.68.99.84): icmp_seq=1 ttl=50 time=60.3 ms
+Supongamos que queremos que se nos muestre el fichero `php` cuando accedemos a una carpeta. Para ello debemos hacer lo siguiente:
 
---- imwpto.me ping statistics ---
-1 packets transmitted, 1 received, 0% packet loss, time 0ms
-rtt min/avg/max/mdev = 60.338/60.338/60.338/0.000 ms
-sdelquin@imw:~$
-```
+Renombramos el fichero a `index.php`:
 
-Podamos probar accediendo a: `http://138.68.99.84/test.php`
+~~~console
+sdelquin@claseando:~$ cd webapps/hello/
+sdelquin@claseando:~/webapps/hello$ ls
+index.html  test.php
+sdelquin@claseando:~/webapps/hello$ mv test.php index.php
+sdelquin@claseando:~/webapps/hello$
+~~~
 
-* [x] Instalación correcta de PHP.
+Editamos el virtual host que habíamos creado:
+
+~~~console
+sdelquin@claseando:~$ sudo vi /etc/nginx/sites-available/hello.vps.claseando.es
+...
+~~~
+
+~~~nginx
+server {
+    server_name hello.vps.claseando.es;
+    root /home/sdelquin/webapps/hello;
+
+    # ----> index files
+    index index.php;
+
+    ...
+}
+~~~
+
+Estamos obligando a que el fichero índice sea `index.php`, mientras que anteriormente el fichero índice era, por defecto, `index.html`.
+
+Recargamos el servidor web Nginx para que surtan efecto los cambios:
+
+~~~console
+sdelquin@claseando:~$ sudo systemctl reload nginx
+sdelquin@claseando:~$
+~~~
+
+Y ahora accedemos directamente al raíz de nuestro dominio:
+
+![PHP index](img/php_index.png)

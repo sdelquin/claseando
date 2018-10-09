@@ -197,17 +197,6 @@ All done!
 sdelquin@claseando:~$
 ~~~
 
-### Política de contraseñas
-
-Si hubiéramos elegido el nivel **MEDIO** de seguridad en contraseñas, deberíamos cumplir con lo siguiente:
-
-- La longitud de la contraseña debe ser de 8 o más caracteres.
-- Deben incluir, al menos, uno de los siguientes caracteres:
-  + Letras en mayúsculas.
-  + Letras en minúsculas.
-  + Dígitos.
-  + Caracteres especiales ("!", "@", "$", etc.).
-
 ## Acceso al gestor de bases de datos
 
 El comando que nos permite gestionar las bases de datos **MySQL** es, aunque parezca increíble `mysql` 😉
@@ -230,6 +219,86 @@ mysql>
 ```
 
 Con `sudo mysql` estamos accediendo al gestor como usuario `root`.
+
+## Política de contraseñas
+
+Vamos a comprobar la política de contraseñas que tenemos activa:
+
+~~~console
+sdelquin@claseando:~$ sudo mysql
+[sudo] password for sdelquin:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.7.23-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql>
+~~~
+
+Ejecutamos la siguiente instrucción **SQL**:
+
+~~~sql
+mysql> SHOW VARIABLES LIKE 'validate_password%';
++--------------------------------------+--------+
+| Variable_name                        | Value  |
++--------------------------------------+--------+
+| validate_password_check_user_name    | OFF    |
+| validate_password_dictionary_file    |        |
+| validate_password_length             | 8      |
+| validate_password_mixed_case_count   | 1      |
+| validate_password_number_count       | 1      |
+| validate_password_policy             | MEDIUM |
+| validate_password_special_char_count | 1      |
++--------------------------------------+--------+
+7 rows in set (0.01 sec)
+
+mysql>
+~~~
+
+Podemos ver que tenemos el nivel **MEDIO** de seguridad en contraseñas, con lo que deberíamos cumplir con lo siguiente:
+
+- La longitud de la contraseña debe ser de 8 o más caracteres.
+- Deben incluir, al menos, uno de los siguientes caracteres:
+  + Letras en mayúsculas.
+  + Letras en minúsculas.
+  + Dígitos.
+  + Caracteres especiales ("!", "@", "$", etc.).
+
+Si queremos modificar el nivel de seguridad en contraseñas, podemos hacer lo siguiente:
+
+~~~sql
+mysql> SET GLOBAL validate_password_policy=LOW;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>
+~~~
+
+Volvemos a comprobar el nivel:
+
+~~~sql
+mysql> SHOW VARIABLES LIKE 'validate_password%';
++--------------------------------------+-------+
+| Variable_name                        | Value |
++--------------------------------------+-------+
+| validate_password_check_user_name    | OFF   |
+| validate_password_dictionary_file    |       |
+| validate_password_length             | 8     |
+| validate_password_mixed_case_count   | 1     |
+| validate_password_number_count       | 1     |
+| validate_password_policy             | LOW   |
+| validate_password_special_char_count | 1     |
++--------------------------------------+-------+
+7 rows in set (0.00 sec)
+
+mysql>
+~~~
 
 ## Ajuste de codificaciones
 
@@ -267,10 +336,6 @@ sdelquin@claseando:~$ sudo vi /etc/mysql/conf.d/utf8mb4.cnf
 
 >Contenido
 ```ini
-[client]
-default-character-set = utf8mb4
-[mysql]
-default-character-set = utf8mb4
 [mysqld]
 character-set-client-handshake = FALSE
 character-set-server = utf8mb4

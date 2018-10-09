@@ -4,12 +4,12 @@ La actividad consiste en configurar 4 sitios web (*virtual hosts*) en nuestro se
 
 ## Sitio web 1
 
-- `http://php.imwpto.me`
+- `http://php.aluXXXX.me`
 - Mostrar la aplicación [demo_php.zip](demo_php.zip)
 
 ## Sitio web 2
 
-- `http://now.imwpto.me`
+- `http://now.aluXXXX.me`
 - El código del programa *python* es el siguiente:
 
 ```python
@@ -18,24 +18,24 @@ import pytz
 from flask import Flask
 app = Flask(__name__)
 
-@app.route("/")
+@app.route('/')
 def hello():
     now = datetime.datetime.now(pytz.timezone("Atlantic/Canary"))
-    return """
+    return '''
     <h1>Testing Python over Nginx</h1>
     <h2>In Canary Islands...</h2>
     Today is: {today}
     <br>
     Now is: {now}
-    """.format(
-        today=now.strftime("%d/%m/%Y"),
-        now=now.strftime("%H:%Mh")
+    '''format(
+        today=now.strftime('%d/%m/%Y'),
+        now=now.strftime('%H:%Mh')
     )
 ```
 
 
-- En el entorno virtual hay que instalar, al menos, los paquetes `uwsgi`, `flask` y `pytz`.
-- El código debe residir en `$HOME/now`.
+- En el entorno virtual hay que instalar, al menos, los paquetes `flask` y `pytz`.
+- El código debe residir en `$HOME/webapps/now`.
 - Se debe configurar *supervisor* para gestionar el proceso *uwsgi*.
 - Se debe probar los siguientes comandos, y ver cómo es la respuesta del navegador al acceder a la web:
 ```console

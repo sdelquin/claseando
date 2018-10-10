@@ -40,6 +40,8 @@ La actividad consiste en configurar 4 sitios web (*virtual hosts*) en nuestro se
     + `/var/log/nginx/redirect/access.log`
     + `/var/log/nginx/redirect/error.log`
 
+> **OJO**: Hay que crear previamente la carpeta `/var/log/nginx/redirect` porque si no daría fallo al especificar los *logfiles*.
+
 ## Información a entregar
 
 Se deberá entregar la *url* al commit en el repositorio privado *GitHub* de la asignatura *IMW*, apuntando al `README.md` que contiene un informe detallado de la actividad, donde expliques lo que has hecho, justificando tus decisiones. La *url* debe tener la siguiente estructura:

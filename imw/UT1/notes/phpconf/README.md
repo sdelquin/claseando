@@ -88,10 +88,12 @@ server {
     include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
-    # ----> php file handling through php-fpm
+    # ---> php file handling through php-fpm
     location ~ \.php {
+        include snippets/fastcgi-php.conf;
         fastcgi_pass unix:/run/php/php7.2-fpm.sock;
     }
+    # <---
 }
 
 server {

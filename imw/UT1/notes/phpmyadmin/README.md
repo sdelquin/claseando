@@ -9,7 +9,7 @@ La herramienta más extendida para ello se denomina **phpMyAdmin**. Está implem
 Para su instalación, usaremos el paquete preparado a tal efecto:
 
 ~~~console
-sdelquin@claseando:~$
+sdelquin@claseando:~$ sudo apt install phpmyadmin
 Descargados 3.861 kB en 0s (9.037 kB/s)
 Preconfigurando paquetes ...
 Determining localhost credentials from /etc/mysql/debian.cnf: succeeded.
@@ -36,7 +36,9 @@ A continuación el programa de instalación debe crear una base de datos para qu
 
 En la siguiente pantalla nos solicita una contraseña con la que registrar la base de datos en *MySQL*. Esto significa que se va a crear un usuario `phpmyadmin` con la contraseña que nosotros especifiquemos para acceder al sistema gestor de bases de datos:
 
-> Ojo que tenemos que cumplir con la directiva de seguridad de contraseñas establecida en el servidor *MySQL*.
+> **OJO:** Aunque nuestra política de seguridad de contraseñas en *MySQL* esté establecida a nivel BAJO, durante la instalación de *phpmyadmin* se sube a nivel MEDIO. Por lo tanto tenemos que cumplir con la directiva de seguridad de contraseñas establecida.
+
+> Otra opción es parar la instalación, bajar el nivel de seguridad de contraseñas a BAJO y volver a configurar el paquete usando el comando: `sudo dpkg-reconfigure phpmyadmin`
 
 ![](img/phpmyadmin03.png)
 
@@ -107,3 +109,55 @@ Con esto, ya podemos acceder a través de un navegador a la dirección en la que
 Podemos acceder a la interfaz administrativa de nuestro gestor de bases de datos *MySQL*:
 
 ![](img/phpmyadmin06.png)
+
+### Cambiando la URL de acceso a phpMyAdmin
+
+Por *razones de seguridad*, podríamos querer que el acceso a *phpMyAdmin* no se haga en la ruta `http://host/phpmyadmin`. Supongamos que queremos cambiar nuestra ruta de acceso para que sea:
+
+    http://vps.claseando.es/db
+
+En primer lugar cambiamos nuestro *location* en el fichero de configuración de *Nginx*:
+
+~~~console
+sdelquin@claseando:~$ sudo vi /etc/nginx/sites-available/vps.claseando.es
+...
+~~~
+
+~~~nginx
+server {
+    server_name vps.claseando.es;
+
+    location /blog {
+        root /home/sdelquin/webapps;
+    }
+
+    # ---> cambiar sólo la siguiente línea
+    location /bd {
+        index index.php;
+        root /usr/share;
+        location ~ \.php$ {
+            include snippets/fastcgi-php.conf;
+            fastcgi_pass unix:/run/php/php7.2-fpm.sock;
+        }
+    }
+}
+~~~
+
+Ahora creamos un *enlace simbólico* para que apunte al raíz de *phpMyAdmin*:
+
+~~~console
+sdelquin@claseando:~$ cd /usr/share/
+sdelquin@claseando:/usr/share$ sudo ln -s phpmyadmin bd
+sdelquin@claseando:/usr/share$ ls -ld bd
+lrwxrwxrwx 1 root root 10 oct 10 19:25 bd -> phpmyadmin
+sdelquin@claseando:/usr/share$
+~~~
+
+No nos olvidemos de recargar *Nginx*:
+
+~~~console
+sdelquin@claseando:~$ sudo systemctl reload nginx
+sdelquin@claseando:~$
+~~~
+
+Y con esto ya tenemos lista una nueva *url* para acceder a **phpMyAdmin**.

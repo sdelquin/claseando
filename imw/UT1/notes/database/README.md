@@ -222,7 +222,7 @@ Con `sudo mysql` estamos accediendo al gestor como usuario `root`.
 
 ## Política de contraseñas
 
-Vamos a comprobar la política de contraseñas que tenemos activa:
+Supongamos que queremos pasar de una política de contraseñas de nivel MEDIO a una de nivel BAJO. Haríamos lo siguiente:
 
 ~~~console
 sdelquin@claseando:~$ sudo mysql

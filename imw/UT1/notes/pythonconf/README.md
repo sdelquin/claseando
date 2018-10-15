@@ -1,5 +1,10 @@
 # Configuración de python
 
+[Instalación](#instalacion)  
+[Creación del Hola Mundo](#creación-del-hola-mundo)  
+[Configuración del servidor web](#configuración-del-servidor-web)  
+[Supervisor](#supervisor)
+
 El objetivo de esta sección es configurar nuestro servidor web para que responda a peticiones que procesen código *Python*.
 
 ## Instalación

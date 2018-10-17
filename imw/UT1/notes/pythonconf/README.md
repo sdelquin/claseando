@@ -69,7 +69,7 @@ sdelquin@claseando:~$
 Los paquetes de *Python* necesitan ciertas librerías para su funcionamiento. Por ello debemos instalar lo siguiente:
 
 ~~~console
-sdelquin@claseando:~$ sudo apt install -y python3.7-dev
+sdelquin@claseando:~$ sudo apt install -y python3.7-dev python3-distutils
 Leyendo lista de paquetes... Hecho
 Creando árbol de dependencias
 Leyendo la información de estado... Hecho

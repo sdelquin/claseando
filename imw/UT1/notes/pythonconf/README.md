@@ -1,4 +1,4 @@
-# Configuración de python
+# Configuración de Python
 
 [Instalación](#instalacion)  
 [Creación del Hola Mundo](#creación-del-hola-mundo)  

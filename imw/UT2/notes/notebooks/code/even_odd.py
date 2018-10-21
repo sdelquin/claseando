@@ -1,5 +1,6 @@
 # ===================== IMPORTS =====================================
-from fabulous.color import green, red, red_bg
+import crayons
+
 
 # ===================== FUNCIONES ===================================
 def is_even(n):
@@ -10,29 +11,31 @@ def is_even(n):
 
 
 def read_int():
-    x = input("Introduzca un número entero: ")
+    x = input('Introduzca un número entero: ')
     return int(x)
 
 
 def menu():
     exit = False
     while not exit:
-        print("""
+        print('''
         1. Chequear si un número es par ó impar.
         2. Salir.
-        """)
-        option = input("")
-        if option == "1":
+        ''')
+        option = input('')
+        if option == '1':
             v = read_int()
             if is_even(v):
-                print(green("El número es par!"))
+                print(crayons.green('El número es par!'))
             else:
-                print(red("El número es impar!"))
-        elif option == "2":
-            print("👋🏻  Hasta luego Lucas!")
+                print(crayons.magenta('El número es impar!'))
+        elif option == '2':
+            print('👋🏻  Hasta luego Lucas!')
             exit = True
         else:
-            print(red_bg("La opción elegida no existe!"))
+            print(crayons.red('La opción elegida no existe!'))
+
 
 # ===================== CÓDIGO ======================================
-menu()
+if __name__ == '__main__':
+    menu()

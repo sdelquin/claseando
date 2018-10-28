@@ -1,0 +1,19 @@
+#!/bin/bash
+
+# script para corregir la actividad 1
+# correct "<url al raw del fichero python>"
+
+echo ''
+echo 'RESULTADO CORRECTO:'
+echo '6 de 50€; 1 de 10€; 1 de 2€; 1 de 1€'
+echo '===================='
+curl --silent $1 | python - 313
+echo '===================='
+echo ''
+
+echo 'RESULTADO CORRECTO:'
+echo '1 de 50€; 1 de 10€; 1 de 5€; 1 de 2€'
+echo '===================='
+curl --silent $1 | python - 67
+echo '===================='
+echo ''

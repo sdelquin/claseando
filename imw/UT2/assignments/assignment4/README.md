@@ -31,7 +31,7 @@ El programa debe cumplir con las siguientes especificaciones:
     NUCLEOBASES = "ATGC"
     DNA_SIZE = 100
 
-    sequence = "".join([random.choice(NUCLEOBASES) for i in range(DNA_SIZE)])
+    sequence = ''.join([random.choice(NUCLEOBASES) for i in range(DNA_SIZE)])
     ```
 
 2. Mostrar por pantalla el número de bases de cada tipo, recorriendo la variable `sequence`. Es decir, habrá que mostrar:
@@ -83,8 +83,8 @@ $> python program4.py 3.4 2.1 6.5 7.3 2.4 9.3 6.1
 La media de los valores es: 5.3
 ```
 
-> No se pueden utilizar funciones predefinidas como `sum`.
-> PISTA: `sys.argv` es una lista.
+> No se pueden utilizar funciones predefinidas como `sum`.  
+> **PISTA**: `sys.argv` es una lista.
 
 ## Información a entregar
 

@@ -53,6 +53,8 @@ Guanine: 27
 
 > NOTA: Esta salida puede variar en tu caso, ya que cada vez que se ejecuta el programa se genera una nueva secuencia aleatoria de bases de ADN.
 
+> No se puede utilizar el método `count` de las secuencias.
+
 ## Programa 3
 
 El programa debe cumplir con las siguientes especificaciones:

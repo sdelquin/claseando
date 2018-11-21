@@ -11,12 +11,12 @@ El programa debe cumplir con las siguientes especificaciones:
 3. El diccionario se llamará `summary` y tendrá como *claves* cada una de las palabras de la cadena, y como *valores* el número de repeticiones.
 3. La función debe tener la siguiente definición:
 
-    ```python
-    def count_words(sentence):
-        summary = {}
-        ...
-        return summary
-    ```
+~~~python
+def count_words(sentence):
+    summary = {}
+    ...
+    return summary
+~~~
 
 4. Cuando se reciba el resultado de la función, hay que mostrar el diccionario de una forma "organizada" (ver ejemplo).
 

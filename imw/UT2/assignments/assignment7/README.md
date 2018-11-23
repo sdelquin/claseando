@@ -1,6 +1,6 @@
 # UT2-A7: Hecho con clase!
 
-La actividad consiste en hacer un programa *python* para gestionar nuestras máquinas virtuales.
+La actividad consiste en hacer un programa *Python* para gestionar nuestras máquinas virtuales.
 
 En el programa habrá que diseñar una clase `VirtualMachine` con las siguientes características:
 
@@ -9,7 +9,7 @@ En el programa habrá que diseñar una clase `VirtualMachine` con las siguientes
     * `ram` (expresado en *Gb*)
     * `cpu` (expresado en *Ghz*)
     * `hdd` (expresado en *Gb*)
-    * `os`
+    * `os` (sistema operativo)
     * `status`
         - 0: parada.
         - 1: activa.
@@ -80,9 +80,12 @@ En el programa habrá que diseñar una clase `VirtualMachine` con las siguientes
 
 ![](img/maq_virtuales.png)
 
-## Ficheros a entregar
+## Información a entregar
 
-Se deberán subir 2 ficheros:
+Se deberá entregar la *url* al commit en el repositorio privado *GitHub* de la asignatura *IMW*, apuntando a la carpeta que contiene los ficheros de código Python. La *url* debe tener la siguiente estructura:
 
-1. `<fichero>.py` con el código de tu programa.
-2. `<fichero>.pdf` con el código fuente de tus programas.
+```
+https://github.com/<usuario>/imw/blob/<id del commit>/<ut>/<actividad>/
+```
+
+> ⚠️ Al subir la *url*, es importante crear un enlace. Es decir, poner un `href` a la *url* anterior, y no pegar el texto tal cual.

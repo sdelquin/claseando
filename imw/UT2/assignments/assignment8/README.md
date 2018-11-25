@@ -2,13 +2,51 @@
 
 La actividad consiste en hacer una web con Python para gestionar una máquina virtual.
 
+## Repositorio GitHub
+
+En la línea de lo que hemos trabajado en clase, tendremos el código de nuestra aplicación en un repositorio con la siguiente URL:
+
+`https://github.com/<usuario>/imw/ut2/a8/` 
+
+Tanto en la **máquina de desarrollo** como en la **máquina de producción** nos interesa tener acceso al proyecto en la ruta `~/webapps/vmweb`.
+
+Para ello podemos hacer uso de los *enlaces simbólicos*:
+
+~~~console
+sdelquin@imw:~$ cd webapps/
+sdelquin@imw:~/webapps$ ln -s ../imw/ut2/a8 vmweb
+sdelquin@imw:~/webapps$ ls -l vmweb
+lrwxrwxrwx 1 sdelquin sdelquin 13 nov 25 12:49 vmweb -> ../imw/ut2/a8
+sdelquin@imw:~/webapps$
+~~~
+
 ## Entorno virtual
 
-Crear un entorno virtual con Python que llamaremos `vmweb`.
+Crear un entorno virtual con Python que llamaremos `vmweb` e instalar:
 
-## Ficheros necesarios
+- `flask`.
+- `fabric` (sólo como *dependencia de desarrollo*).
 
-![](img/ficheros.png)
+## Estructura del proyecto
+
+~~~console
+sdelquin@imw:~/webapps/vmweb$ tree
+.
+├── fabfile.py
+├── main.py
+├── Pipfile
+├── Pipfile.lock
+├── run.sh
+├── static
+│   └── style.css
+├── templates
+│   ├── index.html
+│   └── run_process.html
+└── vm.py
+
+2 directories, 9 files
+sdelquin@imw:~/webapps/vmweb$
+~~~
 
 ### `main.py`
 
@@ -90,15 +128,8 @@ https://github.com/<usuario>/imw/blob/<id del commit>/<ut>/<actividad>/
 
 ## Ficheros a entregar
 
-La carpeta deberá contener, al menos, los siguientes ficheros:
+Además de los ficheros señalados [aquí](#estructura-del-proyecto), la carpeta deberá contener los siguientes ficheros:
 
-- `main.py`
-- `vm.py`
-- `index.html`
-- `run_process.html`
-- `style.css`
 - `uwsgi.ini`
-- `run.sh`
-- `nginx.conf`
+- `vmweb.conf` (fichero de configuración del virtua-host Nginx)
 - `supervisor.conf`
-

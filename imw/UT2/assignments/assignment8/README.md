@@ -20,30 +20,30 @@ from flask import request
 from vm import VirtualMachine
 
 app = Flask(__name__)
-vmachine = VirtualMachine("Azkaban", 16, 3.7, 1000, "debian")
+vmachine = VirtualMachine('Azkaban', 16, 3.7, 1000, 'debian')
 
 
-@app.route("/")
+@app.route('/')
 def index():
-    return render_template("index.html", vmachine=vmachine)
+    return render_template('index.html', vmachine=vmachine)
 
 
-@app.route("/change_status/<new_status>")
+@app.route('/change_status/<new_status>')
 def change_status(new_status):
     ...
-    return redirect("/")
+    return redirect('/')
 
 
-@app.route("/run_process", methods=["GET", "POST"])
+@app.route('/run_process', methods=['GET', 'POST'])
 def run_process():
-    if request.method == "POST":
+    if request.method == 'POST':
         ...
-        return redirect("/")
+        return redirect('/')
     else:
-        return render_template("run_process.html")
+        return render_template('run_process.html')
 
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     app.run(debug=True)
 ```
 
@@ -63,7 +63,7 @@ Recordar que podemos incorporar código `css` en nuestras plantillas utilizando 
 <html>
     <head>
         <title>...</title>
-        <link rel="stylesheet" type="text/css" href="/static/style.css"/>
+        <link rel='stylesheet' type='text/css' href='/static/style.css'/>
     </head>
     <body>
         ...

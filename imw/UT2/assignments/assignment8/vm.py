@@ -1,6 +1,6 @@
 class VirtualMachine:
 
-    def __init__(self, name, ram=1, cpu=1.3, hdd=100, os="debian"):
+    def __init__(self, name, ram=1, cpu=1.3, hdd=100, os='debian'):
         self.name = name
         self.ram = ram
         self.cpu = cpu
@@ -24,46 +24,39 @@ class VirtualMachine:
         self.start()
 
     def run(self, pid, ram, cpu, hdd):
-        self.proc.append(
-            {
-                "pid": pid,
-                "ram": ram,
-                "cpu": cpu,
-                "hdd": hdd
-            }
-        )
+        self.proc.append({'pid': pid, 'ram': ram, 'cpu': cpu, 'hdd': hdd})
 
     def ram_usage(self):
         ram = 0
         for p in self.proc:
-            ram += p["ram"]
+            ram += p['ram']
         return ram * 100 / self.ram
 
     def cpu_usage(self):
         cpu = 0
         for p in self.proc:
-            cpu += p["cpu"]
+            cpu += p['cpu']
         return cpu * 100 / self.cpu
 
     def hdd_usage(self):
         hdd = 0
         for p in self.proc:
-            hdd += p["hdd"]
+            hdd += p['hdd']
         return hdd * 100 / self.hdd
 
     def get_status(self):
         if self.status == 0:
-            return "Stopped"
+            return 'Stopped'
         elif self.status == 1:
-            return "Running"
+            return 'Running'
         elif self.status == 2:
-            return "Suspended"
+            return 'Suspended'
 
     def __str__(self):
-        return """
+        return '''
 {} <{}> [{}]
 {:.2f}% RAM used | {:.2f}% CPU used | {:.2f}% HDD used
-        """.format(
+        '''.format(
             self.os,
             self.name,
             self.get_status(),

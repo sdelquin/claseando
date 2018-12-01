@@ -62,21 +62,21 @@ En el programa habrá que diseñar una clase `VirtualMachine` con las siguientes
 1. Crear la máquina virtual "Minas Tirith". Imprimir máquina.
 2. Arrancar la máquina. Imprimir máquina.
 3. Lanzar procesos 1, 4 y 7. Imprimir máquina.
-4. Parar la máquina. Imprimir máquina.
+4. Reiniciar la máquina. Imprimir máquina.
 
 ### Rohan
 
 1. Crear la máquina virtual "Rohan". Imprimir máquina.
 2. Arrancar la máquina. Imprimir máquina.
 3. Lanzar procesos 2, 5 y 8. Imprimir máquina.
-4. Parar la máquina. Imprimir máquina.
+4. Reiniciar la máquina. Imprimir máquina.
 
 ### Rivendel
 
 1. Crear la máquina virtual "Rivendel". Imprimir máquina.
 2. Arrancar la máquina. Imprimir máquina.
 3. Lanzar procesos 3, 6 y 9. Imprimir máquina.
-4. Parar la máquina. Imprimir máquina.
+4. Reiniciar la máquina. Imprimir máquina.
 
 #### Características de las máquinas virtuales
 

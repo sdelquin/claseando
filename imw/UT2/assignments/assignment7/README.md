@@ -78,7 +78,65 @@ En el programa habrá que diseñar una clase `VirtualMachine` con las siguientes
 3. Lanzar procesos 3, 6 y 9. Imprimir máquina.
 4. Parar la máquina. Imprimir máquina.
 
-![](img/maq_virtuales.png)
+#### Características de las máquinas virtuales
+
+![](img/info_maq_virtuales.png)
+
+#### Características de los procesos
+
+![](img/info_procesos.png)
+
+## Salida deseada
+
+~~~console
+$ python main.py
+
+
+ubuntu <Minas Tirith> [Stopped]
+0.00% RAM used | 0.00% CPU used | 0.00% HDD used
+
+
+ubuntu <Minas Tirith> [Running]
+0.00% RAM used | 0.00% CPU used | 0.00% HDD used
+
+Ejecutando proceso con PID 1...
+Ejecutando proceso con PID 4...
+Ejecutando proceso con PID 7...
+
+ubuntu <Minas Tirith> [Running]
+76.25% RAM used | 100.00% CPU used | 97.37% HDD used
+
+
+debian <Rohan> [Stopped]
+0.00% RAM used | 0.00% CPU used | 0.00% HDD used
+
+
+debian <Rohan> [Running]
+0.00% RAM used | 0.00% CPU used | 0.00% HDD used
+
+Ejecutando proceso con PID 2...
+Ejecutando proceso con PID 5...
+Ejecutando proceso con PID 8...
+
+debian <Rohan> [Running]
+86.67% RAM used | 68.42% CPU used | 62.00% HDD used
+
+
+opensuse <Rivendel> [Stopped]
+0.00% RAM used | 0.00% CPU used | 0.00% HDD used
+
+
+opensuse <Rivendel> [Running]
+0.00% RAM used | 0.00% CPU used | 0.00% HDD used
+
+Ejecutando proceso con PID 3...
+Ejecutando proceso con PID 6...
+Ejecutando proceso con PID 9...
+
+opensuse <Rivendel> [Running]
+23.12% RAM used | 76.67% CPU used | 10.20% HDD used
+
+~~~
 
 ## Información a entregar
 

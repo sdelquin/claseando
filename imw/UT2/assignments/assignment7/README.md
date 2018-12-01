@@ -21,7 +21,7 @@ En el programa habrá que diseñar una clase `VirtualMachine` con las siguientes
         - `hdd`: cantidad de HDD que usa el proceso.
 
 + Métodos
-    * Constructor. `def __init__(self, name, ram=1, cpu=1.3, hdd=100, os="debian"):`
+    * Constructor. `def __init__(self, name, ram=1, cpu=1.3, hdd=100, os='debian'):`
         - Guardar los parámetros como atributos del objeto.
         - Fijar el estado a parado.
         - Inicializar la lista de procesos a vacío.

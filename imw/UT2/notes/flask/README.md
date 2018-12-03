@@ -74,7 +74,7 @@ Lanzamos nuestra aplicación:
 
 ~~~console
 sdelquin@imw:~/webapps/myweb$ export FLASK_APP=main.py
-sdelquin@imw:~/webapps/myweb$ export FLASK_ENV=development
+sdelquin@imw:~/webapps/myweb$ export FLASK_ENV=development   # sólo en desarrollo
 sdelquin@imw:~/webapps/myweb$ pipenv run flask run
  * Serving Flask app "main.py" (lazy loading)
  * Environment: development

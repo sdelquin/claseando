@@ -27,6 +27,11 @@ Crear un entorno virtual con Python que llamaremos `vmweb` e instalar:
 - `flask`.
 - `fabric` (sólo como *dependencia de desarrollo*).
 
+~~~console
+$ pipenv install flask
+$ pipenv install fabric3 --dev
+~~~
+
 ## Estructura del proyecto
 
 ~~~console
@@ -50,7 +55,7 @@ sdelquin@imw:~/webapps/vmweb$
 
 ### `main.py`
 
-```python
+~~~python
 from flask import Flask
 from flask import render_template
 from flask import redirect
@@ -68,22 +73,18 @@ def index():
 
 @app.route('/change_status/<new_status>')
 def change_status(new_status):
-    ...
+    # tu código aquí
     return redirect('/')
 
 
 @app.route('/run_process', methods=['GET', 'POST'])
 def run_process():
     if request.method == 'POST':
-        ...
+        # tu código aquí
         return redirect('/')
     else:
         return render_template('run_process.html')
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
-```
+~~~
 
 ### `vm.py`
 
@@ -97,7 +98,7 @@ Se proporciona el fichero [vm.py](vm.py)
 
 Recordar que podemos incorporar código `css` en nuestras plantillas utilizando la siguiente instrucción:
 
-```html
+~~~html
 <html>
     <head>
         <title>...</title>
@@ -107,7 +108,7 @@ Recordar que podemos incorporar código `css` en nuestras plantillas utilizando 
         ...
     </body>
 </html>
-```
+~~~
 
 ## Despliegue
 
@@ -116,15 +117,7 @@ Se deberá desplegar la aplicación en el servidor de producción, y deberá est
 > NOTA:
 > Debido a que estamos utilizando una variable global en nuestro código `vmachine`, para que la aplicación funcione bien en producción, debemos utilizar un único proceso. Por lo tanto, en el fichero `uwsgi.ini` tenemos que especificar `processes=1`.
 
-## Información a entregar
-
-Se deberá entregar la *url* al commit en el repositorio privado *GitHub* de la asignatura *IMW*, apuntando a la carpeta que contiene los [ficheros a entregar](#ficheros-a-entregar). La *url* debe tener la siguiente estructura:
-
-```
-https://github.com/<usuario>/imw/blob/<id del commit>/<ut>/<actividad>/
-```
-
-> ⚠️ Al subir la *url*, es importante crear un enlace. Es decir, poner un `href` a la *url* anterior, y no pegar el texto tal cual.
+ℹ️ Consultar apuntes de [Python para web: Instalación y configuración URL](https://github.com/sdelquin/claseando/blob/master/imw/UT1/notes/pythonconf/README.md#creaci%C3%B3n-del-hola-mundo)
 
 ## Ficheros a entregar
 
@@ -133,3 +126,13 @@ Además de los ficheros señalados [aquí](#estructura-del-proyecto), la carpeta
 - `uwsgi.ini`
 - `vmweb.conf` (fichero de configuración del virtua-host Nginx)
 - `supervisor.conf`
+
+## Información a entregar
+
+Se deberá entregar la *url* al commit en el repositorio privado *GitHub* de la asignatura *IMW*, apuntando a la carpeta que contiene los [ficheros a entregar](#ficheros-a-entregar). La *url* debe tener la siguiente estructura:
+
+~~~
+https://github.com/<usuario>/imw/blob/<id del commit>/<ut>/<actividad>/
+~~~
+
+> ⚠️ Al subir la *url*, es importante crear un enlace. Es decir, poner un `href` a la *url* anterior, y no pegar el texto tal cual.

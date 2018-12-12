@@ -77,8 +77,8 @@ env.hosts = ['vps.claseando.es']
 
 def deploy():
     local('git push')
-    cd('~/webapps/myweb')
-    run('git pull')
+    with cd('~/webapps/myweb'):
+      run('git pull')
     run('supervisorctl restart myweb')
 ~~~
 

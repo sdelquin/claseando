@@ -123,8 +123,7 @@ Se deberá desplegar la aplicación en el servidor de producción, y deberá est
 
 Además de los ficheros señalados [aquí](#estructura-del-proyecto), la carpeta deberá contener los siguientes ficheros:
 
-- `uwsgi.ini`
-- `vmweb.conf` (fichero de configuración del virtua-host Nginx)
+- `vm.aluXXXX.me` (fichero de configuración del virtual-host Nginx)
 - `supervisor.conf`
 
 ## Información a entregar

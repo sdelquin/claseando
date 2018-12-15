@@ -126,6 +126,15 @@ Además de los ficheros señalados [aquí](#estructura-del-proyecto), la carpeta
 - `vm.aluXXXX.me` (fichero de configuración del virtual-host Nginx)
 - `supervisor.conf`
 
+## Extras
+
+Mostrar el botón de... | Cuando la máquina está en estado...
+- | -
+Lanzar proceso | Running
+Suspender | Running
+Parar | Running o Suspended
+Arrancar | Stopped o Suspended
+
 ## Información a entregar
 
 Se deberá entregar la *url* al commit en el repositorio privado *GitHub* de la asignatura *IMW*, apuntando a la carpeta que contiene los [ficheros a entregar](#ficheros-a-entregar). La *url* debe tener la siguiente estructura:

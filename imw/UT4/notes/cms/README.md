@@ -1,6 +1,6 @@
 # CMS
 
-**CMS** es el acrónimo de "Content Management System", o en español, "Sistema Gestor de Contenidos".
+**CMS** es el acrónimo de "*Content Management System*", o en español, "*Sistema Gestor de Contenidos*".
 
 ![](img/CMS_banner.png)
 

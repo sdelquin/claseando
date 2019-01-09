@@ -2,7 +2,7 @@
 
 ## ¿Por qué Wordpress?
 
-1. Tiene 15 años (se lanzó en 2003).
+1. Tiene 16 años (se lanzó en 2003).
 2. 423,759 líneas de código.
 3. 58.55% del mercado de CMS.
 4. 27% de páginas de internet están hechas con Wordpress ~ 75M sitios.
@@ -26,27 +26,7 @@
 
 ## Instalación de Wordpress
 
-A continuación vamos a instalar un sitio web Wordpress en nuestra máquina de producción. Para ello accedemos a la máquina de producción vía `ssh`:
-
-~~~console
-sdelquin@imw:~$ ssh cloud
-Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.4.0-96-generic x86_64)
-
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/advantage
-
-  Get cloud support with Ubuntu Advantage Cloud Guest:
-    http://www.ubuntu.com/business/services/cloud
-
-Pueden actualizarse 105 paquetes.
-0 actualizaciones son de seguridad.
-
-
-*** Es necesario reiniciar el sistema ***
-Last login: Fri Dec 15 13:33:29 2017 from 81.32.13.218
-sdelquin@cloud:~$
-~~~
+A continuación vamos a instalar un sitio web Wordpress en nuestra **máquina de producción**.
 
 ## Estructura de la base de datos
 
@@ -56,16 +36,15 @@ El diagrama *Entidad-Relación* de la base de datos de Wordpress 4.4.2 es el sig
 
 ## Configuración de la base de datos
 
-*Wordpress* necesita un usuario/contraseña para acceder a una base de datos. Para ello, usaremos el intérprete de *MySQL*:
+*Wordpress* necesita credenciales (usuario/contraseña) para acceder a una base de datos. Para ello, usaremos el intérprete de *MySQL*:
 
 ~~~console
-sdelquin@cloud:~$ mysql -u root -p
-Enter password:
+sdelquin@claseando:~$ sudo mysql
 Welcome to the MySQL monitor.  Commands end with ; or \g.
-Your MySQL connection id is 168
-Server version: 5.7.20-0ubuntu0.16.04.1 (Ubuntu)
+Your MySQL connection id is 157
+Server version: 5.7.24-0ubuntu0.18.04.1 (Ubuntu)
 
-Copyright (c) 2000, 2017, Oracle and/or its affiliates. All rights reserved.
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
 
 Oracle is a registered trademark of Oracle Corporation and/or its
 affiliates. Other names may be trademarks of their respective
@@ -97,48 +76,52 @@ Bye
 Descargamos el código fuente de *Wordpress* desde su página web:
 
 ~~~console
-sdelquin@cloud:~$ cd /tmp/
-sdelquin@cloud:/tmp$ curl -O https://wordpress.org/latest.zip
+sdelquin@claseando:~$ cd tmp/
+sdelquin@claseando:~/tmp$ curl -O https://wordpress.org/latest.zip
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-100  9.9M  100  9.9M    0     0  2819k      0  0:00:03  0:00:03 --:--:-- 2819k
-sdelquin@cloud:/tmp$ ls -l latest.zip
--rw-rw-r-- 1 sdelquin sdelquin 10406414 ene 12 23:56 latest.zip
-sdelquin@cloud:/tmp$
+100 10.8M  100 10.8M    0     0  6915k      0  0:00:01  0:00:01 --:--:-- 6911k
+sdelquin@claseando:~/tmp$ ls -l latest.zip
+-rw-rw-r-- 1 sdelquin sdelquin 11379765 ene  9 11:59 latest.zip
+sdelquin@claseando:~/tmp$
 ~~~
 
 A continuación descomprimimos el código y lo copiamos en `/usr/share`:
 
 ~~~console
-sdelquin@cloud:/tmp$ unzip latest.zip
+sdelquin@claseando:~/tmp$ unzip latest.zip
 ...
 ...
 ...
-sdelquin@cloud:/tmp$ sudo cp -r wordpress /usr/share/
-[sudo] password for sdelquin:
-sdelquin@cloud:/tmp$ ls -ld /usr/share/wordpress/
-drwxr-xr-x 5 root root 4096 ene 12 23:59 /usr/share/wordpress/
-sdelquin@cloud:/tmp$
+sdelquin@claseando:~/tmp$ sudo cp -r wordpress /usr/share/
+sdelquin@claseando:~/tmp$ ls -ld /usr/share/wordpress/
+drwxr-xr-x 5 root root 4096 ene  9 12:01 /usr/share/wordpress/
+sdelquin@claseando:~/tmp$
 ~~~
 
 Ahora tenemos que establecer los permisos necesarios para que el usuario web `www-data` pueda usar estos ficheros:
 
 ~~~console
-sdelquin@cloud:/tmp$ sudo chown -R www-data:www-data /usr/share/wordpress/
-sdelquin@cloud:/tmp$
+sdelquin@claseando:~/tmp$ sudo chown -R www-data:www-data /usr/share/wordpress/
+sdelquin@claseando:~/tmp$
 ~~~
 
 ## Editar ficheros de configuración
 
-Básicamente, debemos especificar el nombre de la base de datos, el usuario y la contraseña, para que *Wordpress* pueda usarlos:
+Para una *configuración básica* de *WordPress* debemos especificar lo siguiente:
+
+- El nombre de la base de datos.
+- El usuario.
+- La contraseña.
 
 ~~~console
-sdelquin@cloud:/tmp$ cd /usr/share/wordpress/
-sdelquin@cloud:/usr/share/wordpress$ sudo cp wp-config-sample.php wp-config.php
-sdelquin@cloud:/usr/share/wordpress$ sudo vi wp-config.php
+sdelquin@claseando:~/tmp$ cd /usr/share/wordpress/
+sdelquin@claseando:/usr/share/wordpress$ sudo cp wp-config-sample.php wp-config.php
+sdelquin@claseando:/usr/share/wordpress$ sudo vi wp-config.php
+...
 ~~~
 
-> Contenido
+Aproximadamente en la línea 23:
 
 ~~~php
 ...
@@ -152,8 +135,14 @@ define('DB_USER', 'wpuser');
 /** MySQL database password */
 define('DB_PASSWORD', 'Testing_1234');
 
+/** MySQL hostname */
+define('DB_HOST', 'localhost');
+
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8mb4');
+
+/** The Database Collate type. Don't change this if in doubt. */
+define('DB_COLLATE', '');
 ...
 ~~~
 
@@ -161,22 +150,21 @@ define('DB_CHARSET', 'utf8mb4');
 
 Para que nuestro sitio *Wordpress* sea accesible desde un navegador web, debemos incluir las directivas necesarias en la configuración del servidor web *Nginx*.
 
-Supongamos que queremos acceder a nuestro *Wordpress* desde la url `wordpress.imwpto.me`. Para ello tendremos que crear un nuevo *virtual host* de la siguiente manera:
+Supongamos que queremos acceder a nuestro *Wordpress* desde la url `wordpress.vps.claseando.es`. Para ello tendremos que crear un nuevo *virtual host* de la siguiente manera:
 
 ~~~console
-sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/wordpress
+sdelquin@claseando:~$ sudo vi /etc/nginx/sites-available/wordpress.vps.claseando.es
+...
 ~~~
-
-> Contenido
 
 ~~~nginx
 server {
-    server_name wordpress.imwpto.me;
+    server_name wordpress.vps.claseando.es;
     index index.php;
     root /usr/share/wordpress;
     location ~ \.php$ {
         include snippets/fastcgi-php.conf;
-        fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+        fastcgi_pass unix:/run/php/php7.2-fpm.sock;
     }
 }
 ~~~
@@ -184,17 +172,17 @@ server {
 Enlazamos la configuración para que el *virtual host* esté disponible:
 
 ~~~console
-sdelquin@cloud:~$ sudo ln -s /etc/nginx/sites-available/wordpress /etc/nginx/sites-enabled/
-sdelquin@cloud:~$ ls -l /etc/nginx/sites-enabled/wordpress
-lrwxrwxrwx 1 root root 36 ene 13 00:07 /etc/nginx/sites-enabled/wordpress -> /etc/nginx/sites-available/wordpress
-sdelquin@cloud:~$
+sdelquin@claseando:~$ sudo ln -s /etc/nginx/sites-available/wordpress.vps.claseando.es /etc/nginx/sites-enabled/
+sdelquin@claseando:~$ ls -l /etc/nginx/sites-enabled/wordpress.vps.claseando.es
+lrwxrwxrwx 1 root root 53 ene  9 12:11 /etc/nginx/sites-enabled/wordpress.vps.claseando.es -> /etc/nginx/sites-available/wordpress.vps.claseando.es
+sdelquin@claseando:~$
 ~~~
 
 Recargamos el servidor web *Nginx* para que los cambios sean efectivos:
 
 ~~~console
-sdelquin@cloud:~$ sudo systemctl reload nginx
-sdelquin@cloud:~$
+sdelquin@claseando:~$ sudo systemctl reload nginx
+sdelquin@claseando:~$
 ~~~
 
 ## Configuración del sitio vía web
@@ -234,7 +222,7 @@ Seleccionamos el ajuste **Día y nombre**. Pulsamos en <kbd>Guardar cambios</kbd
 Ahora debemos indicar a Nginx que procese estas URLs:
 
 ~~~console
-sdelquin@cloud:~$ sudo vi /etc/nginx/sites-available/wordpress
+sdelquin@claseando:~$ sudo vi /etc/nginx/sites-available/wordpress.vps.claseando.es
 ~~~
 
 > Añadir lo siguiente:
@@ -248,11 +236,11 @@ location / {
 No olvidarnos de recargar la configuración de Nginx:
 
 ~~~console
-sdelquin@cloud:~$ sudo systemctl reload nginx
-sdelquin@cloud:~$
+sdelquin@claseando:~$ sudo systemctl reload nginx
+sdelquin@claseando:~$
 ~~~
 
-Una ventaja que tiene este método es que podemos acceder a la **zona administrativa** utilizando la siguiente URL: `http://wordpress.imwpto.me/admin`
+Una ventaja que tiene este método es que podemos acceder a la **zona administrativa** utilizando la siguiente URL: http://wordpress.vps.claseando.es/admin
 
 ## Límite de tamaño en la subida de archivos
 
@@ -261,7 +249,7 @@ Por defecto, el límite de subida de archivos para aplicaciones *PHP* suele ser 
 Para incrementarlo, debemos hacer lo siguiente, como *root* en la máquina de producción:
 
 ~~~console
-sdelquin@cloud:~$ sudo vi /etc/php/7.0/fpm/php.ini
+sdelquin@claseando:~$ sudo vi /etc/php/7.2/fpm/php.ini
 ~~~
 
 Buscar y modificar sólo las siguientes líneas...
@@ -275,9 +263,9 @@ max_execution_time = 300
 
 Ahora reinciamos el servicio `php-fpm`:
 
-~~~
-sdelquin@cloud:~$ sudo systemctl restart php7.0-fpm.service
-sdelquin@cloud:~$
+~~~console
+sdelquin@claseando:~$ sudo systemctl restart php7.2-fpm.service
+sdelquin@claseando:~$
 ~~~
 
 Además de esto, debemos añadir una línea en el fichero de configuración de *Nginx*:
@@ -289,17 +277,21 @@ sdelquin@cloud:~$ sudo vi /etc/nginx/nginx.conf
 > Contenido:
 ~~~nginx
 http {
-    ...
+
+    ##
+    # Custom settings
+    ##
+
     client_max_body_size 64M;
+
     ...
-}
 ~~~
 
 A continuación reiniciamos el servidor web *Nginx* para que tengan efectos los cambios realizados en el fichero de configuración:
 
 ~~~console
-sdelquin@cloud:~$ sudo systemctl reload nginx
-sdelquin@cloud:~$
+sdelquin@claseando:~$ sudo systemctl reload nginx
+sdelquin@claseando:~$
 ~~~
 
 ## Seguridad
@@ -318,8 +310,10 @@ sdelquin@cloud:~$
 ## Estructura de ficheros
 
 ~~~console
-sdelquin@cloud:~$ cd /usr/share/wordpress/wp-content/
-sdelquin@cloud:/usr/share/wordpress/wp-content$ tree -d
+sdelquin@claseando:~$ cd /usr/share/wordpress/wp-content/
+sdelquin@claseando:/usr/share/wordpress/wp-content$ ls
+index.php  languages  plugins  themes  upgrade  uploads
+sdelquin@claseando:/usr/share/wordpress/wp-content$ tree -d
 .
 ├── languages
 │   ├── plugins
@@ -330,11 +324,32 @@ sdelquin@cloud:/usr/share/wordpress/wp-content$ tree -d
 │       │   └── img
 │       └── views
 ├── themes
-│   ├── twentyfifteen
-│   │   ├── css
-│   │   ├── genericons
+│   ├── twentynineteen
+│   │   ├── classes
+│   │   ├── fonts
 │   │   ├── inc
-│   │   └── js
+│   │   ├── js
+│   │   ├── sass
+│   │   │   ├── blocks
+│   │   │   ├── elements
+│   │   │   ├── forms
+│   │   │   ├── layout
+│   │   │   ├── media
+│   │   │   ├── mixins
+│   │   │   ├── modules
+│   │   │   ├── navigation
+│   │   │   ├── site
+│   │   │   │   ├── footer
+│   │   │   │   ├── header
+│   │   │   │   ├── primary
+│   │   │   │   └── secondary
+│   │   │   ├── typography
+│   │   │   └── variables-site
+│   │   └── template-parts
+│   │       ├── content
+│   │       ├── footer
+│   │       ├── header
+│   │       └── post
 │   ├── twentyseventeen
 │   │   ├── assets
 │   │   │   ├── css
@@ -353,8 +368,11 @@ sdelquin@cloud:/usr/share/wordpress/wp-content$ tree -d
 │       ├── inc
 │       ├── js
 │       └── template-parts
-└── upgrade
+├── upgrade
+└── uploads
+    └── 2019
+        └── 01
 
-33 directories
-sdelquin@cloud:/usr/share/wordpress/wp-content$
+57 directories
+sdelquin@claseando:/usr/share/wordpress/wp-content$
 ~~~

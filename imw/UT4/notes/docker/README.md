@@ -19,149 +19,168 @@ Docker provee dos *sabores* de su plataforma:
 
 ## Instalación de Docker
 
-Desde la máquina de producción, haremos lo siguiente:
+Desde la **máquina de producción**, haremos lo siguiente:
 
 Eliminar las versiones previas de Docker que pudieran existir:
 
 ~~~console
-sdelquin@cloud:~$ sudo apt remove docker docker-engine docker.io
-[sudo] password for sdelquin:
+sdelquin@claseando:~$ sudo apt remove docker docker-engine docker.io containerd runc
 Leyendo lista de paquetes... Hecho
 Creando árbol de dependencias
 Leyendo la información de estado... Hecho
 El paquete «docker-engine» no está instalado, no se eliminará
+El paquete «containerd» no está instalado, no se eliminará
 El paquete «docker» no está instalado, no se eliminará
+El paquete «runc» no está instalado, no se eliminará
 El paquete «docker.io» no está instalado, no se eliminará
 Los paquetes indicados a continuación se instalaron de forma automática y ya no son necesarios.
-  linux-headers-4.4.0-101 linux-headers-4.4.0-101-generic linux-headers-4.4.0-103
-  linux-headers-4.4.0-103-generic linux-headers-4.4.0-104 linux-headers-4.4.0-104-generic
-  linux-headers-4.4.0-93 linux-headers-4.4.0-93-generic linux-headers-4.4.0-97 linux-headers-4.4.0-97-generic
-  linux-headers-4.4.0-98 linux-headers-4.4.0-98-generic linux-image-4.4.0-101-generic
-  linux-image-4.4.0-103-generic linux-image-4.4.0-104-generic linux-image-4.4.0-93-generic
-  linux-image-4.4.0-97-generic linux-image-4.4.0-98-generic
+  dh-python grub-pc-bin libpython3-dev libpython3.6-dev python-pip-whl python3-dev python3-keyring
+  python3-keyrings.alt python3-secretstorage python3-wheel python3-xdg python3.6-dev
 Utilice «sudo apt autoremove» para eliminarlos.
-0 actualizados, 0 nuevos se instalarán, 0 para eliminar y 105 no actualizados.
-sdelquin@cloud:~$
+0 actualizados, 0 nuevos se instalarán, 0 para eliminar y 123 no actualizados.
+sdelquin@claseando:~$
 ~~~
 
 Actualizamos el listado de paquetes:
 
 ~~~console
-sdelquin@cloud:~$ sudo apt update
-Obj:1 http://ppa.launchpad.net/jonathonf/python-3.6/ubuntu xenial InRelease
-Des:2 http://security.ubuntu.com/ubuntu xenial-security InRelease [102 kB]
-Obj:3 http://ams2.mirrors.digitalocean.com/ubuntu xenial InRelease
-Des:5 http://security.ubuntu.com/ubuntu xenial-security/main Sources [106 kB]
-Des:7 http://security.ubuntu.com/ubuntu xenial-security/main amd64 Packages [424 kB]
-Des:8 http://security.ubuntu.com/ubuntu xenial-security/main Translation-en [186 kB]
-Des:4 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates InRelease [102 kB]
-Des:6 http://ams2.mirrors.digitalocean.com/ubuntu xenial-backports InRelease [102 kB]
-Des:9 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/main amd64 Packages [699 kB]
-Des:10 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates/universe amd64 Packages [572 kB]
-Descargados 2.293 kB en 2s (997 kB/s)
+sdelquin@claseando:~$ sudo apt update
+Obj:1 http://ppa.launchpad.net/certbot/certbot/ubuntu bionic InRelease
+Obj:3 http://security.ubuntu.com/ubuntu bionic-security InRelease
+Obj:2 http://ams2.mirrors.digitalocean.com/ubuntu bionic InRelease
+Obj:4 http://ams2.mirrors.digitalocean.com/ubuntu bionic-updates InRelease
+Obj:5 http://ams2.mirrors.digitalocean.com/ubuntu bionic-backports InRelease
 Leyendo lista de paquetes... Hecho
+Creando árbol de dependencias
+Leyendo la información de estado... Hecho
+Se pueden actualizar 123 paquetes. Ejecute «apt list --upgradable» para verlos.
+sdelquin@claseando:~$
 ~~~
 
 Instalamos los paquetes necesarios para que `apt` pueda usar repositorios sobre HTTPS:
 
 ~~~console
-sdelquin@cloud:~$ sudo apt install apt-transport-https ca-certificates curl software-properties-common
+sdelquin@claseando:~$ sudo apt install -y apt-transport-https ca-certificates curl software-properties-common
 Leyendo lista de paquetes... Hecho
-Creando árbol de dependencias
-Leyendo la información de estado... Hecho
-apt-transport-https ya está en su versión más reciente (1.2.24).
-ca-certificates ya está en su versión más reciente (20170717~16.04.1).
-curl ya está en su versión más reciente (7.47.0-1ubuntu2.5).
-software-properties-common ya está en su versión más reciente (0.96.20.7).
-Los paquetes indicados a continuación se instalaron de forma automática y ya no son necesarios.
-  linux-headers-4.4.0-101 linux-headers-4.4.0-101-generic linux-headers-4.4.0-103
-  linux-headers-4.4.0-103-generic linux-headers-4.4.0-104 linux-headers-4.4.0-104-generic
-  linux-headers-4.4.0-93 linux-headers-4.4.0-93-generic linux-headers-4.4.0-97 linux-headers-4.4.0-97-generic
-  linux-headers-4.4.0-98 linux-headers-4.4.0-98-generic linux-image-4.4.0-101-generic
-  linux-image-4.4.0-103-generic linux-image-4.4.0-104-generic linux-image-4.4.0-93-generic
-  linux-image-4.4.0-97-generic linux-image-4.4.0-98-generic
-Utilice «sudo apt autoremove» para eliminarlos.
-0 actualizados, 0 nuevos se instalarán, 0 para eliminar y 105 no actualizados.
-sdelquin@cloud:~$
+2 actualizados, 1 nuevos se instalarán, 0 para eliminar y 121 no actualizados.
+Se necesita descargar 33,6 kB de archivos.
+Se utilizarán 152 kB de espacio de disco adicional después de esta operación.
+Des:1 http://ams2.mirrors.digitalocean.com/ubuntu bionic-updates/universe amd64 apt-transport-https all 1.6.6 [1.692 B]
+Des:2 http://ams2.mirrors.digitalocean.com/ubuntu bionic-updates/main amd64 software-properties-common all 0.96.24.32.7 [9.908 B]
+Des:3 http://ams2.mirrors.digitalocean.com/ubuntu bionic-updates/main amd64 python3-software-properties all 0.96.24.32.7 [22,0 kB]
+Descargados 33,6 kB en 1s (49,2 kB/s)
+Seleccionando el paquete apt-transport-https previamente no seleccionado.
+(Leyendo la base de datos ... 133816 ficheros o directorios instalados actualmente.)
+Preparando para desempaquetar .../apt-transport-https_1.6.6_all.deb ...
+Desempaquetando apt-transport-https (1.6.6) ...
+Preparando para desempaquetar .../software-properties-common_0.96.24.32.7_all.deb ...
+Desempaquetando software-properties-common (0.96.24.32.7) sobre (0.96.24.32.5) ...
+Preparando para desempaquetar .../python3-software-properties_0.96.24.32.7_all.deb ...
+Desempaquetando python3-software-properties (0.96.24.32.7) sobre (0.96.24.32.5) ...
+Configurando apt-transport-https (1.6.6) ...
+Procesando disparadores para man-db (2.8.3-2) ...
+Configurando python3-software-properties (0.96.24.32.7) ...
+Procesando disparadores para dbus (1.12.2-1ubuntu1) ...
+Configurando software-properties-common (0.96.24.32.7) ...
+sdelquin@claseando:~$
 ~~~
 
 Añadimos la clave oficial GPG de Docker:
 
 ~~~console
-sdelquin@cloud:~$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sdelquin@claseando:~$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 OK
-sdelquin@cloud:~$
+sdelquin@claseando:~$
 ~~~
 
 Comprobación de clave:
 
 ~~~console
-sdelquin@cloud:~$ sudo apt-key fingerprint 0EBFCD88
-pub   4096R/0EBFCD88 2017-02-22
-      Key fingerprint = 9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
-uid                  Docker Release (CE deb) <docker@docker.com>
-sub   4096R/F273FCD8 2017-02-22
+sdelquin@claseando:~$ sudo apt-key fingerprint 0EBFCD88
+pub   rsa4096 2017-02-22 [SCEA]
+      9DC8 5822 9FC7 DD38 854A  E2D8 8D81 803C 0EBF CD88
+uid           [ unknown] Docker Release (CE deb) <docker@docker.com>
+sub   rsa4096 2017-02-22 [S]
 
-sdelquin@cloud:~$
+sdelquin@claseando:~$
 ~~~
 
-Añadimos el repositorio de Docker y actualizamos el listado de paquetes:
+Añadimos el repositorio de Docker:
 
 ~~~console
-sdelquin@cloud:~$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-sdelquin@cloud:~$ sudo apt update
-Obj:1 http://ppa.launchpad.net/jonathonf/python-3.6/ubuntu xenial InRelease
-Obj:3 http://security.ubuntu.com/ubuntu xenial-security InRelease
-Obj:2 http://ams2.mirrors.digitalocean.com/ubuntu xenial InRelease
-Des:4 http://ams2.mirrors.digitalocean.com/ubuntu xenial-updates InRelease [102 kB]
-Des:5 http://ams2.mirrors.digitalocean.com/ubuntu xenial-backports InRelease [102 kB]
-Des:6 https://download.docker.com/linux/ubuntu xenial InRelease [49,8 kB]
-Des:7 https://download.docker.com/linux/ubuntu xenial/stable amd64 Packages [3.150 B]
-Descargados 257 kB en 0s (393 kB/s)
+sdelquin@claseando:~$ sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+Obj:1 http://ppa.launchpad.net/certbot/certbot/ubuntu bionic InRelease
+Des:2 http://security.ubuntu.com/ubuntu bionic-security InRelease [83,2 kB]
+Des:3 https://download.docker.com/linux/ubuntu bionic InRelease [64,4 kB]
+Des:4 http://security.ubuntu.com/ubuntu bionic-security/main Sources [67,5 kB]
+Des:6 http://security.ubuntu.com/ubuntu bionic-security/main amd64 Packages [237 kB]
+Obj:5 http://ams2.mirrors.digitalocean.com/ubuntu bionic InRelease
+Des:7 http://security.ubuntu.com/ubuntu bionic-security/main Translation-en [89,3 kB]
+Des:8 http://security.ubuntu.com/ubuntu bionic-security/universe amd64 Packages [110 kB]
+Des:9 http://security.ubuntu.com/ubuntu bionic-security/universe Translation-en [62,4 kB]
+Obj:10 http://ams2.mirrors.digitalocean.com/ubuntu bionic-updates InRelease
+Des:12 https://download.docker.com/linux/ubuntu bionic/stable amd64 Packages [3.161 B]
+Obj:11 http://ams2.mirrors.digitalocean.com/ubuntu bionic-backports InRelease
+Descargados 717 kB en 1s (728 kB/s)
+Leyendo lista de paquetes... Hecho
+sdelquin@claseando:~$
+~~~
+
+Actualizamos el listado de paquetes:
+
+~~~console
+sdelquin@claseando:~$ sudo apt update
+Obj:1 http://security.ubuntu.com/ubuntu bionic-security InRelease
+Obj:2 http://ppa.launchpad.net/certbot/certbot/ubuntu bionic InRelease
+Obj:3 https://download.docker.com/linux/ubuntu bionic InRelease
+Obj:4 http://ams2.mirrors.digitalocean.com/ubuntu bionic InRelease
+Obj:5 http://ams2.mirrors.digitalocean.com/ubuntu bionic-updates InRelease
+Obj:6 http://ams2.mirrors.digitalocean.com/ubuntu bionic-backports InRelease
 Leyendo lista de paquetes... Hecho
 Creando árbol de dependencias
 Leyendo la información de estado... Hecho
-Se pueden actualizar 105 paquetes. Ejecute «apt list --upgradable» para verlos.
-sdelquin@cloud:~$
+Se pueden actualizar 121 paquetes. Ejecute «apt list --upgradable» para verlos.
+sdelquin@claseando:~$
 ~~~
 
 Instalamos el paquete:
 
 ~~~console
-sdelquin@cloud:~$ sudo apt install -y docker-ce
-Preparando para desempaquetar .../aufs-tools_1%3a3.2+20130722-1.1ubuntu1_amd64.deb ...
-Desempaquetando aufs-tools (1:3.2+20130722-1.1ubuntu1) ...
-Seleccionando el paquete cgroupfs-mount previamente no seleccionado.
-Preparando para desempaquetar .../cgroupfs-mount_1.2_all.deb ...
-Desempaquetando cgroupfs-mount (1.2) ...
-Seleccionando el paquete libltdl7:amd64 previamente no seleccionado.
-Preparando para desempaquetar .../libltdl7_2.4.6-0.1_amd64.deb ...
-Desempaquetando libltdl7:amd64 (2.4.6-0.1) ...
+sdelquin@claseando:~$ sudo apt install -y docker-ce
+Leyendo lista de paquetes... Hecho
+Seleccionando el paquete docker-ce-cli previamente no seleccionado.
+Preparando para desempaquetar .../5-docker-ce-cli_5%3a18.09.0~3-0~ubuntu-bionic_amd64.deb ...
+Desempaquetando docker-ce-cli (5:18.09.0~3-0~ubuntu-bionic) ...
 Seleccionando el paquete docker-ce previamente no seleccionado.
-Preparando para desempaquetar .../docker-ce_17.12.0~ce-0~ubuntu_amd64.deb ...
-Desempaquetando docker-ce (17.12.0~ce-0~ubuntu) ...
-Procesando disparadores para libc-bin (2.23-0ubuntu9) ...
-Procesando disparadores para man-db (2.7.5-1) ...
-Procesando disparadores para ureadahead (0.100.0-19) ...
-Procesando disparadores para systemd (229-4ubuntu19) ...
-Configurando aufs-tools (1:3.2+20130722-1.1ubuntu1) ...
-Configurando cgroupfs-mount (1.2) ...
-Configurando libltdl7:amd64 (2.4.6-0.1) ...
-Configurando docker-ce (17.12.0~ce-0~ubuntu) ...
-Procesando disparadores para libc-bin (2.23-0ubuntu9) ...
-Procesando disparadores para systemd (229-4ubuntu19) ...
-Procesando disparadores para ureadahead (0.100.0-19) ...
-sdelquin@cloud:~$
+Preparando para desempaquetar .../6-docker-ce_5%3a18.09.0~3-0~ubuntu-bionic_amd64.deb ...
+Desempaquetando docker-ce (5:18.09.0~3-0~ubuntu-bionic) ...
+Configurando aufs-tools (1:4.9+20170918-1ubuntu1) ...
+Configurando containerd.io (1.2.0-1) ...
+Created symlink /etc/systemd/system/multi-user.target.wants/containerd.service → /lib/systemd/system/containerd.service.
+Procesando disparadores para ureadahead (0.100.0-20) ...
+Configurando cgroupfs-mount (1.4) ...
+Procesando disparadores para libc-bin (2.27-3ubuntu1) ...
+Procesando disparadores para systemd (237-3ubuntu10.9) ...
+Configurando libltdl7:amd64 (2.4.6-2) ...
+Procesando disparadores para man-db (2.8.3-2) ...
+Configurando docker-ce-cli (5:18.09.0~3-0~ubuntu-bionic) ...
+Configurando pigz (2.4-1) ...
+Configurando docker-ce (5:18.09.0~3-0~ubuntu-bionic) ...
+update-alternatives: utilizando /usr/bin/dockerd-ce para proveer /usr/bin/dockerd (dockerd) en modo automático
+Created symlink /etc/systemd/system/multi-user.target.wants/docker.service → /lib/systemd/system/docker.service.
+Procesando disparadores para ureadahead (0.100.0-20) ...
+Procesando disparadores para libc-bin (2.27-3ubuntu1) ...
+sdelquin@claseando:~$
 ~~~
 
 Verificamos que todo se ha instalado correctamente lanzando un contenedor de ejemplo:
 
 ~~~console
-sdelquin@cloud:~$ sudo docker run hello-world
+sdelquin@claseando:~$ sudo docker container run hello-world
 Unable to find image 'hello-world:latest' locally
 latest: Pulling from library/hello-world
-ca4f61b1923c: Pull complete
-Digest: sha256:66ef312bbac49c39a89aa9bcc3cb4f3c9e7de3788c944158df3ee0176d32b751
+1b930d010525: Pull complete
+Digest: sha256:2557e3c07ed1e38f26e389462d03ed943586f744621577a99efb77324b0fe535
 Status: Downloaded newer image for hello-world:latest
 
 Hello from Docker!
@@ -180,45 +199,70 @@ To try something more ambitious, you can run an Ubuntu container with:
  $ docker run -it ubuntu bash
 
 Share images, automate workflows, and more with a free Docker ID:
- https://cloud.docker.com/
+ https://hub.docker.com/
 
 For more examples and ideas, visit:
- https://docs.docker.com/engine/userguide/
+ https://docs.docker.com/get-started/
 
-sdelquin@cloud:~$
+sdelquin@claseando:~$
+~~~
+
+### Comprobando el servicio
+
+~~~console
+sdelquin@claseando:~$ sudo systemctl status docker
+● docker.service - Docker Application Container Engine
+   Loaded: loaded (/lib/systemd/system/docker.service; enabled; vendor preset: enabled)
+   Active: active (running) since Wed 2019-01-09 18:20:59 UTC; 8min ago
+     Docs: https://docs.docker.com
+ Main PID: 9443 (dockerd)
+    Tasks: 10
+   CGroup: /system.slice/docker.service
+           └─9443 /usr/bin/dockerd -H unix://
+
+ene 09 18:20:59 claseando dockerd[9443]: time="2019-01-09T18:20:59.124104936Z" level=warning msg="Your kernel does not s
+ene 09 18:20:59 claseando dockerd[9443]: time="2019-01-09T18:20:59.127510776Z" level=info msg="Loading containers: start
+ene 09 18:20:59 claseando dockerd[9443]: time="2019-01-09T18:20:59.343147941Z" level=info msg="Default bridge (docker0)
+ene 09 18:20:59 claseando dockerd[9443]: time="2019-01-09T18:20:59.452697155Z" level=info msg="Loading containers: done.
+ene 09 18:20:59 claseando dockerd[9443]: time="2019-01-09T18:20:59.623094995Z" level=info msg="Docker daemon" commit=4d6
+ene 09 18:20:59 claseando dockerd[9443]: time="2019-01-09T18:20:59.624096222Z" level=info msg="Daemon has completed init
+ene 09 18:20:59 claseando systemd[1]: Started Docker Application Container Engine.
+ene 09 18:20:59 claseando dockerd[9443]: time="2019-01-09T18:20:59.668833952Z" level=info msg="API listen on /var/run/do
+ene 09 18:21:41 claseando dockerd[9443]: time="2019-01-09T18:21:41.610898732Z" level=info msg="ignoring event" module=li
+ene 09 18:28:04 claseando dockerd[9443]: time="2019-01-09T18:28:04.925489087Z" level=info msg="ignoring event" module=li
+lines 1-19/19 (END)
 ~~~
 
 [Tutorial oficial de instalación de Ubuntu CE para Ubuntu](https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/) 
 
 ## Instalación de Docker Compose
 
-Docker Compose es una herramienta que permite levantar y gestionar microservicios Docker conectados entre sí de manera sencilla.
+*Docker Compose* es una herramienta que permite levantar y gestionar microservicios Docker conectados entre sí de manera sencilla.
 
 Descargamos el ejecutable:
 
 ~~~console
-sdelquin@cloud:~$ sudo curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-[sudo] password for sdelquin:
+sdelquin@claseando:~$ sudo curl -L "https://github.com/docker/compose/releases/download/1.23.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
                                  Dload  Upload   Total   Spent    Left  Speed
-100   617    0   617    0     0    800      0 --:--:-- --:--:-- --:--:--   800
-100 8280k  100 8280k    0     0  1229k      0  0:00:06  0:00:06 --:--:-- 1757k
-sdelquin@cloud:~$
+100   617    0   617    0     0   1229      0 --:--:-- --:--:-- --:--:--  1226
+100 11.2M  100 11.2M    0     0  6102k      0  0:00:01  0:00:01 --:--:-- 14.5M
+sdelquin@claseando:~$
 ~~~
 
 Damos permisos de ejecución:
 
 ~~~console
-sdelquin@cloud:~$ sudo chmod +x /usr/local/bin/docker-compose
-sdelquin@cloud:~$
+sdelquin@claseando:~$ sudo chmod +x /usr/local/bin/docker-compose
+sdelquin@claseando:~$
 ~~~
 
 Testeamos la instalación:
 
 ~~~console
-sdelquin@cloud:~$ docker-compose --version
-docker-compose version 1.18.0, build 8dd22a9
-sdelquin@cloud:~$
+sdelquin@claseando:~$ docker-compose --version
+docker-compose version 1.23.2, build 1110ad01
+sdelquin@claseando:~$
 ~~~
 
 [Tutorial oficial de instalación de Docker Compose](https://docs.docker.com/compose/install/) 
@@ -227,51 +271,19 @@ sdelquin@cloud:~$
 
 Por defecto, `docker` sólo puede ser utilizado por el usuario `root`. Vamos a permitir que otros usuarios no privilegiados puedan utilizarlo.
 
-Creamos el grupo `docker`:
+Añadimos el usuario actual al grupo `docker` (creado en la instalación previa):
 
 ~~~console
-sdelquin@cloud:~$ sudo groupadd docker
-[sudo] password for sdelquin:
-groupadd: group 'docker' already exists
-sdelquin@cloud:~$
+sdelquin@claseando:~$ sudo usermod -aG docker $USER
+sdelquin@claseando:~$
 ~~~
 
-Añadimos el usuario actual a dicho grupo:
+**NOTA:** Ahora debemos **SALIR DE LA SESIÓN Y VOLVER A ENTRAR** para que los cambios surtan efecto:
+
+Comprobamos que podemos usar el comando `docker` desde un usuario no privilegiado:
 
 ~~~console
-sdelquin@cloud:~$ sudo usermod -aG docker $USER
-sdelquin@cloud:~$
-~~~
-
-Ahora debemos salir de la sesión y volver a entrar para que los cambios surtan efecto:
-
-~~~console
-sdelquin@cloud:~$ exit
-logout
-Connection to cloud closed.
-sdelquin@imw:~$ ssh cloud
-Welcome to Ubuntu 16.04.3 LTS (GNU/Linux 4.4.0-96-generic x86_64)
-
- * Documentation:  https://help.ubuntu.com
- * Management:     https://landscape.canonical.com
- * Support:        https://ubuntu.com/advantage
-
-  Get cloud support with Ubuntu Advantage Cloud Guest:
-    http://www.ubuntu.com/business/services/cloud
-
-Pueden actualizarse 105 paquetes.
-0 actualizaciones son de seguridad.
-
-
-*** Es necesario reiniciar el sistema ***
-Last login: Sat Jan 13 11:58:44 2018 from 83.35.202.251
-sdelquin@cloud:~$
-~~~
-
-Ahora comprobamos que podemos usar el comando `docker` desde un usuario no privilegiado:
-
-~~~console
-sdelquin@cloud:~$ docker run hello-world
+sdelquin@claseando:~$ docker run hello-world
 
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
@@ -289,12 +301,12 @@ To try something more ambitious, you can run an Ubuntu container with:
  $ docker run -it ubuntu bash
 
 Share images, automate workflows, and more with a free Docker ID:
- https://cloud.docker.com/
+ https://hub.docker.com/
 
 For more examples and ideas, visit:
- https://docs.docker.com/engine/userguide/
+ https://docs.docker.com/get-started/
 
-sdelquin@cloud:~$
+sdelquin@claseando:~$
 ~~~
 
 [Tutorial para post-instalación de Docker en Linux](https://docs.docker.com/engine/installation/linux/linux-postinstall/) 

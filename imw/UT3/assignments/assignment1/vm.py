@@ -6,7 +6,7 @@ class VirtualMachine:
     def __init__(self, id):
         self.db = DB("emmet", "brown", "vmweb")
         sql = "select * from vmachine where id={}".format(id)
-        query = self.db.query(sql)
+        query = self.db.run(sql)
         self.id = id
         self.name = query[0]["name"]
         self.ram = query[0]["ram"]
@@ -32,7 +32,7 @@ class VirtualMachine:
     def get_processes(self):
         sql = "select * from process where vmachine_id={} order by pid".\
             format(self.id)
-        return self.db.query(sql)
+        return self.db.run(sql)
 
     def run(self, pid, ram, cpu, hdd):
         sql = "insert into process (pid, ram, cpu, hdd, vmachine_id) \
@@ -72,7 +72,7 @@ class VirtualMachine:
 
     def get_status(self):
         sql = "select status from vmachine where id={}".format(self.id)
-        r = self.db.query(sql)
+        r = self.db.run(sql)
         status = r[0]["status"]
         if status == 0:
             return "Stopped"

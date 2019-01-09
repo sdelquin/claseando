@@ -74,7 +74,7 @@ Modificar las líneas necesarias de [la solución de la actividad anterior](http
 
 [Fichero `mysql.py` de acceso a base de datos](../../notes/mysql/code/mysql.py) 
 
-[Fichero `vm.py` con las modificaciones necesarias ya hechas](solution/vm.py)
+[Fichero `vm.py` con las modificaciones necesarias ya hechas](vm.py)
 
 > **NOTA**: Sólo hay que modificar algunas líneas en `main.py` y en `index.html`.
 

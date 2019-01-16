@@ -189,7 +189,7 @@ sdelquin@claseando:~$
 
 Ahora podemos acceder a la dirección de nuestro servidor para configurar nuestro *Wordpress* vía web.
 
-Cuando accedemos a `http://wordpress.imwpto.me` nos redirige a `http://wordpress.imwpto.me/wp-admin/install.php`:
+Cuando accedemos a `http://wordpress.vps.claseando.me` nos redirige a `http://wordpress.vps.claseando.me/wp-admin/install.php`:
 
 ![](img/wp01.png)
 

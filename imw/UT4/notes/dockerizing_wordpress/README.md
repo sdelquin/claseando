@@ -139,6 +139,7 @@ server {
 Activamos el virtual host:
 
 ~~~console
+sudo ln -s /etc/nginx/sites-available/wordpress-docker.vps.claseando.es /etc/nginx/sites-enabled/
 ~~~
 
 Recargamos la configuración de Nginx:

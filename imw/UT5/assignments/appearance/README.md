@@ -5,7 +5,7 @@
 
 ## Tema
 
-- Utilizar el tema `HarmonUX Core`.
+- Utilizar el tema [CoverNews](https://es.wordpress.org/themes/covernews/).
 
 ## Identidad del sitio
 

@@ -46,7 +46,7 @@
     + Sucesos.
     + Economía.
     + Tiempo.
-- La elección de las categorías es importante, ya que afecta a las *urls*. Por ejemplo: `http://wordpress.hillvalley.local/category/deportes/futbol/`
+- La elección de las categorías es importante, ya que afecta a las *urls*. Por ejemplo: `http://wordpress.vps.claseando.es/category/deportes/futbol/`
 - Podemos hacer que en vez de `category`, aparezca otra palabra, yendo a la parte de configuración de *enlaces permanentes*.
 
 ![](img/posts05.png)
@@ -56,7 +56,7 @@
 - Permiten agrupar los posts (*no las páginas*).
 - No tienen una *estructura jerárquica*.
 - Por lo general, hay muchas más etiquetas que categorías.
-- Las etiquetas también tienen su propia *url*: `http://wordpress.hillvalley.local/tag/fcbarcelona/`
+- Las etiquetas también tienen su propia *url*: `http://wordpress.vps.claseando.es/tag/fcbarcelona/`
 - Podemos hacer que en vez de `tag`, aparezca otra palabra, yendo a la parte de configuración de *enlaces permanentes*.
 
 ![](img/posts06.png)

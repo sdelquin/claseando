@@ -24,7 +24,7 @@
 
 ## Atributos de página
 
-- Permite establecer una jerarquía de páginas, que se traduce en las *urls*. Por ejemplo, si establecemos que la página superior de `Dirección` es `Contacto`, la *url* quedaría como: `http://wordpress.hillvalley.local/contacto/direccion/`.
+- Permite establecer una jerarquía de páginas, que se traduce en las *urls*. Por ejemplo, si establecemos que la página superior de `Dirección` es `Contacto`, la *url* quedaría como: `http://wordpress.vps.claseando.es/contacto/direccion/`.
 - Permite fijar una plantilla.
 
 ![](img/pages04.png)

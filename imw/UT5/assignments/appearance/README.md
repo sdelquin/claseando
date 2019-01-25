@@ -44,7 +44,7 @@ Crear las siguientes categorías:
 
 ## Menús
 
-Crear el menú principal:
+Crear el **menú principal** con:
 - Todas las categorías creadas.
 - Prácticas en empresa (enlace a una página)
 - Enlaces externos.
@@ -52,6 +52,11 @@ Crear el menú principal:
     + Docker (https://www.docker.com/)
     + OpenSuse (https://es.opensuse.org/Bienvenidos_a_openSUSE.org)
     + Ubuntu (https://www.ubuntu.com/)
+
+Crear el **menú de redes sociales** con:
+- Facebook del instituto.
+- Twitter del instituto.
+- Youtube del instituto.
 
 ## Páginas
 
@@ -75,10 +80,6 @@ Crear el menú principal:
 
 ## Widgets
 
-- Adaptar el menú (widget) de **redes sociales** y enlazar a:
-    - Facebook del instituto.
-    - Twitter del instituto.
-    - Youtube del instituto.
 - Widget de **búsqueda**.
 - Widget con **nube de etiquetas**.
 

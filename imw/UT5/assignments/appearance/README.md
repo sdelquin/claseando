@@ -21,6 +21,7 @@
 - Borrar todas las páginas previas que existan.
 - Borrar todas las entradas previas que existan.
 - Borrar todos los menús previos que existan.
+- Borrar todos los widgets previos que existan.
 
 ## Categorías
 
@@ -68,7 +69,7 @@ Crear el **menú de redes sociales** con:
 - Cada entrada debe tener una imagen, colocada en un lugar diferente. Utilizar la *biblioteca multimedia* para subir los ficheros.
 - Alguna de las entradas debe tener un enlace a un fichero PDF previamente subido a la plataforma.
 - Cada entrada debe tener 3 etiquetas.
-- Asignar imagen destacada.
+- Asignar imagen destacada (si la imagen ya se añade a la entrada no es necesario poner otra).
 - El contenido de la entrada debe estar relacionado con la categoría de la entrada.
 - Utilizar:
     + Negritas.

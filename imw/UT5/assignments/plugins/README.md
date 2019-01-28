@@ -1,16 +1,15 @@
 # UT5-A2: Plugins de Wordpress
 
-Esta actividad persigue estudiar los plugins más utilizados de Wordpress.
+Esta actividad persigue estudiar **los plugins más utilizados de Wordpress**.
 
-Se desarrollará en grupos de 2 personas. El sorteo se hará en clase utilizando el [siguiente código Python](raffle.py), y eligiendo aleatoriamente los plugins a presentar desde la web [The Periodic Table of Wordpress Plugins](http://plugintable.com/).
+Cada alumno/a analizará un conjunto de plugins. El sorteo se hará en clase utilizando el [siguiente código Python](raffle.py) y eligiendo aleatoriamente los plugins a presentar desde la web [The Periodic Table of Wordpress Plugins](http://plugintable.com/).
 
 La actividad consiste en:
 
-- Hacer un análisis de los 6 plugins que les haya tocado al grupo:
+- Hacer un análisis de los plugins asignados:
     + Descripción.
     + Facilidad de instalación/activación (1 a 5).
     + Facilidad de uso (1 a 5).
-    + Utilidad (1 a 5).
     + Tipo de páginas en las que sería útil.
     + Widgets asociados.
     + Requerimientos/Dependencias.

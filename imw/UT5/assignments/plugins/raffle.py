@@ -1,44 +1,18 @@
 import random
 
-STUDENTS = [
-    "Víctor Carvajal",
-    "Mikeas",
-    "Alfonso",
-    "Omar",
-    "Adrián",
-    "Carlos Delgado",
-    "Víctor García",
-    "Yared",
-    "Carlos Oliva",
-    "Pablo",
-    "Carmelo",
-    "Adrián",
-    "Sergio",
-    "Noelia",
-    "Kevin",
-    "Roberto",
-    "Alejandro",
-    "Abraham",
-    "Óscar"
-]
+PLUGINS_PER_STUDENT = 3
 
-PLUGINS = [str(i) for i in range(1, 102)]
+with open('students.txt') as f:
+    students = [student.strip() for student in f.readlines()]
+plugins = list(range(1, (len(students) * PLUGINS_PER_STUDENT) + 1))
 
-GROUP_SIZE = 2
-PLUGINS_PER_GROUP = 6
+while students:
+    # pick a random student
+    random.shuffle(students)
+    picked_student = students.pop()
 
-i = 1
-while STUDENTS:
-    random.shuffle(STUDENTS)
-    group_members, STUDENTS = STUDENTS[:GROUP_SIZE], STUDENTS[GROUP_SIZE:]
-    if len(STUDENTS) < GROUP_SIZE:
-        group_members.append(STUDENTS.pop())
-    random.shuffle(PLUGINS)
-    assigned_plugins, PLUGINS = (PLUGINS[:PLUGINS_PER_GROUP],
-                                 PLUGINS[PLUGINS_PER_GROUP:])
-    print("Grupo {}: {:35} Plugins: {}".format(
-        i,
-        ", ".join(group_members),
-        ", ".join(assigned_plugins)
-    ))
-    i += 1
+    # pick random plugins
+    random.shuffle(plugins)
+    picked_plugins = [plugins.pop() for _ in range(PLUGINS_PER_STUDENT)]
+
+    print(picked_student, picked_plugins)

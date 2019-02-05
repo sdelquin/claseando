@@ -13,11 +13,11 @@ Lenguaje para crear contenidos web en el lado del servidor.
 
 Si queremos que nuestro código PHP muestre los errores que tiene, es necesario activar un *flag* en el fichero `php.ini`. Para ello:
 
-```console
-root@hillvalley:~# vi /etc/php5/fpm/php.ini
-```
+~~~console
+sdelquin@claseando:~$ sudo vi /etc/php/7.2/fpm/php.ini
+~~~
 
-Aproximadamente en la línea 466 buscar la siguiente sentencia:
+Aproximadamente en la línea 477 buscar la siguiente sentencia:
 
 `display_errors = Off`
 
@@ -25,19 +25,18 @@ Y modificarla por:
 
 `display_errors = On`
 
-A continuación guardar el fichero y recargar `php5-fpm`:
+A continuación guardar el fichero y recargar `php-fpm`:
 
-```console
-root@hillvalley:~# /etc/init.d/php5-fpm reload
-[ ok ] Reloading php5-fpm configuration (via systemctl): php5-fpm.service.
-root@hillvalley:~#
-```
+~~~console
+sdelquin@claseando:~$ sudo systemctl reload php7.2-fpm
+sdelquin@claseando:~$
+~~~
 
 > IMPORTANTE: Esto no se debe hacer de forma permanente en el servidor de producción, sólo en el **servidor de desarrollo**.
 
 ## Etiqueta `<?php ... ?>`
 
-```html
+~~~html
 <!doctype html>
 <html lang="es">
     <head>
@@ -50,58 +49,58 @@ root@hillvalley:~#
         ?>
     </body>
 </html>
-```
+~~~
 
 > NOTA: En PHP, la **indentación** NO es importante! Y cada línea debe acabar con un **punto y coma** ";".
 
 ## Comentarios
 
-```php
+~~~php
 /* Soy un comentario
 de varias líneas */
 
 $x = 3;     // soy un comentario de una línea
 $y = 5;     # soy un comentario de una línea con otra forma
-```
+~~~
 
 ## Variables
 
-```php
+~~~php
 $title = "Tutorial de PHP";
 $expenses = 3.21;
 $income = 2.45;
 $profit = ($expenses - $income) * 0.6;
 echo($profit);
-```
+~~~
 
 ### Saber si una variable está definida
 
-```php
+~~~php
 echo(isset($x));    // falso porque $x no se ha definido
 $x = 12;
 echo(isset($x));    // verdadero
-```
+~~~
 
 ### Interpolando cadenas
 
-```php
+~~~php
 $days = 15;
 $text = "Faltan $days días para el verano";
 echo($text);
-```
+~~~
 
 ### Variables booleanas
 
-```php
+~~~php
 $student = false;
 $teacher = true;
 echo($student);     // no imprime nada porque es falso
 echo($teacher);     // imprime un "1" porque es verdadero
-```
+~~~
 
 ### Conversiones
 
-```php
+~~~php
 $x = "3.45";
 $y = 2;
 $z = (float)$x + $y;    // conversión de string a flotante
@@ -111,16 +110,16 @@ $x = 4;
 $y = 2.67;
 $z = $x + (int)$y;      // conversión de flotante a entero
 echo($z);
-```
+~~~
 
 ## Constantes
 
 Las constantes almacenan valores que no cambian en el tiempo.
 
-```php
+~~~php
 const PI = 3.141592;
 echo(PI);       // ojo! las constantes no utilizan el símbolo $
-```
+~~~
 
 ## Operadores
 
@@ -147,23 +146,23 @@ echo(PI);       // ojo! las constantes no utilizan el símbolo $
 
 #### Ejemplos
 
-```php
+~~~php
 $age = 21;
 $adult = $age >= 18;       // adult será verdadero
 $under_age = !$adult;      // under_age será falso
-```
+~~~
 
-```php
+~~~php
 $driving_license = true;
 $age = 20;
 $can_drive = ($age >= 18) and $driving_license;     // verdadero
-```
+~~~
 
-```php
+~~~php
 $x = 32
 $y = 18
 $z = ($x == $y)
-```
+~~~
 
 ## Estructuras de control
 
@@ -171,7 +170,7 @@ $z = ($x == $y)
 
 #### `if`
 
-```php
+~~~php
 $mark = 9;
 $passed = 0;
 $not_passed = 0;
@@ -186,13 +185,13 @@ else {
 echo("<br><br>");
 echo("Aprobados: $passed<br>");
 echo("Suspendidos: $not_passed");
-```
+~~~
 
 > NOTA: Las expresiones en la condición deben tener siempre **paréntesis**.
 
 #### `switch`
 
-```php
+~~~php
 $weekday = 1;
 switch ($weekday) {
     case 1:
@@ -220,27 +219,27 @@ switch ($weekday) {
         $dayname = "???";
 }
 echo($dayname);
-```
+~~~
 
 ### Bucles
 
 #### `while`
 
-```php
+~~~php
 $i = 0;
 while ($i < 100) {
     $i++;
     echo("$i<br>");
 }
-```
+~~~
 
 #### `for`
 
-```php
+~~~php
 for ($i=1; $i<=100; $i++) {
     echo("$i<br>");
 }
-```
+~~~
 
 ## Uso de formularios
 
@@ -256,7 +255,7 @@ Veamos un ejemplo en el que tenemos:
 
 #### `form.php`
 
-```php
+~~~php
 <!doctype html>
 <html lang="es">
     <head>
@@ -273,11 +272,11 @@ Veamos un ejemplo en el que tenemos:
         </form>
     </body>
 </html>
-```
+~~~
 
 #### `process.php`
 
-```php
+~~~php
 <!doctype html>
 <html lang="es">
     <head>
@@ -298,7 +297,7 @@ Veamos un ejemplo en el que tenemos:
         ?>
     </body>
 </html>
-```
+~~~
 
 En el ejemplo se ha utilizado el método *POST* para enviar los datos, pero también podríamos haber usado el método *GET*. Para poder recibir los datos utilizaríamos la variable `$_GET[]`.
 
@@ -306,7 +305,7 @@ En el ejemplo se ha utilizado el método *POST* para enviar los datos, pero tamb
 
 #### `form.php`
 
-```php
+~~~php
 <!doctype html>
 <html lang="es">
     <head>
@@ -327,10 +326,10 @@ En el ejemplo se ha utilizado el método *POST* para enviar los datos, pero tamb
         ?>
     </body>
 </html>
-```
+~~~
 
 ## Redirigir hacia otra página
 
-```php
+~~~php
 header("Location:http://www.google.es");
-```
+~~~

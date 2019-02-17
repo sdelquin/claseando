@@ -5,3 +5,9 @@ __pycache__
 solution
 solution.ipynb
 **/correction/*.py
+**/correction/imw
+!dl.py
+.vscode
+students.txt
+notebook
+sandbox.ipynb

@@ -168,6 +168,16 @@ img {
     add_theme_support('post-thumbnails');
 ?>
 ```
+### Dando nombre a nuestro tema
+
+~~~console
+sdelquin@claseando:~$ sudo vi /usr/share/wordpress/wp-content/themes/custom/style.css
+...
+~~~
+
+Modificar la siguiente línea añadiendo el nombre que se le quiera dar al tema:
+
+> Theme Name: Twenty Nineteen
 
 ### Activación del tema
 

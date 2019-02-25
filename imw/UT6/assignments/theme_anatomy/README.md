@@ -39,6 +39,22 @@ Ojo a los siguientes detalles:
 10. El aspecto global de la web debería ser el siguiente:  
 ![](img/wireframe.png)
 
+## Comprobación del formulario
+
+Supongamos que la ruta al fichero de suscripción es:
+
+`/usr/share/wordpress/wp-content/themes/MySparkling/subscribe.php`
+
+Incluir la siguiente directiva en el *virtual-host* de Nginx:
+
+~~~nginx
+location /contacts {
+    alias /usr/share/wordpress/wp-content/themes/MySparkling/subscribe.php 
+}
+~~~
+
+De esta forma, al acceder a http://customwp.aluXXXX.me/contacts podremos ver el fichero de suscripción y comprobar que está funcionando bien mediante el formulario.
+
 ## Notas
 
 > Todas las modificaciones de estilo deben incluirse bien en el fichero `style.css` ó bien en un nuevo fichero creado para ello. Es decir, no se permiten reglas de estilo dentro de los propios ficheros *php*/*html*.

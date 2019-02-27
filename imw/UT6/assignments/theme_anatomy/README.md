@@ -43,7 +43,7 @@ Ojo a los siguientes detalles:
 
 Supongamos que la ruta al fichero de suscripción es:
 
-`/usr/share/wordpress/wp-content/themes/MySparkling/subscribe.php`
+`/usr/share/wordpress/wp-content/themes/MySparkling/subscribers.txt`
 
 Incluir la siguiente directiva en el *virtual-host* de Nginx:
 

@@ -252,6 +252,10 @@ Last login: Sun Sep 16 10:49:51 2018 from 88.27.15.116
 sdelquin@claseando:~$
 ~~~
 
+## Personalización del prompt
+
+[.bashrc PS1 generator](http://bashrcgenerator.com/)
+
 ## Paquetes necesarios
 
 Instalación de paquetes necesarios en el futuro:

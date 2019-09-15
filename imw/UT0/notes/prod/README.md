@@ -48,7 +48,7 @@ Rellenar el formulario teniendo en cuenta lo siguiente:
 - **Name**: tu nombre y apellidos.
 - **school-issued email address**: tu dirección de correo del centro.
 - **School name**: IES Puerto de la Cruz - Telesforo Bravo
-- **Graduation year**: 2019
+- **Graduation year**: 2020
 - **How do you plan to use GitHub?**: I want to use GitHub for my lessons at the school, and, of course, for my future code projects.
 
 Si todo va bien, en poco tiempo recibiremos un correo confirmando la aprobación del `Student Developer Pack`.
@@ -69,14 +69,19 @@ Una vez que completemos el registro, debemos acceder a la [configuración de pag
 
 Tendremos que crear un **droplet** (*máquina virtual*) con las siguientes características:
 
-- **Ubuntu 18.04 x64**.
-- 5$/mo
-- 1 GB
-- 1 vCPU
-- 25 GB SSD disk
-- 1 TB transfer
-- Datacenter region: Frankfurt
-- Hostname: `cloud`
+- **Ubuntu 18.04.3 (LTS) x64**.
+    - 5$/mo
+    - 1 GB
+    - 1 vCPU
+    - 25 GB SSD disk
+    - 1 TB transfer
+- **Datacenter region**: Frankfurt
+- **Authentication**: One-time password
+- **Hostname:** `cloud`
+
+Después de aceptar, nuestra *máquina de producción* empezará a crearse:
+
+![Digital Ocean VM Creation](img/digital-ocean_vmcreation.png)
 
 Cuando hayamos terminado este proceso, tendremos una máquina disponible con una *IP pública* apuntando a la misma:
 

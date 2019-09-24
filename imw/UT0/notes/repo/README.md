@@ -14,4 +14,4 @@ En el caso de que hubiera que entregar **informes**, estos se harán en un docum
 
 La URL que deben subir a la actividad es el **enlace al commit** del fichero (ó ficheros) que se quieran entregar. Aquí les dejo un vídeotutorial:
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/qwfrM16_b3M" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![](http://img.youtube.com/vi/qwfrM16_b3M/0.jpg)](http://www.youtube.com/watch?v=qwfrM16_b3M "")

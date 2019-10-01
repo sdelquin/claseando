@@ -21,7 +21,7 @@ La actividad consiste en configurar 4 sitios web (*virtual hosts*) en nuestro se
 - `https://ssl.aluXXX.me/students/` (ojo, es *https!*)
 - Debe pedir usuario/clave. Los datos son:
     - USUARIO: `usuario1`
-    - CLAVE: `aula108`
+    - CLAVE: `2asir`
 - Debe mostrar una página web con el nombre de todo el alumnado de clase.
 - Se debe prohibir explícitamente el acceso al fichero `.htpasswd`
 

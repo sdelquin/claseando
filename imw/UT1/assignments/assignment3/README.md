@@ -33,7 +33,7 @@ La actividad consiste en configurar 4 sitios web (*virtual hosts*) en nuestro se
     + `http://www.redirect.aluXXXX.me/probando/` -> `http://target.aluXXXX.me`
     + `http://www.redirect.aluXXXX.me/hola/` -> `http://target.aluXXXX.me`  
     ...
-- Al acceder a `http://target.aluXXXX.me` se debe mostrar la página web siguiente [initializr-verekia-4.0.zip](initializr-verekia-4.0.zip).
+- Al acceder a `http://target.aluXXXX.me` se debe mostrar la página web siguiente [initializr-verekia-4.0.zip](https://github.com/sdelquin/claseando/raw/master/imw/UT1/assignments/assignment3/initializr-verekia-4.0.zip).
     + Para copiar y descomprimir el fichero `initializr.zip` se recomienda usar alguna de las siguientes herramientas: `curl`, `wget`, `scp`, `unzip`.
 
 - Los *logfiles* deben ser:

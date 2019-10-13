@@ -8,6 +8,7 @@ La actividad consiste en configurar 4 sitios web (*virtual hosts*) en nuestro se
     - Debe mostrar una página con la imagen del "Diagrama de unidades de trabajo" de *IMW*": [enlace al diagrama](unidades.png).
     - La imagen no debe ser enlazada en remoto, sino se debe descargar al directorio de trabajo en la máquina de producción, y luego usar un tag `<img>` apuntando a la ruta local.
 - `http://imw.aluXXXX.me/mec/`
+    - *No utilizar un location*.
     - Debe mostrar una página con un enlace al Real decreto del título de Administración de Sistemas Informáticos en Red - MEC (ver *moodle* de la asignatura).
 
 ## Sitio web 2
@@ -30,8 +31,8 @@ La actividad consiste en configurar 4 sitios web (*virtual hosts*) en nuestro se
 - `http://redirect.aluXXXX.me`
 - Se debe redirigir cualquier petición de este dominio a `http://target.aluXXXX.me`
     + `http://redirect.aluXXXX.me/test/` -> `http://target.aluXXXX.me`
-    + `http://www.redirect.aluXXXX.me/probando/` -> `http://target.aluXXXX.me`
-    + `http://www.redirect.aluXXXX.me/hola/` -> `http://target.aluXXXX.me`  
+    + `http://redirect.aluXXXX.me/probando/` -> `http://target.aluXXXX.me`
+    + `http://redirect.aluXXXX.me/hola/` -> `http://target.aluXXXX.me`  
     ...
 - Al acceder a `http://target.aluXXXX.me` se debe mostrar la página web siguiente [initializr-verekia-4.0.zip](https://github.com/sdelquin/claseando/raw/master/imw/UT1/assignments/assignment3/initializr-verekia-4.0.zip).
     + Para copiar y descomprimir el fichero `initializr.zip` se recomienda usar alguna de las siguientes herramientas: `curl`, `wget`, `scp`, `unzip`.

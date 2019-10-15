@@ -215,7 +215,7 @@ sdelquin@claseando:~$
 
 La forma más extendida de trabajar con aplicaciones *Python* es usar entornos virtuales (*virtualenvs*). Se trata de un mecanismo para aislar las librerías y crear un ambiente de trabajo independiente.
 
-Antes de nada vamos a añadir a nuestro `PATH` la carpeta `~/.local/bin` porque ahí se van a instalar ciertos ficheros ejecutables:
+Antes de nada vamos a añadir a nuestro `PATH` la carpeta `~/.local/bin` porque ahí se van a instalar ciertos ficheros ejecutables (para los entornos virtuales):
 
 ~~~console
 sdelquin@claseando:~$ vi .bashrc
@@ -298,6 +298,31 @@ Si miramos en la carpeta, vemos que se han creado dos ficheros `Pipfile` de depe
 ~~~console
 sdelquin@claseando:~/webapps/hellopython$ ls
 Pipfile  Pipfile.lock
+sdelquin@claseando:~/webapps/hellopython$
+~~~
+
+¿Pero dónde está realmente el entorno virtual con todas las librerías?
+
+~~~console
+sdelquin@claseando:~/webapps/hellopython$ pipenv --venv
+/home/sdelquin/.local/share/virtualenvs/hellopython-j3yclt1I
+sdelquin@claseando:~/webapps/hellopython$ tree -dL 3 /home/sdelquin/.local/share/virtualenvs/hellopython-j3yclt1I
+/home/sdelquin/.local/share/virtualenvs/hellopython-j3yclt1I
+├── bin
+├── include
+│   └── python3.7m -> /usr/include/python3.7m
+├── lib
+│   └── python3.7
+│       ├── collections -> /usr/lib/python3.7/collections
+│       ├── config-3.7m-x86_64-linux-gnu -> /usr/lib/python3.7/config-3.7m-x86_64-linux-gnu
+│       ├── distutils
+│       ├── encodings -> /usr/lib/python3.7/encodings
+│       ├── importlib -> /usr/lib/python3.7/importlib
+│       ├── lib-dynload -> /usr/lib/python3.7/lib-dynload
+│       └── site-packages
+└── src
+
+13 directories
 sdelquin@claseando:~/webapps/hellopython$
 ~~~
 

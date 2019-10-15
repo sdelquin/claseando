@@ -255,6 +255,16 @@ Successfully installed pipenv-2018.10.9 virtualenv-16.0.0 virtualenv-clone-0.3.0
 sdelquin@claseando:~$
 ~~~
 
+#### Primer entorno virtual
+
+Creamos la carpeta que va a contener el entorno virtual:
+
+~~~console
+sdelquin@claseando:~$ mkdir -p webapps/hellopython
+sdelquin@claseando:~$ cd webapps/hellopython
+sdelquin@claseando:~/webapps/hellopython$
+~~~
+
 A continuación creamos nuestro primer entorno virtual:
 
 ~~~console

@@ -151,7 +151,7 @@ sdelquin@claseando:~$
 
 Cuando accedemos a nuestra máquina de producción, lo que realmente está pasando es que Nginx trata de buscar un fichero índice en el *root*. De hecho si miramos el contenido del fichero `index.nginx-debian.html` podemos ver que su contenido coincide con lo que nos muestra el servidor web:
 
-~~~console
+~~~html
 sdelquin@claseando:~$ cat /var/www/html/index.nginx-debian.html
 <!DOCTYPE html>
 <html>
@@ -250,7 +250,16 @@ server {
 }
 ~~~
 
-> ⚠️   En el caso de que no especifiquemos un `root` el que toma por defecto será `/usr/share/nginx/html`. Esto es debido a las variables de configuración en el momento de compilar (`nginx -V`).
+> ⚠️ En el caso de que no especifiquemos un `root` el que toma por defecto será `/usr/share/nginx/html`. Esto es debido a las variables de configuración en el momento de compilar (`nginx -V`).
+
+Podemos comprobar que nuestros ficheros de configuración de los *virtual-hosts* están bien escritos utilizando el siguiente comando:
+
+~~~console
+sdelquin@claseando:~$ sudo nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+sdelquin@claseando:~$
+~~~
 
 A continuación tenemos que enlazar el fichero que hemos creado para que esté disponible desde los `sites-enabled`:
 

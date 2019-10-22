@@ -1,6 +1,6 @@
 # UT1-A4: Sirviendo aplicaciones Php y Python
 
-La actividad consiste en configurar 4 sitios web (*virtual hosts*) en nuestro servidor web *Nginx*, con las siguientes características.
+La actividad consiste en configurar 2 sitios web (*virtual hosts*) en nuestro servidor web *Nginx*, con las siguientes características.
 
 ## Sitio web 1
 

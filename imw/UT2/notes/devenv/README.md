@@ -80,6 +80,8 @@ Otra alternativa es **activar la shell del entorno virtual de Python** y ejecuta
 (square) sdelquin@imw:~/webapps/square$
 ~~~
 
+Para salir del entorno virtual basta con escribir: `exit`
+
 ## Instalación del editor de código
 
 ¿Atom? ¿Sublime-Text? ¿VSCode?

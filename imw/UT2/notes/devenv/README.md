@@ -68,6 +68,8 @@ sdelquin@imw:~/webapps/square$
 
 Otra alternativa es **activar la shell del entorno virtual de Python** y ejecutar de una forma más sencilla:
 
+> Activación del entorno virtual: `pipenv shell`
+
 ~~~console
 (square) sdelquin@imw:~/webapps/square$ python main.py 3
 9

@@ -5,7 +5,7 @@ La actividad consiste en configurar 2 sitios web (*virtual hosts*) en nuestro se
 ## Sitio web 1
 
 - `http://php.aluXXXX.me`
-- Mostrar la aplicación [demo_php.zip](demo_php.zip)
+- Mostrar la aplicación [https://github.com/sdelquin/claseando/raw/master/imw/UT1/assignments/assignment4/demo_php.zip](demo_php.zip)
 
 ## Sitio web 2
 

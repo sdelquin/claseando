@@ -11,9 +11,9 @@ En el programa habrá que diseñar una clase `VirtualMachine` con las siguientes
     * `hdd` (expresado en *Gb*)
     * `os` (sistema operativo)
     * `status`
-        - 0: parada.
-        - 1: activa.
-        - 2: suspendida.
+        - 0: Stopped
+        - 1: Running
+        - 2: Suspended
     * `proc` es una lista de diccionarios, donde cada diccionario tendrá los siguientes campos:
         - `pid`: identificador del proceso.
         - `ram`: cantidad de memoria RAM que usa del proceso.
@@ -107,6 +107,10 @@ ubuntu <Minas Tirith> [Running]
 76.25% RAM used | 100.00% CPU used | 97.37% HDD used
 
 
+ubuntu <Minas Tirith> [Running]
+0.00% RAM used | 0.00% CPU used | 0.00% HDD used
+
+
 debian <Rohan> [Stopped]
 0.00% RAM used | 0.00% CPU used | 0.00% HDD used
 
@@ -122,6 +126,10 @@ debian <Rohan> [Running]
 86.67% RAM used | 68.42% CPU used | 62.00% HDD used
 
 
+debian <Rohan> [Running]
+0.00% RAM used | 0.00% CPU used | 0.00% HDD used
+
+
 opensuse <Rivendel> [Stopped]
 0.00% RAM used | 0.00% CPU used | 0.00% HDD used
 
@@ -135,6 +143,10 @@ Ejecutando proceso con PID 9...
 
 opensuse <Rivendel> [Running]
 23.12% RAM used | 76.67% CPU used | 10.20% HDD used
+
+
+opensuse <Rivendel> [Running]
+0.00% RAM used | 0.00% CPU used | 0.00% HDD used
 
 ~~~
 

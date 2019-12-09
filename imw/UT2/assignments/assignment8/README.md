@@ -128,8 +128,8 @@ Además de los ficheros señalados [aquí](#estructura-del-proyecto), la carpeta
 
 ## Extras
 
-Mostrar el botón de... | Cuando la máquina está en estado...
-- | -
+Mostrar el botón de... | Sólo cuando la máquina está en estado...
+--- | ---
 Lanzar proceso | Running
 Suspender | Running
 Parar | Running o Suspended

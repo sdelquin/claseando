@@ -70,7 +70,9 @@ mysql>
 
 ## Objetivo
 
-Modificar las líneas necesarias de [la solución de la actividad anterior](https://www.dropbox.com/sh/1k8cepu9rifi6up/AAAg6QdS31UHIwNTvzlrctnpa?dl=0), para que los datos de la máquina virtual y de los procesos, se escriban y se lean en/desde una base de datos *MySQL*.
+### Desarrollo
+
+Modificar las líneas necesarias de [la solución de la actividad anterior](https://www.dropbox.com/sh/tuinz0zog4yn7n1/AAAl6UPJ_pnAEMXgic0vzG7La?dl=0), para que los datos de la máquina virtual y de los procesos, se escriban y se lean en/desde una base de datos *MySQL*.
 
 [Fichero `mysql.py` de acceso a base de datos](../../notes/mysql/code/mysql.py) 
 
@@ -78,13 +80,19 @@ Modificar las líneas necesarias de [la solución de la actividad anterior](http
 
 > **NOTA**: Sólo hay que modificar algunas líneas en `main.py` y en `index.html`.
 
+### Producción
+
+- Configurar la base de datos.
+- Desplegar la aplicación usando `fabric` 
+- Comprobar el correcto funcionamiento.
+
 ## Posible mejora
 
 Ampliar el código para tener en cuenta más de una máquina virtual.
 
 ## Información a entregar
 
-Se deberá entregar la *url* al commit en el repositorio privado *GitHub* de la asignatura *IMW*, apuntando a la carpeta que contiene los [ficheros a entregar](#ficheros-a-entregar). La *url* debe tener la siguiente estructura:
+Se deberá entregar tanto la **url a la máquina de producción** con la aplicación funcionando como la **url al commit** en el repositorio privado *GitHub* de la asignatura *IMW*, apuntando a la carpeta que contiene los [ficheros a entregar](#ficheros-a-entregar). La *url* debe tener la siguiente estructura:
 
 ~~~console
 https://github.com/<usuario>/imw/blob/<id del commit>/<ut>/<actividad>/

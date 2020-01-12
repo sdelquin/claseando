@@ -80,6 +80,30 @@ Modificar las líneas necesarias de [la solución de la actividad anterior](http
 
 > **NOTA**: Sólo hay que modificar algunas líneas en `main.py` y en `index.html`.
 
+### Comprobación de funcionamiento
+
+Lo que habremos conseguido al añadir el acceso a la base de datos es que la aplicación tenga **persistencia**, de tal forma que si el proceso *"muere"* sigamos teniendo nuestros datos a salvo y los podamos recuperar en la próxima ejecución.
+
+Para comprobar que la persistencia está funcionando, vamos a añadir un enlace a la aplicación que reinicie el proceso de supervisor.
+
+`main.py`
+~~~python
+# al principio del fichero
+import os
+
+# antes de "if __name__ == '__main__':"
+@app.route("/reset_supervisor")
+def reset_supervisor():
+    os.system('supervisorctl restart vmweb')
+    return redirect("/")
+~~~
+
+`index.html`
+~~~html
+<!-- colocar en un lugar visible de la página principal -->
+<a href="/reset_supervisor">🔄 Resetear Supervisor</a>
+~~~
+
 ### Producción
 
 - Configurar la base de datos.

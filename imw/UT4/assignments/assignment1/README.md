@@ -2,8 +2,12 @@
 
 1. Realizar la instalación de Wordpress en el dominio `wordpress.aluXXXX.me`.
 2. Instalar y activar un tema gratuito.
-2. Ajustar los permalinks a *Día y Nombre*.
-3. Escribir un post con las estadísticas de uso de Wordpress vistas en clase y entrar a dicho post.
+3. Ajustar los permalinks a *Día y Nombre*.
+4. Escribir un post con las estadísticas de uso de Wordpress vistas en clase y entrar a dicho post.
+
+## Certificado de seguridad
+
+Añadir un certificado de seguridad con *Let's Encrypt* para que la comunicación con la web disponga de SSL.
 
 ## Información a entregar
 

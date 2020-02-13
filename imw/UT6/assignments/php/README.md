@@ -31,9 +31,21 @@ Crea una página PHP que ponga de fondo un color aleatorio. Para ello recuerda q
 
 Crea un formulario que pida dos números (filas y columnas). Ambos tienen que valer 1 ó más, de no ser así se indica el error. El resultado será una tabla (se mostrará en la misma página del formulario) con el tamaño indicado.
 
+## Subir los ejercicios a producción
+
+Subir los ejercicios a la máquina de producción en estas URLs:
+~~~
+http://php.aluXXXX.me/ejer1/
+http://php.aluXXXX.me/ejer2/
+http://php.aluXXXX.me/ejer3/
+http://php.aluXXXX.me/ejer4/
+~~~
+
+> Utiliza `index.php` como punto de entrada para cada uno de los ejercicios.
+
 ## Información a entregar
 
-Se deberá entregar la *url* al commit en el repositorio privado *GitHub* de la asignatura *IMW*, apuntando a la carpeta que contiene los ficheros de código Php. La *url* debe tener la siguiente estructura:
+Se deberá entregar la **url al raíz de los ejercicios** junto a la **url al commit** en el repositorio privado *GitHub* de la asignatura *IMW*, apuntando a la carpeta que contiene los ficheros de código Php. La *url* debe tener la siguiente estructura:
 
 ```
 https://github.com/<usuario>/imw/blob/<id del commit>/<ut>/<actividad>/

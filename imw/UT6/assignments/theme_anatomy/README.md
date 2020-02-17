@@ -49,7 +49,7 @@ Incluir la siguiente directiva en el *virtual-host* de Nginx:
 
 ~~~nginx
 location /contacts {
-    alias /usr/share/wordpress/wp-content/themes/MySparkling/subscribe.php 
+    alias /usr/share/wordpress/wp-content/themes/MySparkling/subscribers.txt
 }
 ~~~
 
